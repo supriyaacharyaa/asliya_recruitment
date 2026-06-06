@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 
-export default function SectionHeading({ tag, title, subtitle, align = "center", className = "" }) {
-  const alignClass = align === "left" ? "text-left items-start" : "text-center items-center";
+export default function SectionHeading({
+  tag,
+  title,
+  subtitle,
+  align = "center",
+  className = "",
+}) {
+  const isCenter = align === "center";
 
   return (
     <motion.div
@@ -9,18 +15,29 @@ export default function SectionHeading({ tag, title, subtitle, align = "center",
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`flex flex-col gap-3 max-w-2xl ${align === "center" ? "mx-auto" : ""} ${alignClass} ${className}`}
+      className={[
+        "flex flex-col gap-3",
+        isCenter ? "items-center text-center mx-auto max-w-2xl" : "items-start text-left",
+        className,
+      ].join(" ")}
     >
       {tag && (
-        <span className="text-sm font-semibold text-[#e62224] uppercase tracking-widest">
-          {tag}
-        </span>
+        <div className="inline-flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#c9902a] flex-shrink-0" />
+          <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#154895]">
+            {tag}
+          </span>
+        </div>
       )}
-      <h2 className="text-4xl xl:text-5xl font-black text-gray-900 leading-tight">
+
+      <h2 className="text-4xl xl:text-5xl font-black text-[#0f1e3c] leading-[1.13]">
         {title}
       </h2>
+
       {subtitle && (
-        <p className="text-gray-500 text-lg leading-relaxed">{subtitle}</p>
+        <p className="text-[#5a6a8a] text-[15.5px] font-light leading-[1.7] max-w-xl">
+          {subtitle}
+        </p>
       )}
     </motion.div>
   );

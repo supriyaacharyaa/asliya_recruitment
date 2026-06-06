@@ -1,8 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import OverseasRecruitmentProcess from "./pages/OverseasRecruitmentProcess";
+
+import UserLayout from "./components/layout/UserLayout";
+import ClientsPage from "./pages/Client";
 
 export default function App() {
   return (
@@ -12,6 +17,16 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+
+        {/* Only Overseas page uses UserLayout */}
+        <Route element={<UserLayout />}>
+          <Route
+            path="/services/overseas"
+            element={<OverseasRecruitmentProcess />}
+          />
+
+          <Route path="/clients" element={<ClientsPage/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
