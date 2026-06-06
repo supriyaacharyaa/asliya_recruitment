@@ -1,115 +1,230 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Calendar } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Calendar, Users, Clock, CheckCircle } from "lucide-react";
+import { useRef } from "react";
 import Container from "../ui/Container";
 
+const STATS = [
+  { value: "300+", label: "Companies Served" },
+  { value: "98%",  label: "Satisfaction Rate" },
+  { value: "24h",  label: "Response Time"     },
+];
+
+const PERKS = [
+  { icon: CheckCircle, text: "Free consultation" },
+  { icon: Users,       text: "No commitment required" },
+  { icon: Clock,       text: "Response within 24 hours" },
+];
+
+// Stagger children helper
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function CTASection() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const orb1Y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+  const orb2Y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+
   return (
-    <section className="py-20 overflow-hidden">
+    <section ref={sectionRef} className="py-24 overflow-hidden">
       <Container>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative bg-gradient-to-br from-[#154895] via-[#1a56b0] to-[#0d3270] rounded-3xl overflow-hidden px-8 py-16 md:p-20 text-center"
+          className="relative rounded-[32px] overflow-hidden"
         >
-          {/* Background shapes */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.12, 0.08] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-20 -left-20 w-80 h-80 bg-white rounded-full blur-3xl"
-            />
-            <motion.div
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.06, 0.1, 0.06] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-20 -right-20 w-96 h-96 bg-[#e62224] rounded-full blur-3xl"
+          {/* ── Deep navy base ── */}
+          <div className="absolute inset-0 bg-[#0b2454]" />
+
+          {/* ── Subtle grid texture ── */}
+          <div
+            className="absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+          />
+
+          {/* ── Top-right blue orb (parallax) ── */}
+          <motion.div
+            style={{ y: orb1Y }}
+            className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full"
+            animate={{ opacity: [0.18, 0.26, 0.18] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden
+          >
+            <div className="w-full h-full rounded-full bg-[#154895] blur-[80px]" />
+          </motion.div>
+
+          {/* ── Bottom-left gold orb (parallax) ── */}
+          <motion.div
+            style={{ y: orb2Y }}
+            className="absolute -bottom-28 -left-28 w-[400px] h-[400px] rounded-full"
+            animate={{ opacity: [0.14, 0.22, 0.14] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            aria-hidden
+          >
+            <div className="w-full h-full rounded-full bg-[#c9902a] blur-[72px]" />
+          </motion.div>
+
+          {/* ── Diagonal light slash ── */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div
+              className="absolute top-0 left-[30%] w-[1px] h-full opacity-[0.06]"
+              style={{ background: "linear-gradient(to bottom, transparent, white 40%, transparent)" }}
             />
             <div
-              className="absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-                backgroundSize: "32px 32px",
-              }}
+              className="absolute top-0 right-[28%] w-[1px] h-full opacity-[0.04]"
+              style={{ background: "linear-gradient(to bottom, transparent, white 55%, transparent)" }}
             />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 max-w-2xl mx-auto">
+          {/* ── Content ── */}
+          <div className="relative z-10 px-6 py-16 md:px-20 md:py-24">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8"
+              className="max-w-3xl mx-auto text-center"
             >
-              <span className="w-2 h-2 bg-[#e62224] rounded-full animate-pulse" />
-              <span className="text-white/90 text-sm font-semibold">Ready to Get Started?</span>
-            </motion.div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-4xl md:text-5xl xl:text-6xl font-black text-white leading-tight mb-6"
-            >
-              Ready To Build Your{" "}
-              <span className="relative">
-                Workforce?
-                <svg className="absolute -bottom-1 left-0 w-full" viewBox="0 0 300 12" fill="none">
-                  <path d="M2 10 Q75 2 150 7 Q225 12 298 5" stroke="#e62224" strokeWidth="3" strokeLinecap="round" fill="none" />
-                </svg>
-              </span>
-            </motion.h2>
+              {/* Status pill */}
+              <motion.div variants={fadeUp} className="flex justify-center mb-8">
+                <div className="inline-flex items-center gap-2.5 bg-white/8 backdrop-blur-md border border-white/12 rounded-full px-5 py-2.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e8b45a] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c9902a]" />
+                  </span>
+                  <span className="text-white/80 text-[12.5px] font-semibold tracking-wide uppercase">
+                    Now Accepting New Partners
+                  </span>
+                </div>
+              </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-white/70 text-lg leading-relaxed mb-10"
-            >
-              Join 300+ companies that trust us with their most critical asset — their people. Let's build your team today.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-wrap gap-4 justify-center"
-            >
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                className="bg-white text-[#154895] font-bold px-8 py-4 rounded-2xl flex items-center gap-2.5 shadow-2xl shadow-black/20 hover:shadow-black/30 transition-shadow duration-300"
+              {/* Heading */}
+              <motion.h2
+                variants={fadeUp}
+                className="text-[clamp(32px,5vw,60px)] font-black text-white leading-[1.1] mb-6 tracking-tight"
               >
-                Hire Talent Now
-                <ArrowRight size={18} />
-              </motion.button>
+                Build Your Dream{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#e8b45a] to-[#c9902a]">
+                    Workforce
+                  </span>
+                  {/* Underline squiggle */}
+                  <svg
+                    className="absolute -bottom-1.5 left-0 w-full"
+                    viewBox="0 0 260 10"
+                    fill="none"
+                    aria-hidden
+                  >
+                    <motion.path
+                      d="M2 8 Q65 2 130 6 Q195 10 258 4"
+                      stroke="#c9902a"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.7, duration: 0.9, ease: "easeOut" }}
+                    />
+                  </svg>
+                </span>
+                {" "}Today
+              </motion.h2>
 
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                className="bg-white/10 backdrop-blur-sm text-white font-bold px-8 py-4 rounded-2xl border border-white/20 flex items-center gap-2.5 hover:bg-white/20 transition-colors duration-300"
+              {/* Subtext */}
+              <motion.p
+                variants={fadeUp}
+                className="text-white/55 text-[16px] leading-[1.75] mb-12 max-w-xl mx-auto font-light"
               >
-                <Calendar size={18} />
-                Schedule Consultation
-              </motion.button>
-            </motion.div>
+                Join 300+ industry leaders who trust us with their most critical asset — their people. Let's place the right talent, at the right time.
+              </motion.p>
 
-            {/* Trust micro-copy */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="mt-8 text-white/40 text-sm"
-            >
-              Free consultation · No commitment required · Response within 24 hours
-            </motion.p>
+              {/* ── Stats row ── */}
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-wrap justify-center gap-px mb-12"
+              >
+                <div className="flex flex-wrap justify-center gap-0 bg-white/6 border border-white/10 rounded-2xl overflow-hidden">
+                  {STATS.map(({ value, label }, i) => (
+                    <div
+                      key={label}
+                      className={[
+                        "flex flex-col items-center px-8 py-5",
+                        i < STATS.length - 1 ? "border-r border-white/10" : "",
+                      ].join(" ")}
+                    >
+                      <span className="text-[26px] font-black text-white leading-none mb-1">
+                        {value}
+                      </span>
+                      <span className="text-white/45 text-[11px] uppercase tracking-[0.1em] font-medium">
+                        {label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* ── CTA buttons ── */}
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-wrap gap-4 justify-center mb-10"
+              >
+                {/* Primary */}
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -3 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="group relative bg-white text-[#0b2454] font-bold text-[15px] px-8 py-4 rounded-2xl flex items-center gap-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-shadow duration-300 overflow-hidden"
+                >
+                  {/* Shine sweep */}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]" />
+                  <span className="relative">Hire Talent Now</span>
+                  <ArrowRight
+                    size={17}
+                    className="relative transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </motion.button>
+
+                {/* Secondary */}
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -3 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="group bg-white/8 backdrop-blur-sm text-white font-bold text-[15px] px-8 py-4 rounded-2xl border border-white/14 flex items-center gap-2.5 hover:bg-white/14 hover:border-white/22 transition-all duration-300"
+                >
+                  <Calendar size={17} className="transition-transform duration-300 group-hover:rotate-6" />
+                  Schedule Consultation
+                </motion.button>
+              </motion.div>
+
+              {/* ── Perks row ── */}
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-wrap justify-center gap-5"
+              >
+                {PERKS.map(({ icon: Icon, text }) => (
+                  <div key={text} className="flex items-center gap-2">
+                    <Icon size={13} strokeWidth={2.2} className="text-[#c9902a] flex-shrink-0" />
+                    <span className="text-white/40 text-[12.5px]">{text}</span>
+                  </div>
+                ))}
+              </motion.div>
+
+            </motion.div>
           </div>
+
+          {/* ── Bottom border glow ── */}
+          <div className="absolute bottom-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#154895]/60 to-transparent" />
         </motion.div>
       </Container>
     </section>
