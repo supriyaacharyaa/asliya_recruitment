@@ -8,6 +8,9 @@ import OverseasRecruitmentProcess from "./pages/OverseasRecruitmentProcess";
 
 import UserLayout from "./components/layout/UserLayout";
 import ClientsPage from "./pages/Client";
+import Industries from "./pages/Industries";
+import RequestManpowerPage from "./pages/Requestmanpowerpage";
+import GetFreeQuotePage from "./pages/Getquotepage";
 
 export default function App() {
   return (
@@ -26,6 +29,9 @@ export default function App() {
           />
 
           <Route path="/clients" element={<ClientsPage/>}/>
+          <Route path="/industries" element={<Industries/>}/>
+          <Route path="/Request" element={<RequestManpowerPage/>}/>
+          <Route path="/quote" element={<GetFreeQuotePage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

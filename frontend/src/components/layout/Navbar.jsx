@@ -19,6 +19,7 @@ import {
   ArrowRight,
   MapPin,
 } from "lucide-react";
+import logo from "../../assets/logo.png"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -135,7 +136,7 @@ export default function Navbar() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <div className="relative w-[38px] h-[38px] rounded-[10px] bg-[#154895] flex items-center justify-center overflow-hidden shadow-[0_2px_10px_rgba(21,72,149,0.35)] group-hover:shadow-[0_4px_18px_rgba(21,72,149,0.45)] transition-shadow duration-300">
+              {/* <div className="relative w-[38px] h-[38px] rounded-[10px] bg-[#154895] flex items-center justify-center overflow-hidden shadow-[0_2px_10px_rgba(21,72,149,0.35)] group-hover:shadow-[0_4px_18px_rgba(21,72,149,0.45)] transition-shadow duration-300">
                 <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[120%] transition-transform duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
                 <svg
                   width="20"
@@ -152,15 +153,24 @@ export default function Navbar() {
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
-              </div>
-              <div className="leading-none">
+              </div> */}
+              {/* <div className="leading-none">
                 <div className="text-[15.5px] font-bold text-gray-900 tracking-[-0.3px]">
                   RecruitMax
                 </div>
                 <div className="text-[9.5px] text-[#154895] font-semibold tracking-[0.1em] uppercase mt-[2px]">
                   Global Manpower
                 </div>
-              </div>
+              </div> */}
+
+            <img 
+  src={logo} 
+  alt="Company Logo" 
+  width={160} 
+  height={50} 
+  className="h-8 w-auto object-contain" 
+/>
+
             </motion.a>
 
             <motion.div
