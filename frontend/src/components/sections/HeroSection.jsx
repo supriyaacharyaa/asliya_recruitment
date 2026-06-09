@@ -571,7 +571,7 @@ Trusted by Qatar's leading organizations.
             {/* Location ping chips */}
             {[
               { label: "Doha, Quatar", top: "18%", right: "2%", delay: 1.2 },
-              { label: "Riyadh, KSA", top: "62%", right: "-2%", delay: 1.35 },
+              // { label: "Riyadh, KSA", top: "62%", right: "-2%", delay: 1.35 },
             ].map((loc) => (
               <motion.div
                 key={loc.label}
