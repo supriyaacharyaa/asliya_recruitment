@@ -3,27 +3,28 @@ import { Shield, Award, ThumbsUp, Globe, Building2 } from "lucide-react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 
+// Asliya Manpower Verified Trust Badges
 const TRUST_BADGES = [
   { icon: Shield,   label: "100% Verified Partners"    },
-  { icon: Award,    label: "Award-Winning Service"      },
+  { icon: Award,    label: "Ministry Approved Supply"  }, // Adjusted to fit corporate branding
   { icon: ThumbsUp, label: "97% Client Retention Rate"  },
-  { icon: Globe,    label: "15+ Industries Worldwide"   },
+  { icon: Globe,    label: "28+ Source Countries"      }, // Matched with infrastructure data
 ];
 
 const ACCENT_COLORS = [
-  "#154895","#1e5cbf","#c9902a","#1a7a5c",
-  "#6b2f9e","#2271b3","#c0392b","#0e9b7a",
+  "#154895", "#1e5cbf", "#c9902a", "#1a7a5c",
+  "#6b2f9e", "#2271b3", "#c0392b", "#0e9b7a",
 ];
 
 export default function ClientsSection({ clients = [] }) {
   return (
-    <section className="relative py-28 bg-[#f3f5fb] overflow-hidden">
+    <section className="relative py-16 md:py-24 lg:py-28 bg-[#f3f5fb] overflow-hidden">
 
       {/* Ambient background glows */}
-      <div className="pointer-events-none absolute -top-36 -right-36 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(21,72,149,0.07)_0%,transparent_70%)]" />
-      <div className="pointer-events-none absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle,rgba(201,144,42,0.09)_0%,transparent_70%)]" />
+      <div className="pointer-events-none absolute -top-36 -right-36 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[radial-gradient(circle,rgba(21,72,149,0.05)_0%,transparent_70%)]" />
+      <div className="pointer-events-none absolute -bottom-24 -left-24 w-[250px] h-[250px] md:w-[380px] md:h-[380px] rounded-full bg-[radial-gradient(circle,rgba(201,144,42,0.06)_0%,transparent_70%)]" />
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 px-4 sm:px-6 lg:px-8">
 
         {/* Section heading */}
         <SectionHeading
@@ -34,7 +35,7 @@ export default function ClientsSection({ clients = [] }) {
               <span className="text-[#154895]">Industry Leaders</span>
             </>
           }
-          subtitle="We are proud to partner with some of the most respected organisations across the globe — placing the right talent, every time."
+          subtitle="We are proud to partner with some of the most respected organizations across the region — placing the right talent, every time."
         />
 
         {/* Ornamental divider */}
@@ -42,8 +43,8 @@ export default function ClientsSection({ clients = [] }) {
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center gap-4 max-w-[240px] mx-auto mt-8 mb-12"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex items-center gap-4 max-w-[200px] mx-auto mt-6 mb-10"
         >
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#154895]/25 to-transparent" />
           <div className="w-1.5 h-1.5 rounded-full bg-[#c9902a] flex-shrink-0" />
@@ -52,56 +53,56 @@ export default function ClientsSection({ clients = [] }) {
 
         {/* Trust badges */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.65, delay: 0.15 }}
-          className="flex flex-wrap justify-center gap-3 mb-14"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 sm:mb-16"
         >
           {TRUST_BADGES.map(({ icon: Icon, label }) => (
             <motion.div
               key={label}
-              whileHover={{ y: -3, boxShadow: "0 8px 28px rgba(13,43,110,0.13)" }}
-              transition={{ type: "spring", stiffness: 280, damping: 20 }}
-              className="flex items-center gap-2.5 bg-white border border-[#154895]/10 rounded-full px-4 py-2.5 shadow-sm cursor-default"
+              whileHover={{ y: -2, boxShadow: "0 6px 20px rgba(13,43,110,0.1)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="flex items-center gap-2 bg-white border border-[#154895]/10 rounded-full px-3.5 py-2 shadow-sm cursor-default"
             >
-              <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-[#154895] to-[#0d3270] flex items-center justify-center flex-shrink-0">
-                <Icon size={12} strokeWidth={2.3} className="text-white" />
+              <div className="w-[24px] h-[24px] rounded-full bg-gradient-to-br from-[#154895] to-[#0d3270] flex items-center justify-center flex-shrink-0">
+                <Icon size={11} strokeWidth={2.5} className="text-white" />
               </div>
-              <span className="text-[12.5px] font-semibold text-[#0f1e3c] whitespace-nowrap">
+              <span className="text-[11.5px] sm:text-[12.5px] font-semibold text-[#0f1e3c] whitespace-nowrap">
                 {label}
               </span>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Client logo grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5">
-          {clients.map((client, i) => (
-            <ClientCard key={client.name} client={client} index={i} />
-          ))}
-        </div>
+        {/* Client logo grid (Perfect responsive spacing) */}
+        {clients.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+            {clients.map((client, i) => (
+              <ClientCard key={client.name || i} client={client} index={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-gray-400 text-sm">No client data available.</div>
+        )}
 
-        {/* Footer note */}
+        {/* Footer note - Corrected Timeline to 2018 & Placements to 300+ Clients */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.7 }}
-          className="flex justify-center mt-12"
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="flex justify-center mt-12 sm:mt-16"
         >
-          <div className="inline-flex items-center gap-2.5 bg-white border border-[#154895]/10 rounded-full px-5 py-3 shadow-sm text-[12.5px] text-[#5a6a8a] flex-wrap justify-center text-center">
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-white border border-[#154895]/10 rounded-2xl sm:rounded-full px-4 sm:px-6 py-3 shadow-sm text-[12px] sm:text-[13px] text-[#5a6a8a] flex-wrap justify-center text-center max-w-[640px] sm:max-w-none">
             <Building2 size={14} strokeWidth={1.8} className="text-[#154895] flex-shrink-0" />
-            <span>
-              And{" "}
-              <strong className="text-[#154895] font-semibold">270+ more companies</strong>{" "}
-              across{" "}
-              <strong className="text-[#154895] font-semibold">15+ industries</strong>{" "}
-              worldwide
+            <span className="leading-relaxed">
+              And <strong className="text-[#154895] font-bold">300+ corporate clients</strong> across multiple strategic sectors in Qatar
             </span>
-            <span className="w-1 h-1 rounded-full bg-[#c9902a] flex-shrink-0" />
-            <span>
-              <strong className="text-[#154895] font-semibold">Since 2008</strong>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-[#c9902a] flex-shrink-0" />
+            <span className="w-full sm:w-auto mt-1 sm:mt-0">
+              Established in <strong className="text-[#154895] font-bold">Doha, Since 2018</strong>
             </span>
           </div>
         </motion.div>
@@ -111,47 +112,50 @@ export default function ClientsSection({ clients = [] }) {
   );
 }
 
-// ClientCard component
+// Optimized ClientCard component
 function ClientCard({ client, index }) {
   const accentColor = ACCENT_COLORS[index % ACCENT_COLORS.length];
-  const gradientColor = client.color || "linear-gradient(135deg,#154895,#0d3270)";
+  const gradientColor = client.color || "linear-gradient(135deg, #154895, #0d3270)";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 22, scale: 0.95 }}
+      initial={{ opacity: 0, y: 15, scale: 0.96 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.055, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className="group relative bg-white border border-[#154895]/10 rounded-2xl p-6 flex flex-col items-center gap-2.5 cursor-default overflow-hidden shadow-[0_1px_4px_rgba(13,43,110,0.05)] hover:shadow-[0_12px_36px_rgba(13,43,110,0.12)] hover:border-[#154895]/20 transition-shadow transition-[border-color] duration-300"
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ delay: Math.min(index * 0.04, 0.3), duration: 0.4, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className="group relative bg-white border border-[#154895]/8 rounded-xl p-4 sm:p-5 flex flex-col items-center justify-center gap-3 cursor-default overflow-hidden min-h-[130px] w-full shadow-[0_1px_3px_rgba(13,43,110,0.03)] hover:shadow-[0_10px_28px_rgba(13,43,110,0.1)] hover:border-[#154895]/15 transition-all duration-300"
     >
       {/* Top accent bar - reveals on hover */}
       <span
-        className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{ background: accentColor }}
       />
 
-      {/* Logo abbreviation */}
-      <motion.div
-        className="w-12 h-12 rounded-[13px] flex items-center justify-center text-white text-[13px] font-black tracking-wide shadow-[0_5px_16px_rgba(0,0,0,0.2)] flex-shrink-0"
-        style={{ background: gradientColor }}
-        whileHover={{ scale: 1.14, rotate: -4 }}
-        transition={{ type: "spring", stiffness: 300, damping: 18 }}
-      >
-        {client.abbr}
-      </motion.div>
+      {/* Logo abbreviation wrapper */}
+      <div className="relative flex-shrink-0">
+        <motion.div
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-[12px] flex items-center justify-center text-white text-[12px] sm:text-[13px] font-black tracking-wide shadow-md"
+          style={{ background: gradientColor }}
+          whileHover={{ scale: 1.08, rotate: -3 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        >
+          {client.abbr || "CORP"}
+        </motion.div>
+      </div>
 
-      {/* Company name */}
-      <span className="text-[11.5px] font-semibold text-[#334266] group-hover:text-[#154895] transition-colors duration-[250ms] text-center leading-[1.38]">
-        {client.name}
-      </span>
-
-      {/* Industry tag */}
-      {client.industry && (
-        <span className="text-[9.5px] font-normal tracking-[0.11em] uppercase text-[#b0b8cc]">
-          {client.industry}
+      {/* Company Name & Tag details */}
+      <div className="text-center w-full min-w-0 flex flex-col items-center gap-0.5">
+        <span className="text-[11px] sm:text-[12px] font-bold text-[#334266] group-hover:text-[#154895] transition-colors duration-200 line-clamp-2 leading-[1.3] w-full px-1">
+          {client.name || "Unnamed Client"}
         </span>
-      )}
+
+        {client.industry && (
+          <span className="text-[9px] font-medium tracking-wider uppercase text-gray-400 block truncate max-w-full mt-0.5">
+            {client.industry}
+          </span>
+        )}
+      </div>
     </motion.div>
   );
 }

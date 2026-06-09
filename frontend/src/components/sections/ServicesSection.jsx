@@ -16,123 +16,81 @@ import {
   Briefcase,
 } from "lucide-react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Data (Asliya Official Guide Updated) ───────────────────────────────────
 
 const stats = [
-  { value: "18+", label: "Years in Operation", icon: Award },
-  { value: "12K+", label: "Candidates Placed", icon: Users },
-  { value: "40+", label: "Countries Covered", icon: MapPin },
-  { value: "98%", label: "Client Retention", icon: TrendingUp },
+  { value: "7+", label: "Years of Expertise", icon: Award },
+  { value: "20K+", label: "Successful Deployments", icon: Users },
+  { value: "28+", label: "Source Countries", icon: MapPin },
+  { value: "300+", label: "Corporate Clients", icon: TrendingUp },
 ];
 
 const services = [
   {
     id: "01",
     icon: Building2,
-    title: "Domestic Recruitment",
-    tagline: "Local talent, global standards",
+    title: "Local Recruitment",
+    tagline: "Qatar's core commercial talent",
     description:
-      "End-to-end hiring solutions for businesses seeking top local talent. We handle sourcing, psychometric screening, background verification, and final placement — all within your country.",
+      "End-to-end hiring solutions engineered for Qatar's business ecosystem. We legally deploy pre-screened, compliant professionals optimized for your immediate commercial operations.",
     features: [
       "Dedicated account manager",
-      "72-hour shortlist delivery",
-      "90-day replacement guarantee",
+      "Ministry of Labor compliant",
+      "Pre-vetted corporate database",
     ],
-    accent: "#154895",
-    accentLight: "rgba(21,72,149,0.08)",
+    accent: "text-[#154895]",
+    accentBg: "bg-[#154895]/8",
+    hoverBorder: "hover:border-[#154895]/30",
+    hoverShadow: "hover:shadow-[0_32px_64px_-12px_rgba(21,72,149,0.14)]",
     gradient: "from-[#154895] to-[#1e5bb8]",
   },
   {
     id: "02",
     icon: Globe,
     title: "Overseas Recruitment",
-    tagline: "Bridging talent across borders",
+    tagline: "Global sourcing, zero delays",
     description:
-      "Skilled international manpower deployment backed by full documentation, medical fitness testing, visa processing, and pre-departure orientation programs.",
+      "Skilled and semi-skilled workforce mobilization from 28+ approved source countries. We fully manage international testing, visa processing, and relocation documentation.",
     features: [
-      "PDOS & visa assistance",
-      "Medical & documentation handling",
-      "Airport deployment support",
+      "25–30 days average timeline",
+      "Full visa & medical processing",
+      "Pre-departure orientation (PDOS)",
     ],
-    accent: "#e62224",
-    accentLight: "rgba(230,34,36,0.08)",
-    gradient: "from-[#e62224] to-[#c01a1c]",
+    accent: "text-[#1a5ab8]",
+    accentBg: "bg-[#1a5ab8]/8",
+    hoverBorder: "hover:border-[#1a5ab8]/30",
+    hoverShadow: "hover:shadow-[0_32px_64px_-12px_rgba(26,90,184,0.14)]",
+    gradient: "from-[#1a5ab8] to-[#154895]",
   },
   {
     id: "03",
     icon: Users,
-    title: "Local Staffing",
-    tagline: "Right people, right now",
+    title: "Bulk Hiring / Manpower Supply",
+    tagline: "Massive scale, perfect quality",
     description:
-      "Flexible workforce solutions for businesses that need reliable staff at short or long-term notice. We maintain a pre-vetted talent pool for rapid deployment across all major industries.",
+      "Rapidly mobilize 100 to 4,000+ workers simultaneously for large-scale operations without cutting corners. Phased mobilization models designed for high-pressure timelines.",
     features: [
-      "Pre-vetted talent pool",
-      "48-hour deployment capability",
-      "Flexible contract terms",
+      "1,000+ candidates per campaign",
+      "Simultaneous project management",
+      "Supreme Committee approved standards",
     ],
-    accent: "#0a8a5c",
-    accentLight: "rgba(10,138,92,0.08)",
-    gradient: "from-emerald-500 to-emerald-700",
-  },
-  {
-    id: "04",
-    icon: Megaphone,
-    title: "Mass Recruitment",
-    tagline: "Scale fast, hire smart",
-    description:
-      "Large-scale hiring campaigns managed with military precision — from 50 to 5,000+ candidates. Our dedicated mass deployment teams run simultaneous multi-city drives.",
-    features: [
-      "Multi-city mobilization",
-      "Dedicated project team",
-      "Real-time recruitment dashboard",
-    ],
-    accent: "#7c3aed",
-    accentLight: "rgba(124,58,237,0.08)",
-    gradient: "from-violet-500 to-violet-700",
-  },
-  {
-    id: "05",
-    icon: Search,
-    title: "Executive Search",
-    tagline: "C-suite talent, confidentially sourced",
-    description:
-      "Senior-level and C-suite talent acquisition through our confidential, bespoke headhunting process. We engage passive candidates through deep network mapping and discreet outreach.",
-    features: [
-      "Passive candidate outreach",
-      "Psychometric assessments",
-      "100% confidentiality assured",
-    ],
-    accent: "#d97706",
-    accentLight: "rgba(217,119,6,0.08)",
-    gradient: "from-amber-500 to-amber-700",
-  },
-  {
-    id: "06",
-    icon: Clock,
-    title: "Temporary Staffing",
-    tagline: "On-demand workforce coverage",
-    description:
-      "On-demand temporary workers for seasonal peaks, project-based needs, or sudden workforce gaps. Fully compliant placements with payroll and HR administration handled end-to-end.",
-    features: [
-      "Payroll & HR administration",
-      "Seasonal surge coverage",
-      "Compliant labor contracts",
-    ],
-    accent: "#0891b2",
-    accentLight: "rgba(8,145,178,0.08)",
-    gradient: "from-cyan-500 to-cyan-700",
+    accent: "text-[#0d3270]",
+    accentBg: "bg-[#0d3270]/8",
+    hoverBorder: "hover:border-[#0d3270]/30",
+    hoverShadow: "hover:shadow-[0_32px_64px_-12px_rgba(13,50,112,0.14)]",
+    gradient: "from-[#0d3270] to-[#154895]",
   },
 ];
 
 const industries = [
   "Construction & Engineering",
-  "Healthcare & Nursing",
-  "Hospitality & Tourism",
-  "Oil & Gas",
-  "Manufacturing",
-  "IT & Technology",
+  "Oil & Gas / Energy",
+  "Hospitality & Catering",
   "Retail & FMCG",
-  "Finance & Banking",
+  "Logistics & Warehousing",
+  "Facilities Management",
+  "Security Services",
+  "Corporate & Admin",
 ];
 
 function StatCard({ stat, index }) {
@@ -147,16 +105,16 @@ function StatCard({ stat, index }) {
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="flex flex-col items-start gap-3 px-8 first:pl-0"
+      className="flex flex-col items-center text-center sm:items-start sm:text-left gap-2 px-4 sm:px-6 py-2 w-full sm:w-auto"
     >
-      <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center">
+      <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center flex-shrink-0">
         <Icon size={18} className="text-[#154895]" />
       </div>
       <div>
-        <p className="text-4xl font-bold text-[#0f1929] font-serif leading-none mb-1">
+        <p className="text-3xl sm:text-4xl font-black text-[#0f1929] leading-none mb-1 font-sans">
           {stat.value}
         </p>
-        <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">
+        <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold whitespace-nowrap">
           {stat.label}
         </p>
       </div>
@@ -180,95 +138,53 @@ function ServiceCard({ service, index }) {
       }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-pointer"
-      style={{
-        boxShadow: hovered
-          ? `0 32px 64px -12px rgba(0,0,0,0.12), 0 0 0 1px ${service.accent}22`
-          : "0 1px 4px rgba(0,0,0,0.04)",
-        transition: "box-shadow 0.5s cubic-bezier(0.22,1,0.36,1)",
-        transform: hovered ? "translateY(-6px)" : "translateY(0)",
-        transitionProperty: "box-shadow, transform",
-        transitionDuration: "0.5s",
-      }}
+      className={`group relative bg-white border border-[#154895]/10 rounded-2xl p-6 sm:p-8 overflow-hidden cursor-pointer shadow-[0_1px_4px_rgba(0,0,0,0.03)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${service.hoverBorder} ${service.hoverShadow}`}
     >
-      <motion.div
-        className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${service.gradient}`}
-        initial={{ scaleX: 0, transformOrigin: "left" }}
-        animate={{ scaleX: hovered ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      />
+      {/* Top Accent Line */}
+      <span className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: service.accentLight }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: hovered ? 0.5 : 0 }}
-        transition={{ duration: 0.4 }}
-      />
+      {/* Hover Background Wash */}
+      <div className={`absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-40 transition-opacity duration-500 ${service.accentBg}`} />
 
-      <div className="relative z-10 p-8">
-        {/* Number + Icon row */}
-        <div className="flex items-start justify-between mb-6">
-          <motion.div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center"
-            style={{ background: service.accentLight }}
-            animate={{ scale: hovered ? 1.1 : 1, rotate: hovered ? -5 : 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Icon size={24} style={{ color: service.accent }} />
-          </motion.div>
-          <span
-            className="text-5xl font-bold font-serif leading-none"
-            style={{ color: `${service.accent}14` }}
-          >
-            {service.id}
-          </span>
+      <div className="relative z-10 flex flex-col h-full justify-between">
+        <div>
+          {/* Number + Icon row */}
+          <div className="flex items-start justify-between mb-6">
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:-rotate-6 ${service.accentBg}`}>
+              <Icon size={24} className={service.accent} />
+            </div>
+            <span className={`text-4xl sm:text-5xl font-black opacity-[0.07] leading-none select-none ${service.accent}`}>
+              {service.id}
+            </span>
+          </div>
+
+          {/* Tagline */}
+          <p className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${service.accent}`}>
+            {service.tagline}
+          </p>
+
+          <h3 className="text-[20px] font-bold text-gray-900 mb-3 leading-snug group-hover:text-[#154895] transition-colors duration-300">
+            {service.title}
+          </h3>
+
+          <p className="text-[13px] text-gray-500 leading-relaxed mb-6">
+            {service.description}
+          </p>
+
+          <ul className="space-y-2.5 mb-8">
+            {service.features.map((feat) => (
+              <li key={feat} className="flex items-center gap-2.5 text-[13px] text-gray-600 font-medium">
+                <CheckCircle2 size={14} className={`${service.accent} flex-shrink-0`} />
+                {feat}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Tagline */}
-        <p
-          className="text-[11px] font-semibold uppercase tracking-widest mb-2"
-          style={{ color: service.accent }}
-        >
-          {service.tagline}
-        </p>
-
-        <h3
-          className="text-[21px] font-bold text-gray-900 mb-3 leading-snug font-serif transition-colors duration-300"
-          style={{ color: hovered ? service.accent : undefined }}
-        >
-          {service.title}
-        </h3>
-
-        <p className="text-sm text-gray-500 leading-relaxed mb-6">
-          {service.description}
-        </p>
-
-        <ul className="space-y-2 mb-6">
-          {service.features.map((feat) => (
-            <li
-              key={feat}
-              className="flex items-center gap-2.5 text-sm text-gray-600"
-            >
-              <CheckCircle2
-                size={14}
-                style={{ color: service.accent, flexShrink: 0 }}
-              />
-              {feat}
-            </li>
-          ))}
-        </ul>
-
-        <motion.div
-          className="flex items-center gap-2 text-sm font-semibold"
-          style={{ color: service.accent }}
-          initial={{ opacity: 0, x: -8 }}
-          animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -8 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className={`flex items-center gap-2 text-sm font-bold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ${service.accent}`}>
           Learn More
           <ArrowUpRight size={14} />
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );
@@ -279,74 +195,55 @@ export default function ServicesSection() {
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-32 bg-[#f8f7f4] overflow-hidden"
-    >
-      <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(21,72,149,0.04) 0%, transparent 70%)",
-          transform: "translate(30%, -30%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(230,34,36,0.04) 0%, transparent 70%)",
-          transform: "translate(-30%, 30%)",
-        }}
-      />
+    <section ref={sectionRef} className="relative py-20 sm:py-32 bg-[#f8f7f4] overflow-hidden">
+      {/* Background Decorative Ambient Circles */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(21,72,149,0.04)_0%,transparent_70%)] translate-x-[30%] -translate-y-[30%]" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(21,72,149,0.03)_0%,transparent_70%)] -translate-x-[30%] translate-y-[30%]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-16 mb-20 items-end">
-          <div>
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
+        
+        {/* Top Header Grid */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-16 sm:mb-20 items-end">
+          <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="flex items-center gap-3 mb-5"
+              className="flex items-center gap-3 mb-4"
             >
               <div className="w-10 h-[2px] bg-[#154895]" />
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#154895]">
-                Our Services
+                Our Core Expertise
               </span>
             </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                delay: 0.1,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="font-serif text-[clamp(36px,4vw,56px)] font-bold text-[#0f1929] leading-[1.1] mb-5"
+              transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[32px] sm:text-[42px] lg:text-[52px] font-bold text-[#0f1929] leading-[1.15] mb-5"
             >
-              Comprehensive
+              Regulated & Fast
               <br />
-              <span className="text-[#154895] italic">Manpower Solutions</span>
+              <span className="text-[#154895] italic font-serif font-normal">Manpower Supply</span>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18, duration: 0.6 }}
-              className="text-base text-gray-500 leading-relaxed max-w-md font-light"
+              className="text-[14px] sm:text-base text-gray-500 leading-relaxed max-w-md font-normal"
             >
-              From executive headhunting to mass overseas deployment — we
-              connect ambitious organizations with the right people, at the
-              right time, anywhere in the world.
+              Licensed by the Ministry of Labor Qatar (#618). We mobilize high-caliber global talent with full legal compliance and speed that protects your bottom line.
             </motion.p>
           </div>
 
+          {/* Stats Grid Fix for Mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.25, duration: 0.6 }}
-            className="flex flex-wrap gap-y-8 divide-x divide-gray-200"
+            className="lg:col-span-6 grid grid-cols-2 sm:flex sm:flex-wrap lg:justify-end gap-x-4 gap-y-6 sm:gap-8 border-t lg:border-t-0 border-gray-200/60 pt-6 lg:pt-0"
           >
             {stats.map((stat, i) => (
               <StatCard key={stat.label} stat={stat} index={i} />
@@ -354,31 +251,32 @@ export default function ServicesSection() {
           </motion.div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        {/* Core Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-16">
           {services.map((service, i) => (
             <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
 
+        {/* Industries List Block */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="bg-white border border-gray-100 rounded-2xl px-8 py-7 mb-8"
-          style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+          className="bg-white border border-[#154895]/10 rounded-2xl p-6 sm:p-8 mb-8 shadow-[0_2px_16px_rgba(0,0,0,0.02)]"
         >
           <div className="flex items-center gap-3 mb-5">
             <Briefcase size={16} className="text-[#154895]" />
-            <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
-              Industries We Serve
+            <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">
+              Key Commercial Sectors
             </span>
           </div>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-2">
             {industries.map((industry) => (
               <span
                 key={industry}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-gray-50 text-gray-600 border border-gray-100 hover:border-[#154895]/30 hover:bg-[#154895]/5 hover:text-[#154895] transition-all duration-200 cursor-default"
+                className="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold bg-gray-50 text-gray-600 border border-gray-100 hover:border-[#154895]/30 hover:bg-[#154895]/5 hover:text-[#154895] transition-all duration-200 cursor-default"
               >
                 {industry}
               </span>
@@ -386,60 +284,48 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
+        {/* ── CTA Banner (Fully Responsive Fix) ── */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-2xl overflow-hidden"
+          className="relative rounded-2xl overflow-hidden bg-[#0f1929] px-6 py-10 sm:p-12 lg:p-14 shadow-xl"
         >
-          <div className="absolute inset-0 bg-[#0f1929]" />
+          {/* Glowing circles overlay */}
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-[#154895]/20 pointer-events-none" />
+          <div className="absolute -bottom-16 right-32 w-48 h-48 rounded-full bg-[#154895]/10 pointer-events-none" />
 
-          <div
-            className="absolute -top-20 -right-20 w-72 h-72 rounded-full"
-            style={{ background: "rgba(21,72,149,0.2)" }}
-          />
-          <div
-            className="absolute -bottom-16 right-32 w-48 h-48 rounded-full"
-            style={{ background: "rgba(230,34,36,0.15)" }}
-          />
-          <div
-            className="absolute top-1/2 left-1/3 w-96 h-96 rounded-full -translate-y-1/2"
-            style={{ background: "rgba(21,72,149,0.06)" }}
-          />
-
-          <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#154895] mb-4">
-                Start Today
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a5ab8] mb-3">
+                Zero Compliance Risk
               </p>
-              <h3 className="font-serif text-3xl lg:text-4xl font-bold text-white leading-snug mb-4">
-                Ready to build your
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+                Ready to scale your workforce
                 <br />
-                <span className="text-[#e62224] italic">ideal workforce?</span>
+                <span className="text-[#1a5ab8] italic font-serif font-normal">without the headaches?</span>
               </h3>
-              <p className="text-sm text-gray-400 leading-relaxed font-light">
-                Our recruitment specialists are on hand to craft a tailored
-                manpower strategy for your business — whether you need 1
-                executive or 1,000 skilled workers, locally or overseas.
+              <p className="text-[13px] sm:text-sm text-gray-400 leading-relaxed font-normal">
+                Stop waiting while recruitment delays drain your resources. Whether you need immediate local staffing or bulk international deployment, Asliya guarantees seamless compliance and mobilization.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 flex-shrink-0">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto flex-shrink-0">
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2.5 bg-[#154895] text-white px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-[#1e5bb8] transition-colors duration-200"
+                className="flex items-center justify-center gap-2.5 bg-[#154895] text-white px-6 sm:px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-[#1e5bb8] transition-colors duration-200 w-full sm:w-auto"
               >
-                Get a Free Consultation
+                Get Started Now
                 <ChevronRight size={16} />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2.5 bg-white/[0.06] text-white border border-white/[0.12] px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-white/[0.1] transition-colors duration-200"
+                className="flex items-center justify-center gap-2.5 bg-white/[0.05] text-white border border-white/[0.12] px-6 sm:px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-white/[0.1] transition-colors duration-200 w-full sm:w-auto"
               >
-                Download Company Profile
+                Download Service Guide
                 <ArrowUpRight size={15} />
               </motion.button>
             </div>

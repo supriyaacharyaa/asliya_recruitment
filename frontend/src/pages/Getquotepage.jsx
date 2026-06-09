@@ -19,24 +19,24 @@ const SERVICES = [
 ];
 
 const COMPANY_SIZES = [
-  { label: "1 – 50",      sub: "Small business"  },
-  { label: "51 – 200",    sub: "Growing company"  },
-  { label: "201 – 1000",  sub: "Mid-size firm"    },
-  { label: "1000+",       sub: "Enterprise"       },
+  { label: "1 – 50",       sub: "Small business"  },
+  { label: "51 – 200",     sub: "Growing company"  },
+  { label: "201 – 1000",   sub: "Mid-size firm"    },
+  { label: "1000+",        sub: "Enterprise"       },
 ];
 
 const WHY_ITEMS = [
-  { icon: Clock,     title: "24-hr Response",   desc: "We reply to every quote request within one business day — guaranteed." },
-  { icon: Shield,    title: "No Obligation",     desc: "A free quote is exactly that — free. No commitment, no pressure." },
-  { icon: Award,     title: "18 Yrs Experience", desc: "Nearly two decades of manpower placement expertise behind every quote." },
-  { icon: TrendingUp,title: "Tailored Pricing",  desc: "We price based on your exact requirement — no generic packages." },
+  { icon: Clock,      title: "24-hr Response",   desc: "We reply to every quote request within one business day — guaranteed." },
+  { icon: Shield,     title: "No Obligation",    desc: "A free quote is exactly that — free. No commitment, no pressure." },
+  { icon: Award,      title: "Licensed Expertise", desc: "Fully compliant under Ministry of Labor Qatar License #618." },
+  { icon: TrendingUp, title: "Tailored Pricing",  desc: "We price based on your exact recruitment scale and sector needs." },
 ];
 
 const CONTACT_ITEMS = [
-  { icon: Phone,       label: "Call / WhatsApp", value: "+974 1234 5678"        },
-  { icon: Mail,        label: "Email Us",        value: "info@recruitmax.com"   },
-  { icon: MapPin,      label: "Our Office",      value: "Al Sadd, Doha, Qatar"  },
-  { icon: Globe,       label: "Operating Hours", value: "Sun – Thu, 8am – 6pm"  },
+  { icon: Phone,   label: "Call Doha Office", value: "+974 4443 4386" },
+  { icon: Mail,    label: "Email Corporate Sales", value: "business@asliyarecruitment.com" },
+  { icon: MapPin,  label: "Our Office", value: "Muntaza Trading Center, Doha, Qatar" },
+  { icon: Globe,   label: "Deploy Speed", value: "25 – 30 Days Average" },
 ];
 
 /* ─── Field wrapper ──────────────────────────────────────────── */
@@ -78,7 +78,7 @@ function Select({ icon: Icon, children, ...props }) {
         onBlur={e => { e.target.style.borderColor = "rgba(21,72,149,0.14)"; e.target.style.boxShadow = "none"; }}
         {...props}
       >
-        {children}
+        ={children}
       </select>
       <ChevronDown size={13} color="#94a3b8" className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
     </div>
@@ -122,13 +122,13 @@ function ServiceCheckbox({ label, checked, onChange }) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   GET FREE QUOTE PAGE
+    GET FREE QUOTE PAGE
 ════════════════════════════════════════════════════════════ */
 export default function GetFreeQuotePage() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     companyName: "", contactName: "", email: "", phone: "",
-    country: "", companySize: "", services: [], message: "",
+    country: "Qatar", companySize: "", services: [], message: "",
     preferredContact: "email",
   });
 
@@ -168,7 +168,7 @@ export default function GetFreeQuotePage() {
             Thank you, <strong style={{ color: "#1e293b" }}>{form.contactName || "there"}</strong>!
           </p>
           <p className="text-[14px] leading-relaxed mb-8" style={{ color: "#64748b" }}>
-            Our team will prepare a customized quote and reach you via <strong style={{ color: "#154895" }}>{form.preferredContact === "email" ? form.email : form.phone}</strong> within <strong style={{ color: "#154895" }}>24 hours</strong>.
+            Our team will prepare a customized proposal and reach you via <strong style={{ color: "#154895" }}>{form.preferredContact === "email" ? form.email : form.phone}</strong> within <strong style={{ color: "#154895" }}>24 hours</strong>.
           </p>
           <div className="rounded-[14px] p-5 mb-6 text-left" style={{ background: "rgba(21,72,149,0.05)", border: "1px solid rgba(21,72,149,0.1)" }}>
             <p className="text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: "#154895" }}>Services Requested</p>
@@ -219,7 +219,7 @@ export default function GetFreeQuotePage() {
             Get Your <span style={{ color: "#154895" }}>Free Quote</span>
           </h1>
           <p className="text-[15.5px] max-w-xl mx-auto leading-relaxed" style={{ color: "#64748b" }}>
-            Tell us about your manpower needs — we'll prepare a detailed, custom proposal at no cost, with no strings attached.
+            Tell us about your organizational workforce needs — Asliya will prepare a detailed, custom deployment proposal at no cost, compliant with Qatar Labor Law.
           </p>
         </motion.div>
 
@@ -234,7 +234,7 @@ export default function GetFreeQuotePage() {
             style={{ background: "rgba(255,255,255,0.88)", borderColor: "rgba(21,72,149,0.1)", backdropFilter: "blur(16px)", boxShadow: "0 8px 40px rgba(21,72,149,0.08)" }}
           >
             <h2 className="font-black text-[20px] mb-7" style={{ color: "#1e293b", fontFamily: "'Playfair Display', Georgia, serif" }}>
-              Your Details
+              Your Business Requirements
             </h2>
 
             <div className="space-y-8">
@@ -250,7 +250,7 @@ export default function GetFreeQuotePage() {
                   <Input icon={Mail} type="email" placeholder="you@company.com" value={form.email} onChange={e => update("email", e.target.value)} />
                 </Field>
                 <Field label="Phone / WhatsApp" required>
-                  <Input icon={Phone} type="tel" placeholder="+974 00 000 000" value={form.phone} onChange={e => update("phone", e.target.value)} />
+                  <Input icon={Phone} type="tel" placeholder="+974 0000 0000" value={form.phone} onChange={e => update("phone", e.target.value)} />
                 </Field>
                 <Field label="Country">
                   <Input icon={MapPin} placeholder="Where are you based?" value={form.country} onChange={e => update("country", e.target.value)} />
@@ -258,7 +258,7 @@ export default function GetFreeQuotePage() {
                 <Field label="Company Size">
                   <Select icon={Users} value={form.companySize} onChange={e => update("companySize", e.target.value)}>
                     <option value="">Select size...</option>
-                    {COMPANY_SIZES.map(s => <option key={s.label} value={s.label}>{s.label} employees ({s.sub})</option>)}
+                    ={COMPANY_SIZES.map(s => <option key={s.label} value={s.label}>{s.label} employees ({s.sub})</option>)}
                   </Select>
                 </Field>
               </div>
@@ -281,9 +281,9 @@ export default function GetFreeQuotePage() {
               </div>
 
               {/* Message */}
-              <Field label="Tell Us More" hint="Describe your requirement, expected timeline, source country preference, etc.">
+              <Field label="Tell Us More" hint="Describe required roles, expected volume, timelines, and preferred source countries (Africa/Asia).">
                 <Textarea
-                  placeholder="e.g. We need 50 construction workers for a project in Riyadh starting March. Preferred source: Nepal or India..."
+                  placeholder="e.g. We need 100 hospitality staff and construction workers for a commercial development project in Doha starting next month. Preferred source: Nepal or Kenya..."
                   value={form.message}
                   onChange={e => update("message", e.target.value)}
                 />
@@ -321,12 +321,12 @@ export default function GetFreeQuotePage() {
                 className="w-full inline-flex items-center justify-center gap-2 text-[15px] font-bold py-4 rounded-[13px] text-white transition-all duration-200"
                 style={{ background: "linear-gradient(135deg, #0a1f42 0%, #154895 60%, #1a58b8 100%)", boxShadow: "0 4px 20px rgba(21,72,149,0.32)" }}
               >
-                <Send size={16} />
-                Get My Free Quote
+                ={true && <Send size={16} />}
+                Get My Free Proposal
               </motion.button>
 
               <p className="text-center text-[11.5px]" style={{ color: "#94a3b8" }}>
-                By submitting, you agree to be contacted by our team. No spam, ever.
+                By submitting, you agree to share your request with Asliya Manpower W.L.L.
               </p>
             </div>
           </motion.div>
@@ -344,7 +344,7 @@ export default function GetFreeQuotePage() {
               style={{ background: "rgba(255,255,255,0.88)", borderColor: "rgba(21,72,149,0.1)", backdropFilter: "blur(14px)", boxShadow: "0 4px 24px rgba(21,72,149,0.07)" }}
             >
               <h3 className="font-black text-[17px] mb-6" style={{ color: "#1e293b", fontFamily: "'Playfair Display', Georgia, serif" }}>
-                Why Get a Quote?
+                Why Asliya Manpower?
               </h3>
               <div className="space-y-5">
                 {WHY_ITEMS.map(({ icon: Icon, title, desc }, i) => (
@@ -375,7 +375,7 @@ export default function GetFreeQuotePage() {
               <div className="relative p-7">
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 10% 90%, rgba(230,34,36,0.18) 0%, transparent 50%)" }} />
                 <div className="relative z-10">
-                  <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.45)" }}>Prefer to talk?</p>
+                  <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.45)" }}>Prefer a direct line?</p>
                   <h3 className="font-black text-[18px] text-white mb-5" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                     Reach Us Directly
                   </h3>
@@ -393,7 +393,7 @@ export default function GetFreeQuotePage() {
                     ))}
                   </div>
                   <motion.a
-                    href="https://wa.me/97412345678"
+                    href="https://wa.me/97444434386"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
                     className="mt-6 w-full inline-flex items-center justify-center gap-2 text-[13.5px] font-bold py-3 rounded-[11px] transition-all duration-200"
@@ -417,13 +417,13 @@ export default function GetFreeQuotePage() {
                 ))}
               </div>
               <p className="text-[13px] leading-relaxed mb-4" style={{ color: "#475569" }}>
-                "We received a detailed proposal within 6 hours. Within 3 weeks, 40 workers were deployed to our site in Dubai. Exceptional service."
+                "They mobilized over 4,000 workers simultaneously without compromising quality. Asliya continues to support our current engineering projects flawlessly."
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-[13px] text-white" style={{ background: "#154895" }}>AH</div>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-[13px] text-white" style={{ background: "#154895" }}>AA</div>
                 <div>
-                  <p className="text-[12.5px] font-bold" style={{ color: "#1e293b" }}>Ahmed Hassan</p>
-                  <p className="text-[11px]" style={{ color: "#94a3b8" }}>Project Director, Dubai</p>
+                  <p className="text-[12.5px] font-bold" style={{ color: "#1e293b" }}>Ahmed Abdrabbo</p>
+                  <p className="text-[11px]" style={{ color: "#94a3b8" }}>General Manager, Contracting</p>
                 </div>
               </div>
             </div>

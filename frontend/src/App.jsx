@@ -11,6 +11,7 @@ import ClientsPage from "./pages/Client";
 import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
 import GetFreeQuotePage from "./pages/Getquotepage";
+import GlobalNetwork from "./components/sections/GlobalNetwork";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/industries" element={<Industries/>}/>
           <Route path="/Request" element={<RequestManpowerPage/>}/>
           <Route path="/quote" element={<GetFreeQuotePage/>}/>
+          <Route path="/networks" element={<GlobalNetwork/>}/> 
         </Route>
       </Routes>
     </BrowserRouter>

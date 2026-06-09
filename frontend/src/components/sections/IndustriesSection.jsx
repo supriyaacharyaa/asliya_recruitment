@@ -19,16 +19,10 @@ const cardVariants = {
 
 export default function IndustriesSection({ industries = [] }) {
   return (
-    <section className="relative py-28 bg-white overflow-hidden">
+    <section className="relative py-20 sm:py-28 bg-white overflow-hidden">
 
       {/* Faint background grid */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.022]"
-        style={{
-          backgroundImage: "radial-gradient(circle, #154895 1px, transparent 1px)",
-          backgroundSize: "36px 36px",
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.022] bg-[radial-gradient(circle,#154895_1px,transparent_1px)] bg-[size:36px_36px]" />
 
       {/* Top-right ambient glow */}
       <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[radial-gradient(circle,rgba(21,72,149,0.06)_0%,transparent_70%)]" />
@@ -36,12 +30,12 @@ export default function IndustriesSection({ industries = [] }) {
       <Container className="relative z-10">
 
         <SectionHeading
-          tag="Industries"
+          tag="Sectors We Supply"
           title={<>Industries We <span className="text-[#154895]">Serve</span></>}
-          subtitle="Deep specialisation across the sectors that power the global economy — connecting the right people with the right opportunity."
+          subtitle="Deep specialization across Qatar's core commercial sectors—legally deploying pre-screened talent optimized for large-scale corporate operations."
         />
 
-        {/* ── Stat strip ── */}
+        {/* ── Asliya Stat Strip (Responsive Borders Fixed) ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,21 +43,22 @@ export default function IndustriesSection({ industries = [] }) {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="flex flex-wrap justify-center gap-0 mt-10 mb-16"
         >
-          <div className="inline-flex flex-wrap justify-center border border-[#154895]/10 rounded-2xl overflow-hidden bg-[#f3f5fb]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 w-full max-w-3xl border border-[#154895]/10 rounded-2xl overflow-hidden bg-[#f3f5fb]">
             {[
-              { value: "15+", label: "Industries Covered" },
-              { value: "50K+", label: "Placements Made" },
-              { value: "40+", label: "Countries Reached" },
+              { value: "20K+", label: "Successful Deployments" },
+              { value: "300+", label: "Corporate Clients" },
+              { value: "28+", label: "Source Countries" },
             ].map(({ value, label }, i, arr) => (
               <div
                 key={label}
                 className={[
-                  "flex flex-col items-center px-8 py-4",
-                  i < arr.length - 1 ? "border-r border-[#154895]/10" : "",
+                  "flex flex-col items-center justify-center px-6 py-5 text-center",
+                  // मोबाइलमा तल बोर्डर (border-b) र ट्याब्लेट/डेस्कटपमा दायाँ बोर्डर (sm:border-r)
+                  i < arr.length - 1 ? "border-b sm:border-b-0 sm:border-r border-[#154895]/10" : "",
                 ].join(" ")}
               >
-                <span className="text-[22px] font-black text-[#154895] leading-none mb-0.5">{value}</span>
-                <span className="text-[11px] uppercase tracking-[0.1em] text-[#5a6a8a] font-medium">{label}</span>
+                <span className="text-[22px] sm:text-[24px] font-black text-[#154895] leading-none mb-1">{value}</span>
+                <span className="text-[11px] uppercase tracking-[0.1em] text-[#5a6a8a] font-semibold">{label}</span>
               </div>
             ))}
           </div>
@@ -75,7 +70,7 @@ export default function IndustriesSection({ industries = [] }) {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {industries.map((industry) => {
             const Icon = industry.icon;
@@ -115,14 +110,13 @@ function IndustryCard({ industry, Icon }) {
 
       <div className="relative z-10">
 
-        {/* Icon box */}
+        {/* Icon box (Tailwind Classes Optimized) */}
         <motion.div
-          className="w-13 h-13 bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-xl flex items-center justify-center mb-5 shadow-[0_6px_18px_rgba(13,43,110,0.22)]"
-          style={{ width: 52, height: 52 }}
+          className="w-12 h-12 sm:w-13 sm:h-13 bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-xl flex items-center justify-center mb-5 shadow-[0_6px_18px_rgba(13,43,110,0.22)]"
           whileHover={{ scale: 1.12, rotate: -5 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
         >
-          <Icon size={22} className="text-white" strokeWidth={1.8} />
+          {Icon && <Icon size={22} className="text-white" strokeWidth={1.8} />}
         </motion.div>
 
         {/* Name */}

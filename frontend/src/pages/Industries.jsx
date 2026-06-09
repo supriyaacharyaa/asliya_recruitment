@@ -320,7 +320,6 @@ export default function Industries({ onHire, onContact }) {
           </motion.p>
         </div>
 
-        {/* ── Stats strip ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -346,7 +345,7 @@ export default function Industries({ onHire, onContact }) {
           ))}
         </div>
 
-        {/* ── Footer CTA banner ── */}
+      
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -358,7 +357,7 @@ export default function Industries({ onHire, onContact }) {
             boxShadow: "0 20px 60px rgba(21,72,149,0.3)",
           }}
         >
-          {/* BG glow */}
+      
           <div
             className="absolute inset-0 pointer-events-none"
             style={{

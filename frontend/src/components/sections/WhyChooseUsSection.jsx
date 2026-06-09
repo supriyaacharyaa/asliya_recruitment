@@ -3,47 +3,48 @@ import {
   Zap, Globe, ShieldCheck, Trophy, Headphones, Scale
 } from "lucide-react";
 
+// ── Real Datasets Aligned With Ministry Guidelines & Verified Track Records ──
 const features = [
   {
     Icon: Zap,
-    title: "Fast Hiring",
-    description: "Average time-to-fill of 7–14 days. Our streamlined process eliminates bottlenecks and delivers results quickly.",
-    color: "#D97706", bg: "#FEF3C7", cls: "c1",
+    title: "Fast Deployment",
+    description: "Complete mobilization lifecycle wrapped within 25–30 days. Efficient deployment vectors managed under active project tracking.",
+    color: "#e62224", bg: "#fdf2f2", // Asliya Brand Red Accent Accentuation
   },
   {
     Icon: Globe,
-    title: "Global Reach",
-    description: "Operations across 30+ countries with local expertise and international standards for seamless cross-border hiring.",
-    color: "#1E40AF", bg: "#EFF6FF", cls: "c2",
+    title: "Global Supply Network",
+    description: "Legally compliant operational structures operating seamlessly across 28+ sourcing nations with tailored vetting funnels.",
+    color: "#154895", bg: "#f0f4fb", // Corporate Identity Blue Accent
   },
   {
     Icon: ShieldCheck,
-    title: "Verified Talent",
-    description: "Every candidate undergoes rigorous background checks, skills testing, and reference verification before placement.",
-    color: "#059669", bg: "#ECFDF5", cls: "c3",
+    title: "Pre-Screened Talent",
+    description: "Every single candidate undergoes multi-tier physical screening, capability testing, and medical parameters before Qatar routing.",
+    color: "#059669", bg: "#ecfdf5",
   },
   {
     Icon: Trophy,
-    title: "Industry Expertise",
-    description: "15+ years of deep sector knowledge across construction, healthcare, hospitality, IT, and more.",
-    color: "#7C3AED", bg: "#F5F3FF", cls: "c4",
-  },
-  {
-    Icon: Headphones,
-    title: "Dedicated Support",
-    description: "Your personal account manager is available throughout the entire recruitment journey — no handoffs, ever.",
-    color: "#0891B2", bg: "#ECFEFF", cls: "c5",
+    title: "Proven Scale Fleet",
+    description: "7+ Years of absolute leadership with 20,000+ deployments executed successfully across core enterprise sectors.",
+    color: "#b9975b", bg: "#fbf8f2",
   },
   {
     Icon: Scale,
-    title: "Compliance Focus",
-    description: "Full adherence to labor laws, visa regulations, and international employment standards in every country we operate.",
-    color: "#DC2626", bg: "#FEF2F2", cls: "c6",
+    title: "Zero Compliance Risk",
+    description: "Fully licensed by Ministry of Labor (#618) and Supreme Committee approved. Absolute protection under Qatar Labor Law.",
+    color: "#154895", bg: "#f0f4fb",
+  },
+  {
+    Icon: Headphones,
+    title: "Dedicated Task Forces",
+    description: "Single point-of-contact account squads on-site to handle labor integration, logistics, and corporate administration.",
+    color: "#0891B2", bg: "#ecfeff",
   },
 ];
 
-/* ── Animated counter hook ── */
-function useCountUp(target, duration = 1400, suffix = "") {
+/* ── Performance Optimized Animated Counter Engine ── */
+function useCountUp(target, duration = 1200, suffix = "") {
   const [value, setValue] = useState("0" + suffix);
   const ref = useRef(null);
   const started = useRef(false);
@@ -66,7 +67,7 @@ function useCountUp(target, duration = 1400, suffix = "") {
           }, step);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -75,8 +76,8 @@ function useCountUp(target, duration = 1400, suffix = "") {
   return { ref, value };
 }
 
-/* ── Fade-up on scroll hook ── */
-function useFadeUp(delay = 0) {
+/* ── Hardware Accelerated CSS Intersection Hook ── */
+function useFadeUp() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -85,181 +86,179 @@ function useFadeUp(delay = 0) {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  return { ref, visible, delay };
+  return { ref, visible };
 }
 
-/* ── Feature card ── */
 function FeatureCard({ Icon, title, description, color, bg, index }) {
-  const { ref, visible } = useFadeUp(index * 80);
-  const [hovered, setHovered] = useState(false);
+  const { ref, visible } = useFadeUp();
 
   return (
     <div
       ref={ref}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className={`wcu-card group ${visible ? "is-visible" : ""}`}
       style={{
-        background: "#fff",
-        border: "1.5px solid #E2E8F0",
-        borderRadius: 16,
-        padding: "1.4rem",
-        position: "relative",
-        overflow: "hidden",
-        cursor: "default",
-        transition: "transform 0.32s cubic-bezier(.22,1,.36,1), box-shadow 0.32s cubic-bezier(.22,1,.36,1), border-color 0.25s ease",
-        transform: !visible ? "translateY(24px)" : hovered ? "translateY(-5px)" : "translateY(0)",
-        opacity: visible ? 1 : 0,
-        transitionDelay: visible ? `${index * 80}ms` : "0ms",
-        boxShadow: hovered ? "0 16px 40px rgba(15,23,42,.1)" : "none",
-        borderColor: hovered ? "#CBD5E1" : "#E2E8F0",
+        "--accent-color": color,
+        "--bg-tint": bg,
+        "--anim-delay": `${index * 70}ms`
       }}
     >
-      {/* Icon */}
-      <div
-        style={{
-          width: 48, height: 48, borderRadius: 12,
-          background: bg,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          marginBottom: "1rem",
-          transition: "transform 0.32s cubic-bezier(.22,1,.36,1)",
-          transform: hovered ? "scale(1.12)" : "scale(1)",
-        }}
-      >
-        <Icon size={22} color={color} strokeWidth={1.8} />
+      {/* Icon Capsule Block */}
+      <div className="wcu-icon-box">
+        <Icon size={20} color={color} strokeWidth={2} />
       </div>
 
-      {/* Text */}
-      <div style={{
-        fontSize: 14, fontWeight: 700, marginBottom: 6,
-        color: hovered ? color : "#0F172A",
-        transition: "color 0.25s ease",
-      }}>
-        {title}
-      </div>
-      <div style={{ fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
-        {description}
-      </div>
+      {/* Text Context Node Elements */}
+      <h3 className="wcu-card-title">{title}</h3>
+      <p className="wcu-card-desc">{description}</p>
 
-      {/* Bottom accent bar */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0,
-        height: 3, borderRadius: "0 0 16px 16px",
-        background: color,
-        transform: hovered ? "scaleX(1)" : "scaleX(0)",
-        transformOrigin: "left",
-        transition: "transform 0.35s cubic-bezier(.22,1,.36,1)",
-      }} />
+      {/* Sleek Underline Accent Border Rail */}
+      <span className="wcu-card-rail" />
     </div>
   );
 }
 
-/* ── Main section ── */
 export default function WhyChooseUsSection() {
-  const { ref: statRef, value: retentionVal } = useCountUp(97, 1400, "%");
+  const { ref: statRef, value: successVal } = useCountUp(20, 1400, "K+");
 
   return (
-    <section style={{ padding: "5.5rem 2rem", background: "#fff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <section className="wcu-section">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        .wcu-grid {
-          max-width: 1100px; margin: 0 auto;
-          display: grid; grid-template-columns: 1fr 1.1fr;
-          gap: 4rem; align-items: start;
+        .wcu-section { 
+          padding: 6rem 1.5rem; 
+          background: #ffffff; 
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          overflow: hidden;
         }
-        .wcu-sticky { position: sticky; top: 2rem; }
-        .wcu-feat-grid {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+        .wcu-container {
+          max-w-7xl; max-width: 1140px; margin: 0 auto;
+          display: grid; grid-template-columns: 1fr 1.15fr;
+          gap: 4.5rem; align-items: start;
         }
-        @media (max-width: 900px) {
-          .wcu-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-          .wcu-sticky { position: static !important; }
+        .wcu-sticky-col { position: sticky; top: 3.5rem; }
+        
+        /* Eyebrow Label Badge */
+        .wcu-eyebrow {
+          display: inline-flex; items-center: center; gap: 8px;
+          font-size: 11px; font-weight: 800; letter-spacing: 0.15em;
+          text-transform: uppercase; color: #e62224; margin-bottom: 1.25rem;
         }
-        @media (max-width: 560px) {
-          .wcu-feat-grid { grid-template-columns: 1fr !important; }
+        .wcu-line { width: 16px; height: 2px; background: #e62224; border-radius: 2px; }
+        
+        .wcu-heading {
+          font-size: clamp(1.8rem, 3.2vw, 2.35rem); font-weight: 800;
+          color: #0f172a;安排; line-height: 1.2; margin-bottom: 1.2rem;
+          letter-spacing: -0.02em;
+        }
+        .wcu-heading span { color: #154895; }
+        
+        .wcu-intro { font-size: 14.5px; color: #475569; line-height: 1.75; margin-bottom: 2rem; }
+        
+        /* Real Stats Visual Identity Card */
+        .wcu-stat-envelope {
+          background: linear-gradient(135deg, #154895 0%, #0d3270 100%);
+          border-radius: 24px; padding: 2rem; color: #ffffff;
+          position: relative; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(21,72,149,0.2);
+        }
+        .wcu-circle-decor-1 {
+          position: absolute; top: -30px; right: -30px; width: 120px; height: 120px;
+          background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;
+        }
+        
+        .wcu-stat-num { font-size: 3.5rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
+        .wcu-stat-lbl { font-size: 12px; color: #93c5fd; font-weight: 700; uppercase; tracking-wider; margin-top: 4px; letter-spacing: 0.05em; }
+        .wcu-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 1.5rem 0; }
+        
+        .wcu-mini-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .wcu-metric-val { font-size: 16px; font-weight: 800; color: #ffffff; }
+        .wcu-metric-lbl { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+        /* Performance Accelerated Feature Grid CSS rules */
+        .wcu-feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        .wcu-card {
+          background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px;
+          padding: 1.5rem; position: relative; overflow: hidden;
+          opacity: 0; transform: translateY(24px);
+          transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), 
+                      box-shadow 0.4s cubic-bezier(0.2, 1, 0.3, 1), 
+                      border-color 0.3s ease, opacity 0.4s ease;
+        }
+        .wcu-card.is-visible { opacity: 1; transform: translateY(0); transition-delay: var(--anim-delay); }
+        .wcu-card:hover { border-color: #cbd5e1; transform: translateY(-4px); box-shadow: 0 12px 30px -5px rgba(15,23,42,0.08); }
+        
+        .wcu-icon-box {
+          width: 44px; height: 44px; border-radius: 12px; background: var(--bg-tint);
+          display: flex; align-items: center; justify-content: center; margin-bottom: 1.15rem;
+          transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .wcu-card:hover .wcu-icon-box { transform: scale(1.08); }
+        
+        .wcu-card-title { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 6px; transition: color 0.2s; }
+        .wcu-card:hover .wcu-card-title { color: var(--accent-color); }
+        .wcu-card-desc { font-size: 12.5px; color: #64748b; line-height: 1.6; }
+        
+        .wcu-card-rail {
+          position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+          background: var(--accent-color); transform: scaleX(0);
+          transform-origin: left; transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .wcu-card:hover .wcu-card-rail { transform: scaleX(1); }
+
+        /* Responsive Breakpoint Adaptors */
+        @media (max-width: 960px) {
+          .wcu-container { grid-template-columns: 1fr; gap: 3rem; }
+          .wcu-sticky-col { position: static; }
+        }
+        @media (max-width: 580px) {
+          .wcu-feat-grid { grid-template-columns: 1fr; }
+          .wcu-section { padding: 4rem 1rem; }
         }
       `}</style>
 
-      <div className="wcu-grid">
+      <div className="wcu-container">
 
-        {/* ── LEFT: Heading + stat card ── */}
-        <div className="wcu-sticky">
-
-          {/* Eyebrow */}
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            fontSize: 11, fontWeight: 700, letterSpacing: "2px",
-            textTransform: "uppercase", color: "#DC2626", marginBottom: "1.1rem",
-          }}>
-            <span style={{ width: 20, height: 2.5, background: "#DC2626", borderRadius: 2, display: "inline-block" }} />
-            Why Choose Us
+        {/* ── LEFT FRAMEWORK: Strategic Core & Master Counter ── */}
+        <div className="wcu-sticky-col">
+          <div className="wcu-eyebrow">
+            <span className="wcu-line" />
+            Corporate Assurance
           </div>
 
-          {/* Heading */}
-          <h2 style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 800,
-            color: "#0F172A", lineHeight: 1.18, marginBottom: "1rem",
-          }}>
-            The Recruitment Partner{" "}
-            <span style={{ color: "#1E40AF" }}>You've Been<br />Looking For</span>
+          <h2 className="wcu-heading">
+            The Staffing Leadership <span>Your Enterprise Demands</span>
           </h2>
 
-          {/* Description */}
-          <p style={{ fontSize: 15.5, color: "#64748B", lineHeight: 1.78, marginBottom: "1.75rem" }}>
-            We don't just fill positions — we build long-term workforce partnerships. Our approach combines technology, expertise, and a human touch that the biggest platforms can't replicate.
+          <p className="wcu-intro">
+            We bridge the gap between international workforce hubs and Qatar's major infrastructure projects. Operating under absolute legal compliance and rigorous assessment parameters, we don't just supply manpower—we de-risk your scaling operations.
           </p>
 
-          {/* Stat card */}
-          <div
-            ref={statRef}
-            style={{
-              background: "#1E40AF", borderRadius: 16, padding: "1.75rem",
-              color: "#fff", position: "relative", overflow: "hidden",
-            }}
-          >
-            {/* Decorative circle */}
-            <div style={{
-              position: "absolute", top: -40, right: -40,
-              width: 140, height: 140,
-              background: "rgba(255,255,255,.06)", borderRadius: "50%",
-              pointerEvents: "none",
-            }} />
-            <div style={{
-              position: "absolute", bottom: -60, right: 20,
-              width: 100, height: 100,
-              background: "rgba(255,255,255,.04)", borderRadius: "50%",
-              pointerEvents: "none",
-            }} />
+          <div ref={statRef} className="wcu-stat-envelope">
+            <div className="wcu-circle-decor-1" />
+            <div className="wcu-stat-num">{successVal}</div>
+            <div className="wcu-stat-lbl">Successful Deployments</div>
 
-            <div style={{ fontSize: "3.25rem", fontWeight: 800, lineHeight: 1, color: "#fff" }}>
-              {retentionVal}
-            </div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,.65)", fontWeight: 600, marginTop: 4 }}>
-              Client Retention Rate
-            </div>
+            <div className="wcu-divider" />
 
-            <div style={{ height: 1, background: "rgba(255,255,255,.12)", margin: "1.25rem 0" }} />
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div className="wcu-mini-metrics">
               <div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>4.9 / 5.0</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginTop: 2 }}>Avg. Client Rating</div>
+                <div className="wcu-metric-val">7+ Years</div>
+                <div className="wcu-metric-lbl">Qatar Market Tenure</div>
               </div>
               <div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>48 hrs</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginTop: 2 }}>First Candidates</div>
+                <div className="wcu-metric-val">25-30 Days</div>
+                <div className="wcu-metric-lbl">Target Mobilization Window</div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── RIGHT: Feature cards grid ── */}
+        {/* ── RIGHT FRAMEWORK: Optimized Grid System Matrix ── */}
         <div className="wcu-feat-grid">
           {features.map((feat, i) => (
             <FeatureCard key={feat.title} {...feat} index={i} />
