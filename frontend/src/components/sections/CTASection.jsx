@@ -42,7 +42,7 @@ export default function CTASection() {
           className="relative rounded-[32px] overflow-hidden"
         >
           {/* ── Deep navy base ── */}
-          <div className="absolute inset-0 bg-[#0b2454]" />
+          <div className="absolute inset-0 bg-[#134a93]" />
 
           {/* ── Subtle grid texture ── */}
           <div
@@ -98,7 +98,7 @@ export default function CTASection() {
             >
 
               {/* Status pill */}
-              <motion.div variants={fadeUp} className="flex justify-center mb-8">
+              {/* <motion.div variants={fadeUp} className="flex justify-center mb-8">
                 <div className="inline-flex items-center gap-2.5 bg-white/8 backdrop-blur-md border border-white/12 rounded-full px-5 py-2.5">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e8b45a] opacity-75" />
@@ -108,7 +108,25 @@ export default function CTASection() {
                     Now Accepting New Partners
                   </span>
                 </div>
-              </motion.div>
+              </motion.div> */}
+               <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2 mb-6 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
+              style={{
+                background: "rgba(21,72,149,0.06)",
+                borderColor: "white",
+                color: "white",
+              }}
+            >
+              <span
+                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
+              />
+              Now Accepting New Partners
+            </motion.div>
 
               {/* Heading */}
               <motion.h2
@@ -117,7 +135,7 @@ export default function CTASection() {
               >
                 Build Your Dream{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#e8b45a] to-[#c9902a]">
+                  <span className="relative z-10 text-brand-secondary bg-clip-text bg-gradient-to-r from-[#e8b45a] to-[#c9902a]">
                     Workforce
                   </span>
                   {/* Underline squiggle */}
@@ -129,7 +147,7 @@ export default function CTASection() {
                   >
                     <motion.path
                       d="M2 8 Q65 2 130 6 Q195 10 258 4"
-                      stroke="#c9902a"
+                      stroke="#e62224"
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       fill="none"
@@ -214,7 +232,7 @@ export default function CTASection() {
               >
                 {PERKS.map(({ icon: Icon, text }) => (
                   <div key={text} className="flex items-center gap-2">
-                    <Icon size={13} strokeWidth={2.2} className="text-[#c9902a] flex-shrink-0" />
+                    <Icon size={13} strokeWidth={2.2} className="text-brand-secondary flex-shrink-0" />
                     <span className="text-white/40 text-[12.5px]">{text}</span>
                   </div>
                 ))}

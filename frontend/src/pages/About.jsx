@@ -226,7 +226,7 @@ function PageHero() {
           transition={{ delay:.1, duration:.7, ease:EASE }}
           className="shimmer-text text-5xl xl:text-6xl font-black leading-[1.08] tracking-tight mb-6 max-w-3xl"
         >
-          About RecruitMax Global Manpower
+          About Asliya Recruitment
         </motion.h1>
 
         <motion.p
@@ -273,8 +273,8 @@ function PageHero() {
 ═══════════════════════════════════════════ */
 const highlights = [
   { icon: Award, label:"ISO Certified" },
-  { icon: Globe, label:"30+ Countries" },
-  { icon: Users, label:"5000+ Placed" },
+  { icon: Globe, label:"28+ Countries" },
+  { icon: Users, label:"20000+ Placed" },
 ];
 
 function WhoWeAre() {
@@ -295,12 +295,28 @@ function WhoWeAre() {
             <div className="ring-spin-ccw absolute -top-6 -left-6 w-full h-full border-2 border-dashed border-[#154895]/15 rounded-3xl -z-10" />
 
             <div className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl shadow-[#154895]/25">
-              <div className="absolute inset-0"
-                style={{ backgroundImage:"radial-gradient(circle at 20% 80%,rgba(230,34,36,.28) 0%,transparent 45%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 40%)" }} />
+              {/* <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle at 20% 80%, rgba(230,34,36,0.28) 0%, transparent 45%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%)",
+                }}
+              /> */}
+               <div
+    className="absolute inset-0 scale-110"
+    style={{
+      backgroundImage:
+        'url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80")',
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      filter: "blur(6px)",
+    }}
+  />
 
-              {/* Floating decorative squares */}
-              <div className="float-x absolute top-8  right-8  w-20 h-20 border border-white/10 rounded-2xl" />
-              <div className="float-y absolute bottom-10 left-8  w-14 h-14 border border-white/10 rounded-xl" />
+  {/*New div*/}
+  <div className="absolute inset-0 bg-black/50" />
+
+              {/* Content inside card */}
 
               <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center">
                 <motion.div
@@ -308,7 +324,7 @@ function WhoWeAre() {
                   viewport={{ once:true }} transition={{ delay:.3, duration:.6, ease:EASE }}
                   className="bg-white/10 border border-white/20 rounded-2xl px-6 py-2 mb-8 backdrop-blur-sm"
                 >
-                  <span className="text-white/80 text-sm font-semibold tracking-widest uppercase">Founded 2014</span>
+                  <span className="text-white/80 text-sm font-semibold tracking-widest uppercase">Founded 2018</span>
                 </motion.div>
 
                 <motion.div
@@ -336,8 +352,8 @@ function WhoWeAre() {
               transition={{ delay:.5, duration:.6, ease:EASE }}
               className="badge-float absolute -bottom-6 -right-6 bg-white rounded-2xl px-6 py-4 shadow-2xl shadow-gray-200/80 border border-gray-100"
             >
-              <div className="text-3xl font-black text-[#154895]">Est. 2014</div>
-              <div className="text-sm font-semibold text-gray-400 mt-0.5">· 10+ Years of Excellence</div>
+              <div className="text-3xl font-black text-[#154895]">Est. 2018</div>
+              <div className="text-sm font-semibold text-gray-400 mt-0.5">· 7+ Years of Excellence</div>
             </motion.div>
           </motion.div>
 
@@ -353,10 +369,10 @@ function WhoWeAre() {
               Built on Trust,<br />Driven by Results
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed mb-5">
-              RecruitMax Global Manpower was founded in 2014 with a single mission: to bridge the gap between exceptional talent and the companies that need them most. What began as a domestic staffing firm serving local businesses has grown into a globally recognized recruitment partner.
+              Asliya Recruitment was founded in 2018 with a single mission: to bridge the gap between exceptional talent and the companies that need them most. What began as a domestic staffing firm serving local businesses has grown into a globally recognized recruitment partner.
             </p>
             <p className="text-gray-500 leading-relaxed mb-10">
-              Over the past decade, we have expanded our operations to 30+ countries, served 300+ corporate clients, and successfully placed over 5,000 candidates across 15+ industries. Our ISO-certified processes, dedicated team of specialists, and commitment to compliance set us apart in an industry that demands nothing less than excellence.
+              Over the past decade, we have expanded our operations to 28+ countries, served 500+ corporate clients, and successfully placed over 20,000 candidates across 40+ industries. Our ISO-certified processes, dedicated team of specialists, and commitment to compliance set us apart in an industry that demands nothing less than excellence.
             </p>
 
             {/* Staggered highlight pills */}
@@ -439,10 +455,10 @@ function MissionVisionValues() {
    4. STATS BAND
 ═══════════════════════════════════════════ */
 const stats = [
-  { value:5000, suffix:"+", label:"Candidates Placed" },
-  { value:300,  suffix:"+", label:"Corporate Clients" },
-  { value:15,   suffix:"+", label:"Industries Served" },
-  { value:30,   suffix:"+", label:"Countries Covered" },
+  { value:20000, suffix:"+", label:"Candidates Placed" },
+  { value:500,  suffix:"+", label:"Corporate Clients" },
+  { value:40,   suffix:"+", label:"Industries Served" },
+  { value:28,   suffix:"+", label:"Countries Covered" },
 ];
 
 function StatsBand() {
@@ -482,12 +498,12 @@ function StatsBand() {
    5. TIMELINE
 ═══════════════════════════════════════════ */
 const milestones = [
-  { year:"2014", title:"Company Founded",            desc:"RecruitMax was incorporated with a team of 5, completing our first 50 domestic placements within the year." },
-  { year:"2015", title:"First Overseas Deployment",  desc:"Launched international operations with our inaugural deployment of 120 skilled workers to the Gulf region." },
-  { year:"2017", title:"Industry Expansion",         desc:"Grew our service coverage to 5 key industries and crossed the milestone of 100+ active corporate clients." },
-  { year:"2019", title:"Executive Search Division",  desc:"Established a dedicated C-suite and senior leadership headhunting practice, serving Fortune 500 partners." },
-  { year:"2021", title:"ISO 9001 Certified",         desc:"Achieved ISO 9001:2015 certification, formalizing our commitment to quality management and operational excellence." },
-  { year:"2024", title:"5000+ Placements & 30+ Countries", desc:"Reached our decade milestone: over 5,000 successful placements across 30+ countries and 15+ industries." },
+  { year: "2014", title: "Company Founded", desc: "Asliya Recruitment was incorporated with a team of 5, completing our first 50 domestic placements within the year." },
+  { year: "2015", title: "First Overseas Deployment", desc: "Launched international operations with our inaugural deployment of 120 skilled workers to the Gulf region." },
+  { year: "2017", title: "Industry Expansion", desc: "Grew our service coverage to 5 key industries and crossed the milestone of 100+ active corporate clients." },
+  { year: "2019", title: "Executive Search Division", desc: "Established a dedicated C-suite and senior leadership headhunting practice, serving Fortune 500 partners." },
+  { year: "2021", title: "ISO 9001 Certified", desc: "Achieved ISO 9001:2015 certification, formalizing our commitment to quality management and operational excellence." },
+  { year: "2024", title: "5000+ Placements & 30+ Countries", desc: "Reached our decade milestone: over 5,000 successful placements across 30+ countries and 15+ industries." },
 ];
 
 function Timeline() {
@@ -758,12 +774,14 @@ function CTABanner() {
               viewport={{ once:true }} transition={{ delay:.5, duration:.6 }}
               className="flex flex-wrap gap-4 justify-center"
             >
+              <a href="/contact" target="_blank" rel="noopener noreferrer">
               <motion.button
                 whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:.97 }}
                 className="bg-white text-[#154895] font-bold px-8 py-4 rounded-2xl flex items-center gap-2.5 shadow-2xl shadow-black/20 hover:shadow-black/30 transition-shadow duration-300"
               >
                 Get In Touch <ArrowRight size={18} />
               </motion.button>
+              </a>
               <motion.button
                 whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:.97 }}
                 className="bg-white/10 backdrop-blur-sm text-white font-bold px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-colors duration-300"

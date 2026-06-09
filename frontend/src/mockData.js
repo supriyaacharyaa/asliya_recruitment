@@ -88,27 +88,27 @@ export const clientsData = [
 // ── Testimonials ──────────────────────────────────────────────────────────────
 export const testimonialsData = [
   {
-    name: "Ahmed Al-Rashidi",
-    designation: "HR Director",
-    company: "Marriott MEA",
+    name: "Mr. Sami Kayed Mohammad Hindawa",
+    designation: "General Manager",
+    company: "Al Misnad Services",
     review:
-      "RecruitMax completely transformed our hiring process. Within two weeks, we had 80 qualified hotel staff ready for deployment. The quality of candidates was exceptional — we've never seen results this fast.",
+     "Asliya Manpower Supply has consistently demonstrated the ability to manage high-volume recruitment campaigns and mobilize workers from various African and Asian countries within demanding timeframes." ,
     rating: 5,
   },
   {
-    name: "Sarah Thompson",
-    designation: "Operations Manager",
-    company: "G4S Security",
+    name: "Ahmed Abdrabbo",
+    designation: "General Manager",
+    company: "Draieh Contracting",
     review:
-      "We've worked with many recruitment agencies, but none have matched the professionalism and reliability of RecruitMax. Their compliance knowledge is second to none, especially for overseas placements.",
+      "We've worked with many recruitment agencies, but none have matched the professionalism and reliability of Asliya Recruitment. Their compliance knowledge is second to none, especially for overseas placements.",
     rating: 5,
   },
   {
-    name: "Liu Wei",
+    name: "Mr. Antonie Ready",
     designation: "Plant Director",
-    company: "Siemens Manufacturing",
+    company: " BUTEC Qatar",
     review:
-      "For our mass production ramp-up, we needed 300 workers in 30 days. RecruitMax delivered 310. Their screening process ensured every candidate met our technical requirements from day one.",
+      "We are happy to work with Asliya Manpower Supply and confidently recommend their services to any organization requiring bulk manpower recruitment.",
     rating: 5,
   },
   {
@@ -124,7 +124,7 @@ export const testimonialsData = [
     designation: "Construction Director",
     company: "Turner & Townsend",
     review:
-      "We brought RecruitMax in for a major infrastructure project requiring 500+ skilled tradespeople. They delivered on time, on budget, and every worker was properly certified. Outstanding execution.",
+      "We brought Asliya Recruitment in for a major infrastructure project requiring 500+ skilled tradespeople. They delivered on time, on budget, and every worker was properly certified. Outstanding execution.",
     rating: 5,
   },
   {

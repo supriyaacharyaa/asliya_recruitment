@@ -33,9 +33,9 @@ const WHY_ITEMS = [
 ];
 
 const CONTACT_ITEMS = [
-  { icon: Phone,       label: "Call / WhatsApp", value: "+974 1234 5678"        },
-  { icon: Mail,        label: "Email Us",        value: "info@recruitmax.com"   },
-  { icon: MapPin,      label: "Our Office",      value: "Al Sadd, Doha, Qatar"  },
+  { icon: Phone,       label: "Call / WhatsApp", value: "+974 4443 4386"        },
+  { icon: Mail,        label: "Email Us",        value: "info@asliyarecruitment.com"   },
+  { icon: MapPin,      label: "Our Office",      value: "Muntaaza Trading, Doha, Qatar"  },
   { icon: Globe,       label: "Operating Hours", value: "Sun – Thu, 8am – 6pm"  },
 ];
 

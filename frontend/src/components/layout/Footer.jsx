@@ -2,163 +2,85 @@ import { useState } from "react";
 import {
   Phone, Mail, MapPin,
   Linkedin, Twitter, Facebook, Instagram,
-  ArrowRight, ChevronRight
+  ArrowRight, ChevronRight, Send,
 } from "lucide-react";
 import logo from "../../assets/logo.png";
 
 const footerLinks = {
   Services: [
-    "Domestic Recruitment",
-    "Overseas Recruitment",
-    "Executive Search",
-    "Mass Recruitment",
-    "Temporary Staffing",
-    "Local Staffing",
+    { label: "Domestic Recruitment", href: "/services" },
+    { label: "Overseas Recruitment", href: "/services" },
+    { label: "Executive Search", href: "/services" },
+    { label: "Mass Recruitment", href: "/services" },
+    { label: "Temporary Staffing", href: "/services" },
+    { label: "Local Staffing", href: "/services" },
   ],
-  Company: ["About Us", "Our Team", "Careers", "News & Blog", "CSR", "Contact"],
+  Company: [
+    { label: "About Us", href: "/about" },
+    { label: "Our Team", href: "/about#team" },
+    { label: "Clients", href: "/clients" },
+    { label: "News & Blog", href: "/blog" },
+    { label: "Industries", href: "/industries" },
+    { label: "Contact", href: "/contact" },
+  ],
   Industries: [
-    "Construction",
-    "Hospitality",
-    "Healthcare",
-    "Manufacturing",
-    "IT & Technology",
-    "Security Services",
+    { label: "Construction", href: "/industries/construction" },
+    { label: "Hospitality", href: "/industries/hospitality" },
+    { label: "Healthcare", href: "/industries/healthcare" },
+    { label: "Manufacturing", href: "/industries/manufacturing" },
+    { label: "IT & Technology", href: "/industries/technology" },
+    { label: "Security Services", href: "/industries/security" },
   ],
 };
 
 const socials = [
-  { Icon: Linkedin,  href: "#", label: "LinkedIn",  color: "#0A66C2" },
-  { Icon: Twitter,   href: "#", label: "Twitter",   color: "#1D9BF0" },
-  { Icon: Facebook,  href: "#", label: "Facebook",  color: "#1877F2" },
-  { Icon: Instagram, href: "#", label: "Instagram", color: "#E1306C" },
+  {
+    Icon: Linkedin,
+    href: "https://linkedin.com",
+    label: "LinkedIn",
+    hoverColor: "hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-white",
+  },
+  {
+    Icon: Twitter,
+    href: "https://twitter.com",
+    label: "Twitter / X",
+    hoverColor: "hover:bg-[#1D9BF0] hover:border-[#1D9BF0] hover:text-white",
+  },
+  {
+    Icon: Facebook,
+    href: "https://facebook.com",
+    label: "Facebook",
+    hoverColor: "hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white",
+  },
+  {
+    Icon: Instagram,
+    href: "https://instagram.com",
+    label: "Instagram",
+    hoverColor: "hover:bg-[#E1306C] hover:border-[#E1306C] hover:text-white",
+  },
 ];
 
-const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-  .footer-root {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: #0A0F1E;
-    color: #94A3B8;
-  }
-
-  /* ── Newsletter strip ── */
-  .nl-strip {
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    padding: 2.5rem 2rem;
-  }
-  .nl-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: flex; align-items: center;
-    justify-content: space-between; gap: 2rem;
-    flex-wrap: wrap;
-  }
-  .nl-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .nl-sub   { font-size: 13.5px; color: #64748B; }
-  .nl-form  { display: flex; gap: 10px; flex: 1; max-width: 440px; min-width: 260px; }
-  .nl-input {
-    flex: 1; background: rgba(255,255,255,.05);
-    border: 1.5px solid rgba(255,255,255,.1);
-    border-radius: 10px; padding: 11px 16px;
-    font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #fff; outline: none;
-    transition: border-color .2s, background .2s;
-  }
-  .nl-input::placeholder { color: #475569; }
-  .nl-input:focus { border-color: #1E40AF; background: rgba(255,255,255,.08); }
-  .nl-btn {
-    background: #1E40AF; color: #fff;
-    border: none; border-radius: 10px;
-    padding: 11px 22px; font-size: 14px; font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    cursor: pointer; display: flex; align-items: center; gap: 7px;
-    transition: background .2s, transform .2s, box-shadow .2s; white-space: nowrap;
-  }
-  .nl-btn:hover { background: #1E3A8A; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(30,64,175,.4); }
-  .nl-btn:active { transform: translateY(0); }
-
-  /* ── Main grid ── */
-  .ft-main {
-    max-width: 1100px; margin: 0 auto;
-    padding: 4rem 2rem 3.5rem;
-    display: grid;
-    grid-template-columns: 1.9fr 1fr 1fr 1fr;
-    gap: 3rem;
-  }
-
-  /* Brand col */
-  .ft-logo { margin-bottom: 1.25rem; }
-  .ft-logo img { height: 52px; width: auto; object-fit: contain; }
-  .ft-tagline { font-size: 13.5px; color: #64748B; line-height: 1.75; margin-bottom: 1.5rem; max-width: 280px; }
-
-  /* Contact items */
-  .ft-contact { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
-  .ft-contact-row {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 13.5px; color: #94A3B8;
-    text-decoration: none; transition: color .2s;
-  }
-  .ft-contact-row:hover { color: #fff; }
-  .ft-contact-icon {
-    width: 30px; height: 30px; flex-shrink: 0;
-    background: rgba(30,64,175,.15); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  /* Socials */
-  .ft-socials { display: flex; gap: 8px; }
-  .ft-social {
-    width: 36px; height: 36px;
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 9px; display: flex;
-    align-items: center; justify-content: center;
-    transition: all .25s; text-decoration: none;
-  }
-  .ft-social:hover { transform: translateY(-3px); }
-
-  /* Link columns */
-  .ft-col-title {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.8px;
-    text-transform: uppercase; color: #fff;
-    margin-bottom: 1.1rem;
-  }
-  .ft-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .ft-link {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 13.5px; color: #64748B; text-decoration: none;
-    transition: color .2s, gap .2s;
-  }
-  .ft-link:hover { color: #fff; gap: 8px; }
-  .ft-link-arrow { opacity: 0; transition: opacity .2s; font-size: 12px; }
-  .ft-link:hover .ft-link-arrow { opacity: 1; }
-
-  /* ── Divider / bottom bar ── */
-  .ft-bottom-wrap { border-top: 1px solid rgba(255,255,255,.07); }
-  .ft-bottom {
-    max-width: 1100px; margin: 0 auto;
-    padding: 1.5rem 2rem;
-    display: flex; align-items: center;
-    justify-content: space-between; gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .ft-copy { font-size: 12.5px; color: #475569; }
-  .ft-legal { display: flex; gap: 1.5rem; }
-  .ft-legal a { font-size: 12.5px; color: #475569; text-decoration: none; transition: color .2s; }
-  .ft-legal a:hover { color: #fff; }
-
-  /* ── Responsive ── */
-  @media (max-width: 900px) {
-    .ft-main { grid-template-columns: 1fr 1fr; }
-    .ft-brand { grid-column: 1 / -1; }
-  }
-  @media (max-width: 560px) {
-    .ft-main { grid-template-columns: 1fr; }
-    .nl-inner { flex-direction: column; align-items: flex-start; }
-    .ft-bottom { flex-direction: column; text-align: center; }
-    .ft-legal { flex-wrap: wrap; justify-content: center; }
-  }
-`;
+const contactItems = [
+  {
+    Icon: Phone,
+    text: "+974 4443 4386",
+    href: "tel:+97444434386",
+    ariaLabel: "Call us",
+  },
+  {
+    Icon: Mail,
+    text: "info@asliyarecruitment.com",
+    href: "mailto:info@asliyarecruitment.com",
+    ariaLabel: "Email us",
+  },
+  {
+    Icon: MapPin,
+    text: "Muntaaza Trading, Doha, Qatar",
+    href: "https://maps.google.com/?q=Muntaaza+Trading+Doha+Qatar",
+    ariaLabel: "View on map",
+    alignTop: true,
+  },
+];
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -173,104 +95,130 @@ export default function Footer() {
   };
 
   return (
-    <footer className="footer-root">
-      <style>{CSS}</style>
+    <footer
+      className="font-[Plus_Jakarta_Sans,sans-serif]"
+      style={{ background: "#0A0F1E", color: "#94A3B8" }}
+    >
+      {/* Top accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-600 to-transparent" />
 
-      {/* ── Newsletter strip ── */}
-      <div className="nl-strip">
-        <div className="nl-inner">
-          <div>
-            <div className="nl-title">Stay Updated</div>
-            <div className="nl-sub">Get the latest recruitment insights and job opportunities.</div>
+      {/* Newsletter strip */}
+      <div className="border-b border-white/[0.07]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10
+          flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6">
+
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-blue-700/30 border border-blue-500/30 flex items-center justify-center shrink-0">
+              <Send size={15} className="text-blue-400" />
+            </div>
+            <div>
+              <p className="text-[15px] font-extrabold text-white leading-tight">
+                Stay in the loop
+              </p>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Recruitment insights · Job alerts · Industry news
+              </p>
+            </div>
           </div>
-          <form className="nl-form" onSubmit={handleSubscribe}>
+
+          <form
+            onSubmit={handleSubscribe}
+            className="flex w-full sm:w-auto sm:max-w-md gap-2"
+          >
             <input
-              className="nl-input"
               type="email"
-              placeholder="Enter your email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              placeholder="Enter your email address"
+              className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
             />
-            <button className="nl-btn" type="submit">
-              {subscribed ? (
-                <>Done ✓</>
-              ) : (
-                <>Subscribe <ArrowRight size={14} /></>
-              )}
+            <button
+              type="submit"
+              className="shrink-0 flex items-center gap-2 bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all duration-200 whitespace-nowrap"
+            >
+              {subscribed ? "Done ✓" : <><span>Subscribe</span><ArrowRight size={14} className="hidden sm:block" /></>}
             </button>
           </form>
         </div>
       </div>
 
-      {/* ── Main footer grid ── */}
-      <div className="ft-main">
+      {/* Main grid */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16
+        grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.9fr_1fr_1fr_1fr]
+        gap-10 sm:gap-x-8 sm:gap-y-10 lg:gap-12">
 
-        {/* Brand column */}
-        <div className="ft-brand">
-          <div className="ft-logo">
-            <img src={logo} alt="Company logo" />
-          </div>
-          <p className="ft-tagline">
-            Your trusted recruitment partner for domestic, overseas, and mass hiring solutions since 2014.
+        {/* Brand column — spans full width on mobile & tablet, single col on desktop */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
+          <img
+            src={logo}
+            alt="Asliya Recruitment"
+            className="h-14 sm:h-16 w-auto object-contain object-left mb-5"
+          />
+
+          <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-sm">
+            Your trusted recruitment partner since 2014 — connecting top talent
+            with leading employers across Qatar and beyond.
           </p>
 
-          {/* Contact */}
-          <div className="ft-contact">
-            <a href="tel:+1234567890" className="ft-contact-row">
-              <div className="ft-contact-icon">
-                <Phone size={14} color="#3B82F6" strokeWidth={1.8} />
-              </div>
-              +1 234 567 890
-            </a>
-            <a href="mailto:info@recruitmax.com" className="ft-contact-row">
-              <div className="ft-contact-icon">
-                <Mail size={14} color="#3B82F6" strokeWidth={1.8} />
-              </div>
-              info@recruitmax.com
-            </a>
-            <div className="ft-contact-row">
-              <div className="ft-contact-icon" style={{ flexShrink: 0 }}>
-                <MapPin size={14} color="#3B82F6" strokeWidth={1.8} />
-              </div>
-              123 Business Tower, Suite 400,<br />New York, NY 10001
-            </div>
-          </div>
+          <ul className="flex flex-col gap-3 mb-7">
+            {contactItems.map(({ Icon, text, href, ariaLabel, alignTop }) => (
+              <li key={ariaLabel}>
+                <a
+                  href={href}
+                  aria-label={ariaLabel}
+                  target={href.startsWith("https://maps") ? "_blank" : undefined}
+                  rel={href.startsWith("https://maps") ? "noopener noreferrer" : undefined}
+                  className="group inline-flex gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200"
+                >
+                  <span
+                    className={`shrink-0 w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center
+                      group-hover:border-blue-500/40 group-hover:bg-blue-500/10 transition-all duration-200
+                      ${alignTop ? "mt-0.5" : ""}`}
+                  >
+                    <Icon size={13} className="text-slate-400 group-hover:text-blue-400 transition-colors duration-200" />
+                  </span>
+                  <span className="break-all sm:break-normal">{text}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
 
-          {/* Social icons */}
-          <div className="ft-socials">
-            {socials.map(({ Icon, href, label, color }) => (
+          <div className="flex items-center gap-2">
+            {socials.map(({ Icon, href, label, hoverColor }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
-                className="ft-social"
-                style={{ "--hover-color": color }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = color + "22";
-                  e.currentTarget.style.borderColor = color + "55";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,.05)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,.1)";
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10
+                  text-slate-400 transition-all duration-200 ${hoverColor}`}
               >
-                <Icon size={15} color="#64748B" strokeWidth={1.8} />
+                <Icon size={15} />
               </a>
             ))}
           </div>
         </div>
 
         {/* Link columns */}
-        {Object.entries(footerLinks).map(([category, links]) => (
-          <div key={category}>
-            <div className="ft-col-title">{category}</div>
-            <ul className="ft-links">
+        {Object.entries(footerLinks).map(([title, links]) => (
+          <div key={title}>
+            <p className="text-[10.5px] font-bold tracking-[2px] uppercase text-white mb-5">
+              {title}
+            </p>
+            <ul className="flex flex-col gap-2.5">
               {links.map((link) => (
-                <li key={link}>
-                  <a href="#" className="ft-link">
-                    <ChevronRight size={12} className="ft-link-arrow" />
-                    {link}
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="group inline-flex items-center gap-1.5 text-[13px] text-slate-500 hover:text-white transition-colors duration-200"
+                  >
+                    <ChevronRight
+                      size={11}
+                      className="text-blue-600 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 shrink-0"
+                    />
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -279,17 +227,21 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* ── Bottom bar ── */}
-      <div className="ft-bottom-wrap">
-        <div className="ft-bottom">
-          <div className="ft-copy">
-            © {new Date().getFullYear()} RecruitMax Global Manpower. All rights reserved.
-          </div>
-          <div className="ft-legal">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Cookie Policy</a>
-          </div>
+      {/* Divider */}
+      <div className="h-px mx-4 sm:mx-6 bg-white/[0.07]" />
+
+      {/* Bottom bar */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5
+        flex flex-col sm:flex-row items-center justify-between gap-3
+        text-[12.5px] text-slate-600">
+        <p>© {new Date().getFullYear()} Asliya Recruitment. All rights reserved. Licensed by Ministry of Labor, Qatar (License #618)</p>
+      
+        <div className="flex items-center gap-4 sm:gap-5 flex-wrap justify-center">
+          {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
+            <a key={item} href="#" className="hover:text-slate-300 transition-colors duration-200">
+              {item}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

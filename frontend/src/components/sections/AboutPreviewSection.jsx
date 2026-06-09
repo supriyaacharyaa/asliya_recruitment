@@ -16,14 +16,14 @@ const milestones = [
   { year: "2006", event: "Founded in Kathmandu as a domestic staffing firm" },
   { year: "2010", event: "Expanded to GCC region — first 500 overseas placements" },
   { year: "2016", event: "ISO 9001 certified & opened Dubai operations office" },
-  { year: "2024", event: "50,000+ placements across 42 countries" },
+  { year: "2024", event: "20,000+ placements across 28 countries" },
 ];
 
 
 const coreStats = [
-  { value: "18+", label: "Years" },
-  { value: "50K+", label: "Placed" },
-  { value: "42", label: "Countries" },
+  { value: "7+", label: "Years" },
+  { value: "20K+", label: "Placed" },
+  { value: "28+", label: "Countries" },
 ];
 
 
@@ -160,7 +160,7 @@ export default function AboutPreviewSection() {
                   className="text-white font-black text-[26px] leading-tight mb-3"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
-                  18 Years of<br />Manpower Excellence
+                  7+ Years of<br />Manpower Excellence
                 </motion.h3>
                 <motion.p
                   initial={{ opacity: 0 }}
@@ -291,7 +291,7 @@ export default function AboutPreviewSection() {
                 className="w-[6px] h-[6px] rounded-full flex-shrink-0"
                 style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
               />
-              About RecruitMax
+              About Asliya Recruitment
             </motion.div>
 
           
@@ -320,9 +320,9 @@ export default function AboutPreviewSection() {
               className="space-y-4 mb-8"
             >
               <p className="text-[16px] leading-relaxed" style={{ color: "#475569" }}>
-                Founded in 2006, <strong style={{ color: "#1e293b", fontWeight: 600 }}>RecruitMax Manpower</strong> has
-                grown from a domestic staffing firm into one of Nepal's most recognized international recruitment agencies —
-                placing skilled workers, professionals and executives across 42 countries.
+                Founded in 2006, <strong style={{ color: "#1e293b", fontWeight: 600 }}>Asliya Recruitment </strong> has
+                grown from a domestic staffing firm into one of Quatar's most recognized international recruitment agencies —
+                placing skilled workers, professionals and executives across 28 countries.
               </p>
               <p className="text-[15px] leading-relaxed" style={{ color: "#64748b" }}>
                 We specialize in the full recruitment lifecycle: sourcing, screening, trade testing, visa processing, pre-departure

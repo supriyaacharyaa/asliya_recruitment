@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   Zap, Globe, ShieldCheck, Trophy, Headphones, Scale
 } from "lucide-react";
+import SectionHeading from "../ui/SectionHeading";
 
 const features = [
   {
@@ -161,7 +162,7 @@ function FeatureCard({ Icon, title, description, color, bg, index }) {
 
 /* ── Main section ── */
 export default function WhyChooseUsSection() {
-  const { ref: statRef, value: retentionVal } = useCountUp(97, 1400, "%");
+  const { ref: statRef, value: retentionVal } = useCountUp(98, 1400, "%");
 
   return (
     <section style={{ padding: "5.5rem 2rem", background: "#fff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
@@ -191,29 +192,35 @@ export default function WhyChooseUsSection() {
         <div className="wcu-sticky">
 
           {/* Eyebrow */}
-          <div style={{
+          {/* <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 11, fontWeight: 700, letterSpacing: "2px",
             textTransform: "uppercase", color: "#DC2626", marginBottom: "1.1rem",
           }}>
             <span style={{ width: 20, height: 2.5, background: "#DC2626", borderRadius: 2, display: "inline-block" }} />
             Why Choose Us
-          </div>
+          </div> */}
 
           {/* Heading */}
-          <h2 style={{
+          {/* <h2 style={{
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 800,
             color: "#0F172A", lineHeight: 1.18, marginBottom: "1rem",
           }}>
             The Recruitment Partner{" "}
             <span style={{ color: "#1E40AF" }}>You've Been<br />Looking For</span>
-          </h2>
+          </h2> */}
 
           {/* Description */}
-          <p style={{ fontSize: 15.5, color: "#64748B", lineHeight: 1.78, marginBottom: "1.75rem" }}>
+          {/* <p style={{ fontSize: 15.5, color: "#64748B", lineHeight: 1.78, marginBottom: "1.75rem" }}>
             We don't just fill positions — we build long-term workforce partnerships. Our approach combines technology, expertise, and a human touch that the biggest platforms can't replicate.
-          </p>
+          </p> */}
+          <SectionHeading
+                    tag="Why Choose Us"
+                    title={<> The Recruitment Partner{" "}
+            <span style={{ color: "#1E40AF" }}>You've Been<br />Looking For</span></>}
+                    subtitle="We don't just fill positions — we build long-term workforce partnerships. Our approach combines technology, expertise, and a human touch that the biggest platforms can't replicate."
+                  />
 
           {/* Stat card */}
           <div

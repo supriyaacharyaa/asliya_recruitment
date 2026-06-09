@@ -234,6 +234,7 @@ export default function HeroSection() {
                   }}
                 />
                 Trusted Manpower Partner Since 2006
+               
               </div>
             </motion.div>
 
@@ -283,9 +284,9 @@ export default function HeroSection() {
               className="text-[17px] leading-relaxed mb-10"
               style={{ color: "#64748b", maxWidth: 480 }}
             >
-              From skilled workers to senior executives — we deliver end-to-end recruitment
-              across domestic &amp; international markets, serving 40+ industries in 42 countries.
-            </motion.p>
+              Scale your workforce in 25-30 days with pre-screened professionals from 28+ countries.
+Trusted by Qatar's leading organizations.
+ </motion.p>
 
             {/* CTA row */}
             <motion.div
@@ -452,7 +453,7 @@ export default function HeroSection() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.0 }}
                 >
-                  Connecting skilled professionals with leading employers across 42 countries
+                  Connecting skilled professionals with leading employers across 28+ countries
                 </motion.p>
 
                 {/* Stats grid */}
@@ -563,13 +564,13 @@ export default function HeroSection() {
               </div>
               <div>
                 <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#94a3b8" }}>Coverage</div>
-                <div className="text-[14px] font-black" style={{ color: "#1e293b" }}>42 Countries</div>
+                <div className="text-[14px] font-black" style={{ color: "#1e293b" }}>28+ Countries</div>
               </div>
             </motion.div>
 
             {/* Location ping chips */}
             {[
-              { label: "Dubai, UAE", top: "18%", right: "2%", delay: 1.2 },
+              { label: "Doha, Quatar", top: "18%", right: "2%", delay: 1.2 },
               { label: "Riyadh, KSA", top: "62%", right: "-2%", delay: 1.35 },
             ].map((loc) => (
               <motion.div
@@ -626,10 +627,10 @@ export default function HeroSection() {
           className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
           {[
-            { icon: Users, label: "Candidates Placed", to: 50000, suffix: "+", color: "#154895" },
+            { icon: Users, label: "Candidates Placed", to: 20000, suffix: "+", color: "#154895" },
             { icon: Briefcase, label: "Partner Companies", to: 500, suffix: "+", color: "#e62224" },
-            { icon: Globe, label: "Countries Covered", to: 42, suffix: "", color: "#10b981" },
-            { icon: Award, label: "Years Experience", to: 18, suffix: " yrs", color: "#f59e0b" },
+            { icon: Globe, label: "Countries Covered", to: 28, suffix: "+", color: "#10b981" },
+            { icon: Award, label: "Years Experience", to: 7, suffix: " yrs", color: "#f59e0b" },
           ].map(({ icon: Icon, label, to, suffix, color }, i) => (
             <motion.div
               key={label}

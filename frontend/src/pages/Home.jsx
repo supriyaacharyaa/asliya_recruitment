@@ -1,5 +1,6 @@
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import MainLayout from "../components/layout/MainLayout";
 import HeroSection from "../components/sections/HeroSection";
 import TrustedCompanies from "../components/sections/TrustedCompanies";
 import StatsSection from "../components/sections/StatsSection";

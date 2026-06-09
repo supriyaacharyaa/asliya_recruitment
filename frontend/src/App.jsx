@@ -11,6 +11,7 @@ import ClientsPage from "./pages/Client";
 import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
 import GetFreeQuotePage from "./pages/Getquotepage";
+import Blog from "./pages/Blog";
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
-
+        <Route path="/blog" element={<Blog />} />
         {/* Only Overseas page uses UserLayout */}
         <Route element={<UserLayout />}>
           <Route

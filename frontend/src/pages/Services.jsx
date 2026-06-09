@@ -234,7 +234,7 @@ const INDUSTRIES = [
 const TESTIMONIALS = [
   {
     quote:
-      "RecruitMax deployed 300 construction workers to our UAE project in under 3 weeks. Documentation was flawless and every worker arrived compliant. Absolutely professional.",
+      "Asliya Recruitment deployed 300 construction workers to our UAE project in under 3 weeks. Documentation was flawless and every worker arrived compliant. Absolutely professional.",
     name: "Mohammed Al-Rashidi",
     role: "Projects Director",
     company: "Al Futtaim Engineering",
@@ -243,7 +243,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "We needed a Country Manager fast. RecruitMax's executive search team delivered a shortlist of 4 outstanding candidates within 5 weeks — all passive, all perfectly matched.",
+      "We needed a Country Manager fast. Asliya Recruitment's executive search team delivered a shortlist of 4 outstanding candidates within 5 weeks — all passive, all perfectly matched.",
     name: "Sandra Reyes",
     role: "Chief People Officer",
     company: "Pacific Rim Holdings",
@@ -252,7 +252,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "During our peak season we needed 150 temp staff across 12 outlets. RecruitMax filled every position in 48 hours. That kind of speed is unmatched in the industry.",
+      "During our peak season we needed 150 temp staff across 12 outlets. Asliya Recruitment filled every position in 48 hours. That kind of speed is unmatched in the industry.",
     name: "Kevin Tan",
     role: "Head of Operations",
     company: "Foodpanda Philippines",
@@ -291,7 +291,7 @@ const FAQS = [
     a: "We source talent from the Philippines, Nepal, India, Sri Lanka, Bangladesh, Indonesia, and other key labor-sending countries, depending on principal requirements.",
   },
   {
-    q: "How do I get started with RecruitMax?",
+    q: "How do I get started with Asliya Recruitment?",
     a: "Simply click 'Book a Free Consultation' or call our hotline. A dedicated account manager will contact you within 2 hours to understand your needs and propose a plan.",
   },
 ]
@@ -463,7 +463,7 @@ export default function Services() {
               variants={fadeUp} custom={0.5} initial="hidden" animate="visible"
               className="text-5xl lg:text-6xl font-black text-white leading-tight"
             >
-              End-to-End Recruitment Solutions
+              Complete Recruitment Solutions for Every Industry
             </motion.h1>
             <motion.p
               variants={fadeUp} custom={1} initial="hidden" animate="visible"
@@ -827,7 +827,7 @@ export default function Services() {
               <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
                 Book a free consultation and we'll recommend the right solution for your hiring needs.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mt-10 flex flex-wrap justify-center gap-4" onClick={()=>window.location.href='/contact'}>
                 <motion.button
                   whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
                   className="bg-white text-[#154895] font-bold rounded-2xl px-8 py-4 hover:bg-gray-50 transition-colors duration-300"

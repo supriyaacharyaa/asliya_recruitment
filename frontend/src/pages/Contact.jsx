@@ -23,16 +23,22 @@ const fadeUp = {
 }
 
 const OFFICES = [
-  {
-    flag: "🇺🇸", city: "New York", country: "USA", hq: true,
-    address: "123 Business Tower, Suite 400, New York, NY 10001",
-    phone: "+1 234 567 8900",
-  },
-  {
-    flag: "🇦🇪", city: "Dubai", country: "UAE", hq: false,
-    address: "Level 18, One Central, DWTC, Dubai",
-    phone: "+971 4 567 8901",
-  },
+ {
+  flag: "🇶🇦",
+  city: "Doha",
+  country: "Qatar",
+  hq: false,
+  address: "Muntaaza Trading, Doha, Qatar",
+  phone: "+974 4443 4386",
+},
+{
+  flag: "🇦🇪",
+  city: "Dubai",
+  country: "UAE",
+  hq: false,
+  address: "Level 18, One Central, DWTC, Dubai",
+  phone: "+971 4 567 8901",
+},
   {
     flag: "🇵🇭", city: "Manila", country: "Philippines", hq: false,
     address: "12F Ayala Tower One, Makati City, Metro Manila",
@@ -183,9 +189,9 @@ export default function Contact() {
           <motion.div variants={fadeUp} custom={1.5} initial="hidden" animate="visible"
             className="mt-10 flex flex-wrap gap-3">
             {[
-              { icon: Phone, text: "+1 234 567 890" },
-              { icon: Mail, text: "info@recruitmax.com" },
-              { icon: MapPin, text: "New York, USA" },
+              { icon: Phone, text: "+974 4443 4386" },
+              { icon: Mail, text: "info@asliyarecruitment.com" },
+              { icon: MapPin, text: "Doha, Qatar" },
             ].map(({ icon: Icon, text }) => (
               <div key={text}
                 className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5 text-white text-sm font-medium">
@@ -349,15 +355,15 @@ export default function Contact() {
               {[
                 {
                   icon: Phone, iconBg: "bg-[#154895]", label: "Call Us",
-                  value: "+1 234 567 890", sub: "Mon–Fri, 8am–6pm",
+                  value: "+974 4443 4386", sub: "Mon–Fri, 8am–6pm",
                 },
                 {
                   icon: Mail, iconBg: "bg-[#e62224]", label: "Email Us",
-                  value: "info@recruitmax.com", sub: "We reply within 24 hours",
+                  value: "info@asliyarecruitment.com", sub: "We reply within 24 hours",
                 },
                 {
                   icon: MapPin, iconBg: "bg-emerald-500", label: "Visit Us",
-                  value: "123 Business Tower, Suite 400", sub: "New York, NY 10001, USA",
+                  value: "Muntaaza Trading, Doha, Qatar", sub: "Walk-ins welcome during business hours",
                 },
                 {
                   icon: Clock, iconBg: "bg-amber-500", label: "Business Hours",
@@ -462,8 +468,8 @@ export default function Contact() {
               className="bg-white rounded-2xl p-6 shadow-xl text-center w-72"
             >
               <MapPin className="w-8 h-8 text-[#e62224] mx-auto mb-3" />
-              <p className="font-bold text-gray-900">RecruitMax HQ</p>
-              <p className="text-sm text-gray-500 mt-1">123 Business Tower, New York</p>
+              <p className="font-bold text-gray-900">Asliya Recruitment</p>
+              <p className="text-sm text-gray-500 mt-1">Muntaaza Trading, Doha, Qatar</p>
               <button className="mt-3 text-[#154895] font-semibold text-sm hover:underline underline-offset-4 transition-all">
                 Get Directions →
               </button>
@@ -485,7 +491,9 @@ export default function Contact() {
                 whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
                 className="bg-white text-[#154895] font-bold rounded-2xl px-6 py-3.5 flex items-center gap-2 hover:bg-gray-50 transition-colors duration-300"
               >
-                <Phone className="w-4 h-4" /> Call +1 234 567 890
+                <a href="tel:+97444434386" className="flex items-center gap-2">
+                  <Phone className="w-4 h-4" /> Call +974 4443 4386
+                </a>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
@@ -555,10 +563,10 @@ export default function Contact() {
             <div className="absolute inset-0 opacity-10"
               style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
             <div className="relative z-10">
-              <span className="text-sm font-semibold text-white/50 uppercase tracking-widest">Ready to Start?</span>
+              <span className="text-sm font-semibold text-brand-secondary uppercase tracking-widest">Ready to Start?</span>
               <h2 className="mt-4 text-4xl font-black text-white">Let's Build Your Workforce Together</h2>
               <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
-                From a single hire to 1,000 workers — RecruitMax has the scale, speed, and expertise to deliver.
+                From a single hire to 1,000 workers — Asliya Recruitment has the scale, speed, and expertise to deliver.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <motion.button
@@ -571,7 +579,9 @@ export default function Contact() {
                   whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
                   className="border-2 border-white/40 text-white font-bold rounded-2xl px-8 py-4 hover:bg-white/10 inline-flex items-center gap-2 transition-colors duration-300"
                 >
+                <a href="tel:+97444434386" className="flex items-center gap-2">
                   <Phone className="w-4 h-4" /> Call Us Now
+                </a>
                 </motion.button>
               </div>
             </div>

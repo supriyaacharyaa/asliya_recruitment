@@ -94,6 +94,7 @@ export default function RecruitmentProcessSection() {
       <Container className="relative z-10">
 
         {/* ── Heading ── */}
+       
         <SectionHeading
           tag="How We Work"
           title={<>Our Recruitment <span className="text-[#154895]">Process</span></>}

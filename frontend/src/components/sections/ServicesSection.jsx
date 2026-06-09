@@ -19,9 +19,9 @@ import {
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const stats = [
-  { value: "18+", label: "Years in Operation", icon: Award },
-  { value: "12K+", label: "Candidates Placed", icon: Users },
-  { value: "40+", label: "Countries Covered", icon: MapPin },
+  { value: "7+", label: "Years in Operation", icon: Award },
+  { value: "20K+", label: "Candidates Placed", icon: Users },
+  { value: "28+", label: "Countries Covered", icon: MapPin },
   { value: "98%", label: "Client Retention", icon: TrendingUp },
 ];
 
@@ -309,10 +309,25 @@ export default function ServicesSection() {
               transition={{ duration: 0.6 }}
               className="flex items-center gap-3 mb-5"
             >
-              <div className="w-10 h-[2px] bg-[#154895]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#154895]">
-                Our Services
-              </span>
+              
+              <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2 mb-6 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
+              style={{
+                background: "rgba(21,72,149,0.06)",
+                borderColor: "rgba(21,72,149,0.14)",
+                color: "#154895",
+              }}
+            >
+              <span
+                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
+              />
+              Our Services
+            </motion.div>
             </motion.div>
 
             <motion.h2
@@ -393,7 +408,7 @@ export default function ServicesSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-2xl overflow-hidden"
         >
-          <div className="absolute inset-0 bg-[#0f1929]" />
+          <div className="absolute inset-0 bg-brand-primary" />
 
           <div
             className="absolute -top-20 -right-20 w-72 h-72 rounded-full"
@@ -408,7 +423,7 @@ export default function ServicesSection() {
             style={{ background: "rgba(21,72,149,0.06)" }}
           />
 
-          <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          {/* <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#154895] mb-4">
                 Start Today
@@ -443,7 +458,46 @@ export default function ServicesSection() {
                 <ArrowUpRight size={15} />
               </motion.button>
             </div>
-          </div>
+          </div> */}
+          <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+  <div className="max-w-xl">
+    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 mb-4">
+      Start Today
+    </p>
+
+    <h3 className="font-serif text-3xl lg:text-4xl font-bold text-white leading-snug mb-4">
+      Ready to build your
+      <br />
+      <span className="text-brand-secondary italic">ideal workforce?</span>
+    </h3>
+
+    <p className="text-sm text-white/75 leading-relaxed font-light">
+      Our recruitment specialists are on hand to craft a tailored
+      manpower strategy for your business — whether you need 1
+      executive or 1,000 skilled workers, locally or overseas.
+    </p>
+  </div>
+
+  <div className="flex flex-col gap-3 flex-shrink-0">
+    <motion.button
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      className="flex items-center justify-center gap-2.5 bg-white text-[#134a93] px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
+    >
+      Get a Free Consultation
+      <ChevronRight size={16} />
+    </motion.button>
+
+    <motion.button
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      className="flex items-center justify-center gap-2.5 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-white/15 transition-colors duration-200"
+    >
+      Download Company Profile
+      <ArrowUpRight size={15} />
+    </motion.button>
+  </div>
+</div>
         </motion.div>
       </div>
     </section>

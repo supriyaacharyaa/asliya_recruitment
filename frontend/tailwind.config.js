@@ -8,7 +8,7 @@ export default {
       },
       colors: {
         brand: {
-          primary: "#154895",
+          primary: "#134a93",
           secondary: "#e62224",
         },
       },

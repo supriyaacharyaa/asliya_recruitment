@@ -169,7 +169,7 @@ export default function TrustedCompanies() {
                 Trusted Partners
               </p>
               <p className="text-[12px]" style={{ color: "#94a3b8" }}>
-                300+ companies across 42 countries
+                300+ companies across 28+ countries
               </p>
             </div>
           </motion.div>

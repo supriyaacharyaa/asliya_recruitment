@@ -19,7 +19,7 @@ import {
 
 const stats = [
   {
-    value: 50000,
+    value: 20000,
     suffix: "+",
     label: "Candidates Placed",
     description:
@@ -39,8 +39,8 @@ const stats = [
     lightBg: "rgba(230,34,36,0.06)",
   },
   {
-    value: 42,
-    suffix: "",
+    value: 28,
+    suffix: "+",
     label: "Countries Covered",
     description:
       "Active placement network spanning the Middle East, Asia, Europe & beyond",
@@ -49,8 +49,8 @@ const stats = [
     lightBg: "rgba(16,185,129,0.06)",
   },
   {
-    value: 18,
-    suffix: " yrs",
+    value: 7,
+    suffix: "+ yrs",
     label: "Years of Excellence",
     description:
       "Nearly two decades of manpower expertise and industry relationships",

@@ -52,8 +52,8 @@ export default function IndustriesSection({ industries = [] }) {
           <div className="inline-flex flex-wrap justify-center border border-[#154895]/10 rounded-2xl overflow-hidden bg-[#f3f5fb]">
             {[
               { value: "15+", label: "Industries Covered" },
-              { value: "50K+", label: "Placements Made" },
-              { value: "40+", label: "Countries Reached" },
+              { value: "20K+", label: "Placements Made" },
+              { value: "28+", label: "Countries Reached" },
             ].map(({ value, label }, i, arr) => (
               <div
                 key={label}
