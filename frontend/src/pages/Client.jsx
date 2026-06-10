@@ -8,7 +8,6 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  MessageCircle,
   MapPin,
   Shield,
   ChevronLeft,
@@ -23,7 +22,6 @@ import {
   Briefcase,
   Hash,
   FileText,
-  X,
 } from "lucide-react";
 
 const clients = [
@@ -109,6 +107,10 @@ const stats = [
   { num: "25–30", label: "Days Avg. Deploy", icon: Zap },
 ];
 
+// Glassmorphism card style helper
+const glassCard =
+  "bg-white/70 backdrop-blur-md border border-white/80 shadow-[0_4px_24px_rgba(21,72,149,0.08)]";
+
 function StatCard({ stat, index }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -118,12 +120,12 @@ function StatCard({ stat, index }) {
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="relative bg-white rounded-2xl border border-gray-100 p-7 overflow-hidden group hover:shadow-xl transition-shadow duration-300"
+      className={`relative ${glassCard} rounded-2xl p-7 overflow-hidden group hover:shadow-[0_8px_32px_rgba(21,72,149,0.16)] transition-shadow duration-300`}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0A1628]/0 to-[#0A1628]/0 group-hover:from-[#0A1628]/5 group-hover:to-[#C9A84C]/10 transition-all duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#154895]/0 to-[#154895]/0 group-hover:from-[#154895]/5 group-hover:to-[#e62224]/5 transition-all duration-500 rounded-2xl" />
       <div className="relative z-10">
-        <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center mb-5 group-hover:bg-[#0A1628] transition-colors duration-300">
-          <stat.icon size={22} className="text-[#0A1628] group-hover:text-[#C9A84C] transition-colors duration-300" />
+        <div className="w-12 h-12 rounded-xl bg-[#154895]/10 flex items-center justify-center mb-5 group-hover:bg-[#154895] transition-colors duration-300">
+          <stat.icon size={22} className="text-[#154895] group-hover:text-white transition-colors duration-300" />
         </div>
         <motion.div
           className="text-4xl font-black text-gray-900 mb-1 tabular-nums"
@@ -148,16 +150,16 @@ function ClientCard({ client, index }) {
       initial={{ opacity: 0, scale: 0.88 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
       transition={{ delay: (index % 10) * 0.04, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white border border-gray-100 rounded-2xl p-5 hover:border-[#C9A84C]/40 hover:shadow-lg transition-all duration-300 cursor-default overflow-hidden"
+      className={`group relative ${glassCard} rounded-2xl p-5 hover:border-[#154895]/30 hover:shadow-[0_8px_32px_rgba(21,72,149,0.14)] transition-all duration-300 cursor-default overflow-hidden`}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/0 to-[#C9A84C]/0 group-hover:from-[#C9A84C]/5 group-hover:to-white transition-all duration-400" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#154895]/0 to-[#154895]/0 group-hover:from-[#154895]/5 group-hover:to-white/50 transition-all duration-400 rounded-2xl" />
       <div className="relative z-10">
-        <div className="w-11 h-11 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center mb-3 group-hover:bg-[#0A1628] transition-colors duration-300">
-          <Building2 size={18} className="text-[#0A1628] group-hover:text-[#C9A84C] transition-colors duration-300" />
+        <div className="w-11 h-11 rounded-xl bg-[#154895]/10 flex items-center justify-center mb-3 group-hover:bg-[#154895] transition-colors duration-300">
+          <Building2 size={18} className="text-[#154895] group-hover:text-white transition-colors duration-300" />
         </div>
         <div className="text-[13.5px] font-bold text-gray-900 mb-1 leading-tight">{client.name}</div>
         <div className="flex items-center justify-between mt-2">
-          <span className="text-[10.5px] font-semibold text-[#0A1628] bg-[#C9A84C]/10 px-2.5 py-1 rounded-full">
+          <span className="text-[10.5px] font-semibold text-[#154895] bg-[#154895]/10 px-2.5 py-1 rounded-full">
             {client.sector}
           </span>
           <span className="text-[11px] text-gray-400 font-medium">{client.workers} placed</span>
@@ -182,30 +184,30 @@ function TestimonialsCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-white border border-gray-100 rounded-3xl p-10 lg:p-14"
+            className={`${glassCard} rounded-3xl p-10 lg:p-14`}
           >
             <div className="flex items-start gap-5 mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0A1628] to-[#0d2245] flex items-center justify-center text-[#C9A84C] text-lg font-black flex-shrink-0 shadow-lg">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#154895] to-[#1a5ab5] flex items-center justify-center text-white text-lg font-black flex-shrink-0 shadow-lg">
                 {testimonials[active].initials}
               </div>
               <div>
-                <span className="inline-block bg-[#C9A84C]/10 text-[#0A1628] text-xs font-bold px-3 py-1.5 rounded-full mb-2">
+                <span className="inline-block bg-[#e62224]/10 text-[#e62224] text-xs font-bold px-3 py-1.5 rounded-full mb-2">
                   {testimonials[active].tag}
                 </span>
                 <div className="flex gap-1">
                   {Array.from({ length: testimonials[active].rating }).map((_, i) => (
-                    <Star key={i} size={14} fill="#C9A84C" className="text-[#C9A84C]" />
+                    <Star key={i} size={14} fill="#154895" className="text-[#154895]" />
                   ))}
                 </div>
               </div>
-              <Quote size={40} className="ml-auto text-gray-100 flex-shrink-0 hidden sm:block" />
+              <Quote size={40} className="ml-auto text-[#154895]/10 flex-shrink-0 hidden sm:block" />
             </div>
 
             <p className="text-gray-700 text-lg lg:text-xl leading-relaxed mb-8 font-light">
               "{testimonials[active].quote}"
             </p>
 
-            <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
+            <div className="flex items-center gap-4 pt-6 border-t border-[#154895]/10">
               <div>
                 <div className="font-bold text-gray-900">{testimonials[active].name}</div>
                 <div className="text-gray-500 text-sm">
@@ -223,20 +225,20 @@ function TestimonialsCarousel() {
             <motion.button
               key={i}
               onClick={() => setActive(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${i === active ? "bg-[#C9A84C] w-8" : "bg-gray-200 w-2 hover:bg-gray-300"}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === active ? "bg-[#154895] w-8" : "bg-[#154895]/20 w-2 hover:bg-[#154895]/40"}`}
             />
           ))}
         </div>
         <div className="flex gap-3">
           <button
             onClick={prev}
-            className="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-[#0A1628] hover:border-[#0A1628] hover:text-[#C9A84C] text-gray-500 transition-all duration-200"
+            className="w-11 h-11 rounded-xl border border-[#154895]/20 flex items-center justify-center hover:bg-[#154895] hover:border-[#154895] hover:text-white text-gray-500 transition-all duration-200"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={next}
-            className="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-[#0A1628] hover:border-[#0A1628] hover:text-[#C9A84C] text-gray-500 transition-all duration-200"
+            className="w-11 h-11 rounded-xl border border-[#154895]/20 flex items-center justify-center hover:bg-[#154895] hover:border-[#154895] hover:text-white text-gray-500 transition-all duration-200"
           >
             <ChevronRight size={18} />
           </button>
@@ -247,10 +249,10 @@ function TestimonialsCarousel() {
 }
 
 const fields = [
-  { id: "name", label: "Full Name", placeholder: "Your full name", icon: User, type: "text", span: 1 },
-  { id: "company", label: "Company Name", placeholder: "Your company", icon: Briefcase, type: "text", span: 1 },
-  { id: "email", label: "Email Address", placeholder: "you@company.com", icon: Mail, type: "email", span: 1 },
-  { id: "phone", label: "Phone / WhatsApp", placeholder: "+974 ...", icon: Phone, type: "tel", span: 1 },
+  { id: "name", label: "Full Name", placeholder: "Your full name", icon: User, type: "text" },
+  { id: "company", label: "Company Name", placeholder: "Your company", icon: Briefcase, type: "text" },
+  { id: "email", label: "Email Address", placeholder: "you@company.com", icon: Mail, type: "email" },
+  { id: "phone", label: "Phone / WhatsApp", placeholder: "+974 ...", icon: Phone, type: "tel" },
 ];
 
 function FloatingInput({ field, value, onChange, delay }) {
@@ -266,25 +268,25 @@ function FloatingInput({ field, value, onChange, delay }) {
       className="relative"
     >
       <div
-        className={`relative border-2 rounded-2xl transition-all duration-300 overflow-hidden ${
+        className={`relative border-2 rounded-2xl transition-all duration-300 overflow-hidden bg-white/80 ${
           focused
-            ? "border-[#C9A84C] shadow-[0_0_0_4px_rgba(201,168,76,0.12)]"
+            ? "border-[#154895] shadow-[0_0_0_4px_rgba(21,72,149,0.10)]"
             : hasValue
-              ? "border-[#C9A84C]/40"
-              : "border-gray-200 hover:border-gray-300"
+              ? "border-[#154895]/40"
+              : "border-gray-200 hover:border-[#154895]/30"
         }`}
       >
         <div
           className={`absolute left-4 transition-all duration-250 pointer-events-none ${
             isActive
-              ? "top-2.5 text-[10px] font-bold text-[#0A1628] tracking-wide uppercase"
+              ? "top-2.5 text-[10px] font-bold text-[#154895] tracking-wide uppercase"
               : "top-1/2 -translate-y-1/2 text-sm text-gray-400"
           }`}
         >
           {field.label}
         </div>
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
-          <field.icon size={16} className={`transition-colors duration-200 ${focused ? "text-[#C9A84C]" : "text-gray-300"}`} />
+          <field.icon size={16} className={`transition-colors duration-200 ${focused ? "text-[#154895]" : "text-gray-300"}`} />
         </div>
         <input
           type={field.type}
@@ -325,9 +327,10 @@ function ContactForm() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       viewport={{ once: true }}
-      className="relative bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-2xl shadow-[#0A1628]/10"
+      className={`relative ${glassCard} rounded-3xl overflow-hidden`}
     >
-      <div className="h-1.5 bg-gradient-to-r from-[#0A1628] via-[#C9A84C] to-[#0A1628]" />
+      {/* Top accent bar: blue → red → blue */}
+      <div className="h-1.5 bg-gradient-to-r from-[#154895] via-[#e62224] to-[#154895]" />
 
       <div className="p-8 lg:p-12">
         <AnimatePresence mode="wait">
@@ -368,7 +371,7 @@ function ContactForm() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
                 onClick={() => { setStep(0); setForm({ name: "", company: "", email: "", phone: "", workers: "", message: "" }); }}
-                className="text-[#0A1628] font-semibold text-sm border border-[#C9A84C]/40 px-5 py-2.5 rounded-xl hover:bg-[#C9A84C]/10 transition-colors"
+                className="text-[#154895] font-semibold text-sm border border-[#154895]/30 px-5 py-2.5 rounded-xl hover:bg-[#154895]/10 transition-colors"
               >
                 Send Another Enquiry
               </motion.button>
@@ -400,7 +403,7 @@ function ContactForm() {
                           initial={{ opacity: 0, y: -6 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
-                          className="text-red-500 text-xs mt-1.5 ml-1"
+                          className="text-[#e62224] text-xs mt-1.5 ml-1"
                         >
                           Required field
                         </motion.p>
@@ -416,7 +419,7 @@ function ContactForm() {
                 transition={{ delay: 0.35, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="mb-5"
               >
-                <div className="relative border-2 border-gray-200 hover:border-gray-300 rounded-2xl transition-colors duration-200 overflow-hidden">
+                <div className="relative border-2 border-gray-200 hover:border-[#154895]/30 rounded-2xl transition-colors duration-200 overflow-hidden bg-white/80">
                   <div className="absolute left-4 top-2.5 text-[10px] font-bold text-gray-400 tracking-wide uppercase">Workers Needed</div>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
                     <Hash size={16} className="text-gray-300" />
@@ -443,7 +446,7 @@ function ContactForm() {
                 transition={{ delay: 0.42, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="mb-8"
               >
-                <div className="relative border-2 border-gray-200 hover:border-gray-300 focus-within:border-[#C9A84C] focus-within:shadow-[0_0_0_4px_rgba(201,168,76,0.12)] rounded-2xl transition-all duration-300 overflow-hidden">
+                <div className="relative border-2 border-gray-200 hover:border-[#154895]/30 focus-within:border-[#154895] focus-within:shadow-[0_0_0_4px_rgba(21,72,149,0.10)] rounded-2xl transition-all duration-300 overflow-hidden bg-white/80">
                   <div className="absolute left-4 top-3 text-[10px] font-bold text-gray-400 tracking-wide uppercase">Message / Requirements</div>
                   <div className="absolute right-4 top-3">
                     <FileText size={16} className="text-gray-300" />
@@ -463,12 +466,12 @@ function ContactForm() {
                 disabled={step === 1}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full relative overflow-hidden bg-[#0A1628] hover:bg-[#0d2245] disabled:bg-[#0A1628]/70 text-white font-bold py-4 rounded-2xl transition-colors duration-200 shadow-xl shadow-[#0A1628]/30 flex items-center justify-center gap-3 text-[15px]"
+                className="w-full relative overflow-hidden bg-[#154895] hover:bg-[#1a5ab5] disabled:bg-[#154895]/70 text-white font-bold py-4 rounded-2xl transition-colors duration-200 shadow-xl shadow-[#154895]/25 flex items-center justify-center gap-3 text-[15px]"
               >
                 <AnimatePresence mode="wait">
                   {step === 1 ? (
                     <motion.div key="loading" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-3">
-                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }} className="w-5 h-5 border-2 border-white/30 border-t-[#C9A84C] rounded-full" />
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }} className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full" />
                       Sending your request...
                     </motion.div>
                   ) : (
@@ -479,8 +482,9 @@ function ContactForm() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                {/* shimmer */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C9A84C]/10 to-transparent -skew-x-12"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
                   initial={{ x: "-100%" }}
                   animate={{ x: "200%" }}
                   transition={{ repeat: Infinity, duration: 2.5, ease: "linear", repeatDelay: 1 }}
@@ -496,13 +500,14 @@ function ContactForm() {
 
 export default function ClientsPage() {
   return (
-    <div className="min-h-screen bg-[#f8f9fc] font-sans">
+    <div className="min-h-screen bg-[#f4f8ff] font-sans">
       {/* HERO */}
-      <section className="relative bg-gradient-to-br from-[#060d1f] via-[#0A1628] to-[#0d2245] py-28 px-5 sm:px-8 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#C9A84C]/5 -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#C5282B]/10 translate-y-1/2 -translate-x-1/3 blur-3xl pointer-events-none" />
-        {/* Gold top line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent opacity-70" />
+      <section className="relative bg-gradient-to-br from-[#0d2e6e] via-[#154895] to-[#1a5ab5] py-28 px-5 sm:px-8 overflow-hidden">
+        {/* decorative blobs */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-white/5 -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#e62224]/15 translate-y-1/2 -translate-x-1/3 blur-3xl pointer-events-none" />
+        {/* red top accent */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#e62224] to-transparent opacity-80" />
 
         <div className="relative max-w-[1280px] mx-auto text-center">
           <motion.div
@@ -516,14 +521,14 @@ export default function ClientsPage() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-full px-5 py-2.5 mb-8"
             >
-              <span className="w-2 h-2 rounded-full bg-[#C9A84C] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#e62224] animate-pulse" />
               <span className="text-white/90 text-sm font-semibold">300+ Organizations Trust Asliya Manpower</span>
             </motion.div>
 
             <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
               The Companies
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] to-[#e8cc7a]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff6b6b] to-[#e62224]">
                 Betting On Us
               </span>
             </h1>
@@ -544,20 +549,20 @@ export default function ClientsPage() {
                 initial={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 + i * 0.08, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                className="bg-white/8 backdrop-blur-sm border border-white/10 rounded-2xl py-5 px-4 text-center"
+                className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl py-5 px-4 text-center"
               >
-                <div className="text-3xl font-black text-[#C9A84C] mb-1">{s.num}</div>
+                <div className="text-3xl font-black text-white mb-1">{s.num}</div>
                 <div className="text-white/50 text-xs font-medium">{s.label}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f8f9fc] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f4f8ff] to-transparent" />
       </section>
 
       {/* TRUST BAR */}
-      <section className="bg-white border-b border-gray-100 py-5 px-5 sm:px-8">
+      <section className="bg-white/80 backdrop-blur-md border-b border-[#154895]/10 py-5 px-5 sm:px-8">
         <div className="max-w-[1280px] mx-auto flex flex-wrap items-center justify-center gap-8">
           {[
             { icon: Shield, text: "Ministry of Labor Qatar — License #618" },
@@ -572,7 +577,7 @@ export default function ClientsPage() {
               transition={{ delay: i * 0.06, duration: 0.4 }}
               className="flex items-center gap-2 text-sm font-semibold text-gray-600"
             >
-              <c.icon size={16} className="text-[#C9A84C]" />
+              <c.icon size={16} className="text-[#154895]" />
               {c.text}
             </motion.div>
           ))}
@@ -622,7 +627,7 @@ export default function ClientsPage() {
       </section>
 
       {/* STATS BAND */}
-      <section className="py-16 px-5 sm:px-8 bg-white">
+      <section className="py-16 px-5 sm:px-8 bg-white/60 backdrop-blur-sm">
         <div className="max-w-[1280px] mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((s, i) => (
@@ -633,7 +638,7 @@ export default function ClientsPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 px-5 sm:px-8 bg-[#f8f9fc]">
+      <section className="py-24 px-5 sm:px-8 bg-[#f4f8ff]">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-16">
             <motion.h2
@@ -660,7 +665,7 @@ export default function ClientsPage() {
       </section>
 
       {/* CTA + FORM */}
-      <section className="py-24 px-5 sm:px-8 bg-gradient-to-b from-white to-[#C9A84C]/8">
+      <section className="py-24 px-5 sm:px-8 bg-gradient-to-b from-white/60 to-[#154895]/8">
         <div className="max-w-[1280px] mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -671,7 +676,7 @@ export default function ClientsPage() {
             <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight mb-6">
               Join 300+ Companies
               <br />
-              <span className="text-[#0A1628]">That Already Trust Us</span>
+              <span className="text-[#154895]">That Already Trust Us</span>
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-10">
               Every week you delay hiring costs money. We deliver pre-screened talent in 25–30 days — or faster. No excuses. FIFA projects prove it.
@@ -690,10 +695,10 @@ export default function ClientsPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-[#C9A84C]/40 hover:shadow-md transition-all duration-200"
+                  className={`flex items-center gap-4 p-4 ${glassCard} rounded-xl hover:border-[#154895]/30 hover:shadow-[0_4px_20px_rgba(21,72,149,0.12)] transition-all duration-200`}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0">
-                    <p.icon size={18} className="text-[#0A1628]" />
+                  <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center flex-shrink-0">
+                    <p.icon size={18} className="text-[#154895]" />
                   </div>
                   <span className="font-semibold text-gray-800">{p.text}</span>
                 </motion.div>
@@ -703,13 +708,13 @@ export default function ClientsPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="tel:+97444434386"
-                className="flex items-center gap-2.5 bg-[#0A1628] text-white font-bold px-6 py-3.5 rounded-xl hover:bg-[#0d2245] transition-colors shadow-lg"
+                className="flex items-center gap-2.5 bg-[#154895] text-white font-bold px-6 py-3.5 rounded-xl hover:bg-[#1a5ab5] transition-colors shadow-lg shadow-[#154895]/25"
               >
-                <Phone size={16} className="text-[#C9A84C]" /> +974 4443 4386
+                <Phone size={16} /> +974 4443 4386
               </a>
               <a
                 href="mailto:business@asliyarecruitment.com"
-                className="flex items-center gap-2.5 border-2 border-[#C9A84C]/40 text-[#0A1628] font-bold px-6 py-3.5 rounded-xl hover:bg-[#C9A84C]/10 transition-colors"
+                className="flex items-center gap-2.5 border-2 border-[#e62224]/30 text-[#e62224] font-bold px-6 py-3.5 rounded-xl hover:bg-[#e62224]/8 transition-colors"
               >
                 <Mail size={16} /> Email Us
               </a>

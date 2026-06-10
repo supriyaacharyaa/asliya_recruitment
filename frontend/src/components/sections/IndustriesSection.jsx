@@ -149,7 +149,7 @@ function IndustryCard({ industry, Icon }) {
         )}
       </div>
 
-      {/* Bottom-right glow blob */}
+    
       <div className="absolute -bottom-10 -right-10 w-36 h-36 bg-[#154895]/6 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );

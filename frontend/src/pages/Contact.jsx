@@ -2,8 +2,8 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Phone, Mail, MapPin, Send, CheckCircle, ChevronDown,
-  Plus, Minus, Linkedin, Twitter, Facebook, Instagram,
-  Clock, Calendar, Building2
+  Plus, Minus, Linkedin, Facebook, Instagram,
+  Clock, Shield, Star, Users
 } from "lucide-react"
 import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
@@ -19,14 +19,6 @@ const fadeUp = {
     transition: { duration: 0.7, ease, delay: i * 0.1 },
   }),
 }
-
-const OFFICES = [
-  {
-    flag: "🇶🇦", city: "Doha", country: "Qatar", hq: true,
-    address: "Muntaza Trading Center, Office 3, Floor 6, Building 1, Al Muntazah Hiteen St, Rawdat Al Khail St, Doha",
-    phone: "+974 4443 4386",
-  },
-]
 
 const FAQS = [
   {
@@ -55,23 +47,89 @@ const FAQS = [
   },
 ]
 
-const inputClass =
-  "bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/12 transition-all duration-200 w-full text-gray-900 placeholder:text-gray-400"
+const BG_CSS = `
+  @keyframes blob-drift-1 {
+    0%,100%{ transform:scale(1) translate(0,0); opacity:.16; }
+    40%    { transform:scale(1.18) translate(28px,-18px); opacity:.24; }
+    70%    { transform:scale(.9)  translate(-16px,12px); opacity:.12; }
+  }
+  @keyframes blob-drift-2 {
+    0%,100%{ transform:scale(1.1) translate(0,0); opacity:.10; }
+    35%    { transform:scale(.88) translate(-22px,16px); opacity:.18; }
+    65%    { transform:scale(1.22) translate(14px,-10px); opacity:.08; }
+  }
+  .blob-1 { animation: blob-drift-1 11s ease-in-out infinite; }
+  .blob-2 { animation: blob-drift-2 14s ease-in-out infinite; }
 
-const selectClass =
-  "bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/12 transition-all duration-200 w-full text-gray-900 appearance-none cursor-pointer"
+  @keyframes spin-ring { to { transform: rotate(360deg); } }
+  .ring-cw  { animation: spin-ring 24s linear infinite; }
+  .ring-ccw { animation: spin-ring 30s linear infinite reverse; }
 
-function WaveBottom({ fill = "#ffffff" }) {
-  return (
-    <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-20">
-        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill={fill} />
-      </svg>
-    </div>
-  )
-}
+  @keyframes hero-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  .shimmer-text {
+    background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.35) 40%,#fff 60%,rgba(255,255,255,.35) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: hero-shimmer 4s linear infinite;
+  }
 
-function SelectWrapper({ children }) {
+  .glass-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 4px 24px rgba(21,72,149,0.08), 0 1px 4px rgba(21,72,149,0.04);
+  }
+  .glass-card-hover {
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s;
+  }
+  .glass-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 48px rgba(21,72,149,0.13), 0 1px 4px rgba(21,72,149,0.06);
+  }
+
+  .input-field {
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(21,72,149,0.12);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    color: #111;
+  }
+  .input-field::placeholder { color: #9ca3af; }
+  .input-field:focus {
+    border-color: #154895;
+    box-shadow: 0 0 0 3px rgba(21,72,149,0.1);
+  }
+
+  .select-field {
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(21,72,149,0.12);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    color: #111;
+  }
+  .select-field:focus {
+    border-color: #154895;
+    box-shadow: 0 0 0 3px rgba(21,72,149,0.1);
+  }
+`
+
+function SelectWrap({ children }) {
   return (
     <div className="relative">
       {children}
@@ -81,161 +139,185 @@ function SelectWrapper({ children }) {
 }
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     fullName: "", company: "", email: "", phone: "",
     enquiryType: "", industry: "", message: "", agreed: false,
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
-    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }))
+    setForm(p => ({ ...p, [name]: type === "checkbox" ? checked : value }))
   }
 
   const handleSubmit = () => {
-    if (!formData.fullName || !formData.email || !formData.message || !formData.agreed) return
-    setIsSubmitting(true)
-    setTimeout(() => { setIsSubmitting(false); setIsSuccess(true) }, 1500)
+    if (!form.fullName || !form.email || !form.message || !form.agreed) return
+    setSubmitting(true)
+    setTimeout(() => { setSubmitting(false); setSuccess(true) }, 1500)
   }
 
   const handleReset = () => {
-    setFormData({ fullName: "", company: "", email: "", phone: "", enquiryType: "", industry: "", message: "", agreed: false })
-    setIsSuccess(false)
+    setForm({ fullName: "", company: "", email: "", phone: "", enquiryType: "", industry: "", message: "", agreed: false })
+    setSuccess(false)
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen font-sans" style={{ background: "#f4f8ff" }}>
+      <style>{BG_CSS}</style>
       <Navbar />
 
-      {/* ── 1. PAGE HERO ─────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-[#060d1f] via-[#0A1628] to-[#0d2245] py-40 overflow-hidden">
-        {/* Gold top line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent opacity-70" />
+      {/* ── 1. HERO ──────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-40"
+        style={{ background: "linear-gradient(135deg, #154895 0%, #0d2f6b 55%, #0a1e4a 100%)" }}>
 
+        {/* Blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#C9A84C]/5 blur-3xl"
-            animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-20 right-0 w-80 h-80 rounded-full bg-[#C5282B]/8 blur-3xl"
-            animate={{ scale: [1, 1.15, 1], x: [0, -15, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <div className="absolute inset-0 opacity-[0.04]"
+          <div className="blob-1 absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full blur-3xl" style={{ background: "#2a5ccc" }} />
+          <div className="blob-2 absolute -bottom-32 -right-32 w-[440px] h-[440px] rounded-full blur-3xl" style={{ background: "#e62224" }} />
+          <div className="absolute inset-0 opacity-[0.045]"
             style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div className="ring-cw  absolute top-12 right-20 w-52 h-52 border-2 border-dashed border-white/10 rounded-full" />
+          <div className="ring-ccw absolute bottom-10 left-14 w-36 h-36 border-2 border-dashed border-white/10 rounded-full" />
         </div>
 
-        <Container>
-          <motion.div variants={fadeUp} initial="hidden" animate="visible"
-            className="flex items-center gap-2 text-white/50 text-sm mb-8">
-            <span>Home</span><span>/</span>
-            <span className="text-white/80 font-semibold">Contact Us</span>
+        <Container className="relative z-10">
+          {/* Breadcrumb */}
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 text-white/50 text-sm mb-8 font-medium">
+            <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+            <span>/</span>
+            <span className="text-white/80">Contact Us</span>
           </motion.div>
 
-          <motion.h1 variants={fadeUp} custom={0.5} initial="hidden" animate="visible"
-            className="text-5xl lg:text-6xl font-black text-white leading-tight max-w-2xl">
+          <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.05, duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-full px-5 py-2.5 mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#e62224] animate-pulse" />
+            <span className="text-white/90 text-sm font-semibold">Response Within 24 Hours — Always</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.75, ease }}
+            className="shimmer-text text-5xl xl:text-6xl font-black leading-tight max-w-2xl mb-5"
+            style={{ fontFamily: "'Playfair Display', serif" }}>
             Get In Touch With Our Team
           </motion.h1>
 
-          <motion.p variants={fadeUp} custom={1} initial="hidden" animate="visible"
-            className="mt-5 text-xl text-white/70 max-w-xl">
-            Whether you need to hire talent or scale your workforce, we're ready to help — and we respond within 24 hours.
+          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.28, duration: 0.65 }}
+            className="text-white/65 text-xl leading-relaxed max-w-xl mb-10">
+            Whether you need to hire talent or scale your workforce — we're ready to help and will respond within 24 hours.
           </motion.p>
 
-          <motion.div variants={fadeUp} custom={1.5} initial="hidden" animate="visible"
-            className="mt-10 flex flex-wrap gap-3">
+          {/* Contact pills */}
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.42, duration: 0.6 }}
+            className="flex flex-wrap gap-3">
             {[
-              { icon: Phone, text: "+974 4443 4386" },
-              { icon: Mail, text: "business@asliyarecruitment.com" },
-              { icon: MapPin, text: "Muntaza Trading Center, Doha" },
-            ].map(({ icon: Icon, text }) => (
-              <div key={text}
-                className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5 text-white text-sm font-medium">
-                <Icon className="w-4 h-4 text-[#C9A84C]" />
+              { icon: Phone, text: "+974 4443 4386", href: "tel:+97444434386" },
+              { icon: Mail, text: "business@asliyarecruitment.com", href: "mailto:business@asliyarecruitment.com" },
+              { icon: MapPin, text: "Muntaza Trading Center, Doha", href: "#office" },
+            ].map(({ icon: Icon, text, href }) => (
+              <a key={text} href={href}
+                className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5 text-white text-sm font-medium hover:bg-white/20 transition-colors duration-200">
+                <Icon className="w-4 h-4 text-[#e62224]" />
                 {text}
-              </div>
+              </a>
             ))}
           </motion.div>
         </Container>
 
-        <WaveBottom fill="#ffffff" />
+        {/* Wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z" fill="#f4f8ff" />
+          </svg>
+        </div>
       </section>
 
-      {/* ── 2. MAIN CONTACT SECTION ──────────────────────────────────────── */}
-      <section className="bg-white py-28">
-        <Container>
-          <div className="grid lg:grid-cols-5 gap-16 items-start">
+      {/* ── 2. FORM + INFO ───────────────────────────────────────────────── */}
+      <section className="py-28" style={{ background: "#f4f8ff" }}>
+        {/* Dot grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.035]"
+          style={{ backgroundImage: "radial-gradient(circle, #154895 1.5px, transparent 1.5px)", backgroundSize: "28px 28px" }} />
 
-            {/* LEFT — Form (3 cols) */}
+        <Container>
+          <div className="grid lg:grid-cols-5 gap-10 items-start">
+
+            {/* FORM — 3 cols */}
             <motion.div
               initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.7, ease }}
-              className="lg:col-span-3 bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-xl shadow-gray-100/80"
+              className="lg:col-span-3 glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden"
             >
-              {/* Gold accent bar */}
-              <div className="h-1 bg-gradient-to-r from-[#0A1628] via-[#C9A84C] to-[#0A1628] rounded-full mb-8 -mx-2" />
+              {/* Top stripe */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
+                style={{ background: "linear-gradient(90deg, #154895, #e62224)" }} />
 
               <AnimatePresence mode="wait">
-                {isSuccess ? (
-                  <motion.div
-                    key="success"
+                {success ? (
+                  <motion.div key="success"
                     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4, ease }}
-                    className="flex flex-col items-center justify-center py-16 text-center"
-                  >
-                    <CheckCircle className="w-16 h-16 text-emerald-500 mb-6" />
-                    <h3 className="text-2xl font-black text-gray-900 mb-3">Message Sent Successfully!</h3>
-                    <p className="text-gray-500 mb-8">Our team will contact you within 24 hours with a tailored recruitment plan.</p>
-                    <motion.button
-                      whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
+                    exit={{ opacity: 0 }} transition={{ duration: 0.4, ease }}
+                    className="flex flex-col items-center justify-center py-16 text-center">
+                    <div className="w-20 h-20 rounded-full bg-emerald-50 border-4 border-emerald-200 flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="w-10 h-10 text-emerald-500" />
+                    </div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-3">Message Sent!</h3>
+                    <p className="text-gray-500 mb-8 max-w-sm">Our team will contact you within 24 hours with a tailored recruitment plan.</p>
+                    <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                       onClick={handleReset}
-                      className="bg-[#0A1628] text-white rounded-2xl px-8 py-4 font-bold hover:bg-[#0d2245] transition-colors duration-300"
-                    >
+                      className="bg-[#154895] text-white rounded-2xl px-8 py-4 font-bold hover:bg-[#0d2f6b] transition-colors">
                       Send Another Message
                     </motion.button>
                   </motion.div>
                 ) : (
                   <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                    <h3 className="text-2xl font-bold text-gray-900">Send Us a Message</h3>
-                    <p className="text-sm text-gray-400 mt-1">Free consultation · Response within 24 hours · No obligations</p>
-                    <div className="h-px bg-gray-100 my-6" />
+                    <h3 className="text-2xl font-black text-gray-900 mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+                      Send Us a Message
+                    </h3>
+                    <p className="text-sm text-gray-400 mb-6">Free consultation · Response within 24 hours · No obligations</p>
+                    <div className="h-px bg-gradient-to-r from-[#154895]/20 via-[#e62224]/20 to-transparent mb-7" />
 
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Full Name <span className="text-[#C5282B]">*</span></label>
-                          <input name="fullName" value={formData.fullName} onChange={handleChange}
-                            placeholder="Your full name" className={inputClass} />
+                          <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                            Full Name <span className="text-[#e62224]">*</span>
+                          </label>
+                          <input name="fullName" value={form.fullName} onChange={handleChange}
+                            placeholder="Your full name" className="input-field" />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Company Name</label>
-                          <input name="company" value={formData.company} onChange={handleChange}
-                            placeholder="Your company" className={inputClass} />
+                          <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Company Name</label>
+                          <input name="company" value={form.company} onChange={handleChange}
+                            placeholder="Your company" className="input-field" />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Email Address <span className="text-[#C5282B]">*</span></label>
-                          <input name="email" type="email" value={formData.email} onChange={handleChange}
-                            placeholder="you@company.com" className={inputClass} />
+                          <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                            Email Address <span className="text-[#e62224]">*</span>
+                          </label>
+                          <input name="email" type="email" value={form.email} onChange={handleChange}
+                            placeholder="you@company.com" className="input-field" />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Phone / WhatsApp</label>
-                          <input name="phone" type="tel" value={formData.phone} onChange={handleChange}
-                            placeholder="+974 ..." className={inputClass} />
+                          <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Phone / WhatsApp</label>
+                          <input name="phone" type="tel" value={form.phone} onChange={handleChange}
+                            placeholder="+974 ..." className="input-field" />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Enquiry Type</label>
-                        <SelectWrapper>
-                          <select name="enquiryType" value={formData.enquiryType} onChange={handleChange} className={selectClass}>
+                        <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Enquiry Type</label>
+                        <SelectWrap>
+                          <select name="enquiryType" value={form.enquiryType} onChange={handleChange} className="select-field">
                             <option value="">Select enquiry type…</option>
                             <option>Hire Talent — Local Recruitment</option>
                             <option>Hire Talent — Overseas Recruitment</option>
@@ -243,13 +325,13 @@ export default function Contact() {
                             <option>Domestic Staffing (Maids, Drivers, etc.)</option>
                             <option>General Enquiry</option>
                           </select>
-                        </SelectWrapper>
+                        </SelectWrap>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Industry</label>
-                        <SelectWrapper>
-                          <select name="industry" value={formData.industry} onChange={handleChange} className={selectClass}>
+                        <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">Industry</label>
+                        <SelectWrap>
+                          <select name="industry" value={form.industry} onChange={handleChange} className="select-field">
                             <option value="">Select your industry…</option>
                             <option>Construction & Engineering</option>
                             <option>Hospitality & Food Service</option>
@@ -261,44 +343,58 @@ export default function Contact() {
                             <option>Oil & Gas</option>
                             <option>Other</option>
                           </select>
-                        </SelectWrapper>
+                        </SelectWrap>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Message / Requirements <span className="text-[#C5282B]">*</span></label>
-                        <textarea name="message" value={formData.message} onChange={handleChange}
+                        <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wide">
+                          Message / Requirements <span className="text-[#e62224]">*</span>
+                        </label>
+                        <textarea name="message" value={form.message} onChange={handleChange}
                           rows={5} placeholder="Describe your roles, headcount, timeline, preferred source countries…"
-                          className={`${inputClass} resize-none`} />
+                          className="input-field resize-none" />
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <input type="checkbox" name="agreed" checked={formData.agreed} onChange={handleChange}
-                          className="mt-0.5 w-4 h-4 accent-[#C9A84C] cursor-pointer" />
+                        <input type="checkbox" name="agreed" checked={form.agreed} onChange={handleChange}
+                          className="mt-0.5 w-4 h-4 cursor-pointer accent-[#154895]" />
                         <label className="text-sm text-gray-500 cursor-pointer leading-relaxed">
                           I agree to the{" "}
-                          <span className="text-[#0A1628] font-semibold hover:underline cursor-pointer">Privacy Policy</span>
+                          <span className="text-[#154895] font-semibold hover:underline cursor-pointer">Privacy Policy</span>
                           {" "}and{" "}
-                          <span className="text-[#0A1628] font-semibold hover:underline cursor-pointer">Terms of Service</span>
+                          <span className="text-[#154895] font-semibold hover:underline cursor-pointer">Terms of Service</span>
                         </label>
                       </div>
 
                       <motion.button
-                        whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                        className="w-full bg-[#0A1628] text-white rounded-2xl px-8 py-4 font-bold flex items-center justify-center gap-2 hover:bg-[#0d2245] transition-colors duration-300 disabled:opacity-70 mt-2 shadow-xl shadow-[#0A1628]/20"
+                        whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }}
+                        onClick={handleSubmit} disabled={submitting}
+                        className="w-full relative overflow-hidden bg-[#154895] text-white rounded-2xl px-8 py-4 font-bold flex items-center justify-center gap-2.5 hover:bg-[#0d2f6b] transition-colors duration-200 disabled:opacity-70 shadow-xl shadow-[#154895]/25"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                            </svg>
-                            Sending…
-                          </>
-                        ) : (
-                          <><Send className="w-4 h-4 text-[#C9A84C]" /> Send Message — Get a Reply in 24h</>
-                        )}
+                        <AnimatePresence mode="wait">
+                          {submitting ? (
+                            <motion.div key="spin" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                              className="flex items-center gap-2.5">
+                              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                              </svg>
+                              Sending…
+                            </motion.div>
+                          ) : (
+                            <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                              className="flex items-center gap-2.5">
+                              <Send className="w-4 h-4 text-white/80" />
+                              Send Message — Get a Reply in 24h
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        {/* Shimmer sweep */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 pointer-events-none"
+                          initial={{ x: "-100%" }} animate={{ x: "200%" }}
+                          transition={{ repeat: Infinity, duration: 2.8, ease: "linear", repeatDelay: 1 }}
+                        />
                       </motion.button>
                     </div>
                   </motion.div>
@@ -306,63 +402,44 @@ export default function Contact() {
               </AnimatePresence>
             </motion.div>
 
-            {/* RIGHT — Contact Info (2 cols) */}
+            {/* INFO CARDS — 2 cols */}
             <div className="lg:col-span-2 space-y-4">
               {[
-                {
-                  icon: Phone, iconBg: "bg-[#0A1628]", label: "Call Us",
-                  value: "+974 4443 4386", sub: "Sun–Thu, 8am–6pm",
-                },
-                {
-                  icon: Mail, iconBg: "bg-[#C5282B]", label: "Email Us",
-                  value: "business@asliyarecruitment.com", sub: "We reply within 24 hours",
-                },
-                {
-                  icon: Mail, iconBg: "bg-[#C9A84C]", label: "General Enquiries",
-                  value: "info@asliyarecruitment.com", sub: "For general questions & info",
-                },
-                {
-                  icon: MapPin, iconBg: "bg-emerald-600", label: "Visit Us",
-                  value: "Muntaza Trading Center, Office 3, Floor 6", sub: "Al Muntazah Hiteen St, Doha · P.O. Box 1414",
-                },
-                {
-                  icon: Clock, iconBg: "bg-amber-500", label: "Business Hours",
-                  value: "Sun–Thu: 8:00am – 6:00pm", sub: "Fri–Sat: Closed",
-                },
-              ].map(({ icon: Icon, iconBg, label, value, sub }, i) => (
-                <motion.div
-                  key={label}
+                { icon: Phone, accent: "#154895", lightBg: "#eef4ff", label: "Call Us", value: "+974 4443 4386", sub: "Sun–Thu, 8am–6pm", href: "tel:+97444434386" },
+                { icon: Mail, accent: "#e62224", lightBg: "#fff0f0", label: "Business Email", value: "business@asliyarecruitment.com", sub: "We reply within 24 hours", href: "mailto:business@asliyarecruitment.com" },
+                { icon: Mail, accent: "#154895", lightBg: "#eef4ff", label: "General Enquiries", value: "info@asliyarecruitment.com", sub: "For general questions & info", href: "mailto:info@asliyarecruitment.com" },
+                { icon: MapPin, accent: "#e62224", lightBg: "#fff0f0", label: "Visit Us", value: "Muntaza Trading Center, Office 3, Floor 6", sub: "Al Muntazah Hiteen St, Doha · P.O. Box 1414", href: "#office" },
+                { icon: Clock, accent: "#154895", lightBg: "#eef4ff", label: "Business Hours", value: "Sun–Thu: 8:00am – 6:00pm", sub: "Fri–Sat: Closed", href: null },
+              ].map(({ icon: Icon, accent, lightBg, label, value, sub, href }, i) => (
+                <motion.div key={label}
                   initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, ease, delay: i * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex items-start gap-4 hover:border-[#C9A84C]/30 hover:shadow-xl hover:shadow-[#0A1628]/8 transition-all duration-500 cursor-pointer"
+                  viewport={{ once: true }} transition={{ duration: 0.6, ease, delay: i * 0.08 }}
+                  className="glass-card glass-card-hover rounded-2xl p-5 flex items-start gap-4 group"
+                  onClick={() => href && window.open(href, href.startsWith("http") ? "_blank" : "_self")}
+                  style={{ cursor: href ? "pointer" : "default" }}
                 >
-                  <div className={`w-11 h-11 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                    <Icon className="w-5 h-5 text-white" />
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: lightBg }}>
+                    <Icon className="w-5 h-5" style={{ color: accent }} />
                   </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{label}</p>
-                    <p className="font-bold text-gray-900 mt-0.5 text-sm">{value}</p>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: accent }}>{label}</p>
+                    <p className="font-bold text-gray-900 text-sm leading-snug break-all">{value}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{sub}</p>
                   </div>
                 </motion.div>
               ))}
 
-              {/* Social row */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }} transition={{ duration: 0.6, ease, delay: 0.55 }}
-                className="pt-2"
-              >
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Follow Us</p>
+              {/* Socials */}
+              <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }} transition={{ duration: 0.6, ease, delay: 0.5 }}
+                className="pt-2">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Follow Us</p>
                 <div className="flex gap-2">
                   {[Linkedin, Facebook, Instagram].map((Icon, i) => (
-                    <motion.button
-                      key={i} whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}
-                      className="group w-10 h-10 bg-gray-100 hover:bg-[#0A1628] rounded-xl flex items-center justify-center transition-colors duration-300"
-                    >
-                      <Icon className="w-4 h-4 text-gray-400 group-hover:text-[#C9A84C] transition-colors duration-300" />
+                    <motion.button key={i} whileHover={{ scale: 1.12, y: -2 }} whileTap={{ scale: 0.95 }}
+                      className="group w-10 h-10 glass-card rounded-xl flex items-center justify-center transition-all duration-300 hover:!bg-[#154895] hover:border-[#154895]">
+                      <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
                     </motion.button>
                   ))}
                 </div>
@@ -372,80 +449,112 @@ export default function Contact() {
         </Container>
       </section>
 
-      {/* ── 3. DOHA OFFICE ───────────────────────────────────────────────── */}
-      <section className="bg-[#f8f9fc] py-28">
+      {/* ── 3. COMPLIANCE TRUST BAR ──────────────────────────────────────── */}
+      <section className="bg-white border-y border-gray-100 py-6">
         <Container>
-          <SectionHeading tag="Our Office" title="Based in the Heart of Doha" />
-
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-5 max-w-lg">
-            {OFFICES.map((office, i) => (
-              <motion.div
-                key={office.city}
-                custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                whileHover={{ y: -4 }}
-                className="bg-white rounded-2xl border border-gray-100 p-6 hover:border-[#C9A84C]/30 hover:shadow-xl hover:shadow-[#0A1628]/8 transition-all duration-500"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl">{office.flag}</span>
-                  {office.hq && (
-                    <span className="bg-[#0A1628] text-[#C9A84C] text-xs font-bold rounded-full px-2.5 py-1">
-                      Headquarters
-                    </span>
-                  )}
-                </div>
-                <p className="font-bold text-gray-900 text-lg">{office.city}</p>
-                <p className="text-sm text-[#C9A84C] font-semibold">{office.country}</p>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">{office.address}</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <Phone className="w-3.5 h-3.5 text-gray-400" />
-                  <p className="text-sm text-gray-500">{office.phone}</p>
-                </div>
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {[
+              { icon: Shield, text: "Ministry of Labor Qatar — License #618" },
+              { icon: Star,   text: "Supreme Committee Approved · FIFA Standard" },
+              { icon: CheckCircle, text: "Qatar Labor Law Compliant" },
+              { icon: Users,  text: "20,000+ Workers Deployed" },
+            ].map(({ icon: Icon, text }, i) => (
+              <motion.div key={text}
+                initial={{ opacity: 0, y: -8 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ delay: i * 0.07, duration: 0.4 }}
+                className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+                <Icon size={15} className="text-[#154895]" />
+                {text}
               </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* ── 4. MAP SECTION ───────────────────────────────────────────────── */}
+      {/* ── 4. OFFICE CARD ───────────────────────────────────────────────── */}
+      <section id="office" className="py-24" style={{ background: "#f4f8ff" }}>
+        <Container>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.65, ease }}
+            className="text-center mb-12">
+            <p className="text-sm font-bold text-[#e62224] uppercase tracking-widest mb-3">Our Office</p>
+            <h2 className="text-4xl font-black text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Based in the Heart of Doha
+            </h2>
+          </motion.div>
+
+          <div className="max-w-lg mx-auto">
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.65, ease }}
+              className="glass-card glass-card-hover rounded-3xl p-8 relative overflow-hidden">
+              {/* Top stripe */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
+                style={{ background: "linear-gradient(90deg, #154895, #e62224)" }} />
+
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-3xl">🇶🇦</span>
+                <span className="bg-[#154895] text-white text-xs font-bold rounded-full px-3 py-1.5">
+                  Headquarters
+                </span>
+              </div>
+              <h3 className="font-black text-gray-900 text-xl mb-1">Doha, Qatar</h3>
+              <p className="text-sm font-semibold text-[#154895] mb-3">Asliya Manpower Supply W.L.L</p>
+              <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                Muntaza Trading Center, Office 3, Floor 6, Building 1,<br />
+                Al Muntazah Hiteen St, Rawdat Al Khail St, Doha<br />
+                P.O. Box 1414
+              </p>
+              <div className="flex items-center gap-2 mb-6">
+                <Phone className="w-4 h-4 text-[#154895]" />
+                <a href="tel:+97444434386" className="text-sm font-bold text-gray-800 hover:text-[#154895] transition-colors">
+                  +974 4443 4386
+                </a>
+              </div>
+              <a href="https://maps.google.com/?q=Muntaza+Trading+Center+Doha+Qatar"
+                target="_blank" rel="noopener noreferrer"
+                className="w-full bg-[#154895] text-white font-bold rounded-2xl py-3.5 flex items-center justify-center gap-2 hover:bg-[#0d2f6b] transition-colors duration-200 text-sm shadow-lg shadow-[#154895]/20">
+                <MapPin className="w-4 h-4" /> Get Directions
+              </a>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── 5. MAP PLACEHOLDER ───────────────────────────────────────────── */}
       <section className="bg-white py-0">
-        <div className="h-96 bg-gradient-to-br from-[#f0f2f8] to-[#e8ecf4] relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.04]"
+        <div className="h-80 relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, #eef4ff 0%, #e8eef8 100%)" }}>
+          {/* Grid lines */}
+          <div className="absolute inset-0 opacity-[0.06]"
             style={{
-              backgroundImage: "linear-gradient(#0A1628 1px, transparent 1px), linear-gradient(90deg, #0A1628 1px, transparent 1px)",
+              backgroundImage: "linear-gradient(#154895 1px, transparent 1px), linear-gradient(90deg, #154895 1px, transparent 1px)",
               backgroundSize: "40px 40px",
             }} />
-          <div className="absolute inset-0 opacity-[0.03]"
-            style={{ backgroundImage: "radial-gradient(circle, #C9A84C 2px, transparent 2px)", backgroundSize: "80px 80px" }} />
+          <div className="absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: "radial-gradient(circle, #e62224 2px, transparent 2px)", backgroundSize: "80px 80px" }} />
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }} transition={{ duration: 0.6, ease }}
-              className="bg-white rounded-2xl p-6 shadow-xl text-center w-80"
-            >
-              <div className="w-10 h-10 bg-[#0A1628] rounded-xl flex items-center justify-center mx-auto mb-3">
-                <MapPin className="w-5 h-5 text-[#C9A84C]" />
+            <motion.div initial={{ opacity: 0, scale: 0.92 }} whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }} transition={{ duration: 0.55, ease }}
+              className="glass-card rounded-2xl p-6 text-center w-80 shadow-xl">
+              <div className="w-11 h-11 bg-[#eef4ff] rounded-xl flex items-center justify-center mx-auto mb-3">
+                <MapPin className="w-5 h-5 text-[#154895]" />
               </div>
-              <p className="font-bold text-gray-900">Asliya Manpower Supply W.L.L</p>
+              <p className="font-black text-gray-900">Asliya Manpower Supply W.L.L</p>
               <p className="text-sm text-gray-500 mt-1">Muntaza Trading Center, Office 3, Floor 6</p>
               <p className="text-xs text-gray-400 mt-0.5">Al Muntazah Hiteen St, Doha, Qatar</p>
-              <a
-                href="https://maps.google.com/?q=Muntaza+Trading+Center+Doha+Qatar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-[#0A1628] font-semibold text-sm hover:underline underline-offset-4 transition-all"
-              >
-                Get Directions →
+              <a href="https://maps.google.com/?q=Muntaza+Trading+Center+Doha+Qatar"
+                target="_blank" rel="noopener noreferrer"
+                className="mt-3 inline-block text-[#154895] font-bold text-sm hover:underline underline-offset-4">
+                Open in Google Maps →
               </a>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── 5. QUICK CONTACT BAND ────────────────────────────────────────── */}
-      <section className="bg-[#0A1628] py-16 relative overflow-hidden">
-        {/* Gold top line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent opacity-60" />
+      {/* ── 6. QUICK CALL BAND ───────────────────────────────────────────── */}
+      <section className="py-14" style={{ background: "#154895" }}>
         <Container>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -453,18 +562,14 @@ export default function Contact() {
               <p className="text-white/60 text-sm mt-1">Our recruiters are available Sun–Thu 8am–6pm. Response within 24 hours.</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <motion.a
-                href="tel:+97444434386"
+              <motion.a href="tel:+97444434386"
                 whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="bg-[#C9A84C] text-[#0A1628] font-bold rounded-2xl px-6 py-3.5 flex items-center gap-2 hover:bg-[#e8cc7a] transition-colors duration-300"
-              >
+                className="bg-white text-[#154895] font-bold rounded-2xl px-6 py-3.5 flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-lg">
                 <Phone className="w-4 h-4" /> +974 4443 4386
               </motion.a>
-              <motion.a
-                href="mailto:business@asliyarecruitment.com"
+              <motion.a href="mailto:business@asliyarecruitment.com"
                 whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="bg-white/10 border border-white/20 text-white font-bold rounded-2xl px-6 py-3.5 flex items-center gap-2 hover:bg-white/20 transition-colors duration-300"
-              >
+                className="bg-white/10 border border-white/25 text-white font-bold rounded-2xl px-6 py-3.5 flex items-center gap-2 hover:bg-white/20 transition-colors">
                 <Mail className="w-4 h-4" /> Email Us
               </motion.a>
             </div>
@@ -472,27 +577,30 @@ export default function Contact() {
         </Container>
       </section>
 
-      {/* ── 6. FAQ ───────────────────────────────────────────────────────── */}
-      <section className="bg-[#f8f9fc] py-28">
+      {/* ── 7. FAQ ───────────────────────────────────────────────────────── */}
+      <section className="py-28" style={{ background: "#f4f8ff" }}>
         <Container>
-          <SectionHeading tag="Quick Answers" title="Common Questions" />
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.65, ease }}
+            className="text-center mb-14">
+            <p className="text-sm font-bold text-[#e62224] uppercase tracking-widest mb-3">Quick Answers</p>
+            <h2 className="text-4xl font-black text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Common Questions
+            </h2>
+          </motion.div>
 
-          <div className="mt-16 max-w-3xl mx-auto space-y-3">
+          <div className="max-w-3xl mx-auto space-y-3">
             {FAQS.map((faq, i) => {
               const isOpen = openFaq === i
               return (
-                <motion.div
-                  key={i}
+                <motion.div key={i}
                   custom={i * 0.08} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden"
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full flex items-start gap-4 p-6 text-left cursor-pointer"
-                  >
+                  className={`glass-card rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "ring-1 ring-[#154895]/20" : ""}`}>
+                  <button onClick={() => setOpenFaq(isOpen ? null : i)}
+                    className="w-full flex items-start gap-4 p-6 text-left cursor-pointer">
                     <span className="font-bold text-gray-900 flex-1 text-sm leading-relaxed">{faq.q}</span>
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300 ${
-                      isOpen ? "bg-[#0A1628] text-[#C9A84C]" : "bg-gray-100 text-gray-500"
+                      isOpen ? "bg-[#154895] text-white" : "bg-gray-100 text-gray-500"
                     }`}>
                       {isOpen ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
                     </div>
@@ -504,9 +612,8 @@ export default function Contact() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-6 pb-6 border-t border-gray-100 pt-4">
+                        className="overflow-hidden">
+                        <div className="px-6 pb-6 border-t border-gray-100/80 pt-4">
                           <p className="text-sm text-gray-500 leading-relaxed">{faq.a}</p>
                         </div>
                       </motion.div>
@@ -519,43 +626,50 @@ export default function Contact() {
         </Container>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── 8. CTA BANNER ───────────────────────────────────────────────── */}
       <section className="py-20 bg-white">
         <Container>
           <motion.div
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#0A1628] via-[#0d2245] to-[#0A1628] rounded-3xl p-16 text-center relative overflow-hidden"
-          >
-            {/* Gold top line */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent opacity-80 rounded-t-3xl" />
-            <div className="absolute inset-0 opacity-10"
-              style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-            {/* Gold glow orb */}
-            <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#C9A84C] rounded-full blur-3xl opacity-[.06] pointer-events-none" />
+            initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.75, ease }}
+            className="relative rounded-3xl overflow-hidden px-8 py-16 md:p-20 text-center"
+            style={{ background: "linear-gradient(135deg, #154895 0%, #0d2f6b 60%, #0a1e4a 100%)" }}>
 
-            <div className="relative z-10">
-              <span className="text-sm font-semibold text-white/50 uppercase tracking-widest">Stop Recruiting Slowly. Start Hiring Smart.</span>
-              <h2 className="mt-4 text-4xl font-black text-white">Ready to Grow Your Workforce?</h2>
-              <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
+            {/* Blobs */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <div className="absolute -top-16 -left-16 w-72 h-72 rounded-full blur-3xl opacity-[.08]" style={{ background: "#fff" }} />
+              <div className="absolute -bottom-16 -right-16 w-80 h-80 rounded-full blur-3xl opacity-[.09]" style={{ background: "#e62224" }} />
+              <div className="absolute inset-0 opacity-[0.04]"
+                style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+            </div>
+
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-8">
+                <span className="w-2 h-2 bg-[#e62224] rounded-full animate-pulse" />
+                <span className="text-white/90 text-sm font-semibold">Stop Recruiting Slowly. Start Hiring Smart.</span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-black text-white leading-tight mb-5"
+                style={{ fontFamily: "'Playfair Display', serif" }}>
+                Ready to Grow Your Workforce?
+              </h2>
+              <p className="text-white/65 text-lg leading-relaxed mb-10">
                 From 10 hires to 4,000 workers — Asliya delivers in 25–30 days. We've done this 20,000+ times. Your competitors are already with us.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <motion.a
-                  href="tel:+97444434386"
-                  whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                  className="bg-[#C9A84C] text-[#0A1628] font-bold rounded-2xl px-8 py-4 flex items-center gap-2 hover:bg-[#e8cc7a] transition-colors duration-300"
-                >
-                  <Phone className="w-4 h-4" /> Call +974 4443 4386
+
+              <div className="flex flex-wrap gap-4 justify-center">
+                <motion.a href="tel:+97444434386"
+                  whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+                  className="bg-white text-[#154895] font-bold px-8 py-4 rounded-2xl flex items-center gap-2.5 shadow-2xl shadow-black/20 hover:shadow-black/30 transition-shadow duration-300">
+                  <Phone size={18} /> Call +974 4443 4386
                 </motion.a>
-                <motion.a
-                  href="mailto:business@asliyarecruitment.com"
-                  whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                  className="border-2 border-white/30 text-white font-bold rounded-2xl px-8 py-4 hover:bg-white/10 inline-flex items-center gap-2 transition-colors duration-300"
-                >
-                  <Mail className="w-4 h-4" /> business@asliyarecruitment.com
+                <motion.a href="mailto:business@asliyarecruitment.com"
+                  whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+                  className="bg-white/10 backdrop-blur-sm text-white font-bold px-8 py-4 rounded-2xl border border-white/25 hover:bg-white/20 transition-colors duration-300">
+                  business@asliyarecruitment.com
                 </motion.a>
               </div>
-              <p className="mt-6 text-white/30 text-sm">Free consultation · No commitment · Doha, Qatar · P.O. Box 1414</p>
+              <p className="mt-8 text-white/30 text-sm">Free consultation · No commitment · Doha, Qatar · P.O. Box 1414</p>
             </div>
           </motion.div>
         </Container>
