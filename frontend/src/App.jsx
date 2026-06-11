@@ -12,6 +12,8 @@ import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
 import GetFreeQuotePage from "./pages/Getquotepage";
 import GlobalNetwork from "./components/sections/GlobalNetwork";
+import BlogPage from "./pages/Blog";
+import BlogDetailPage from "./pages/Blogdetails";
 
 export default function App() {
   return (
@@ -34,6 +36,8 @@ export default function App() {
           <Route path="/Request" element={<RequestManpowerPage/>}/>
           <Route path="/quote" element={<GetFreeQuotePage/>}/>
           <Route path="/networks" element={<GlobalNetwork/>}/> 
+          <Route path="/blog" element={<BlogPage/>}/>
+         <Route path="/blog/:slug" element={<BlogDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
