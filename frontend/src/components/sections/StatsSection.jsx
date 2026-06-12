@@ -45,18 +45,18 @@ const stats = [
     description:
       "Active placement network spanning the Middle East, Asia, Europe & beyond",
     icon: Globe2,
-    accent: "#10b981",
-    lightBg: "rgba(16,185,129,0.06)",
+    accent: "#154895", // Royal Blue
+    lightBg: "rgba(37,99,235,0.06)",
   },
   {
     value: 7,
     suffix: "+ yrs",
     label: "Years of Excellence",
     description:
-      "Nearly two decades of manpower expertise and industry relationships",
+      "Years of manpower expertise and industry relationships",
     icon: Award,
-    accent: "#f59e0b",
-    lightBg: "rgba(245,158,11,0.06)",
+    accent: "#e62224", // Deep Red
+    lightBg: "rgba(185,28,28,0.06)",
   },
   {
     value: 40,
@@ -65,8 +65,8 @@ const stats = [
     description:
       "From healthcare and IT to construction, logistics and finance",
     icon: Briefcase,
-    accent: "#8b5cf6",
-    lightBg: "rgba(139,92,246,0.06)",
+    accent: "#154895", // Bright Blue
+    lightBg: "rgba(59,130,246,0.06)",
   },
   {
     value: 98,
@@ -75,8 +75,8 @@ const stats = [
     description:
       "Nearly all clients return — a testament to our quality and reliability",
     icon: TrendingUp,
-    accent: "#0891b2",
-    lightBg: "rgba(8,145,178,0.06)",
+    accent: "#e62224", // Rich Red
+    lightBg: "rgba(220,38,38,0.06)",
   },
   {
     value: 15,
@@ -125,11 +125,13 @@ function CountUp({ value, suffix, inView, accent }) {
   return (
     <span
       ref={displayRef}
-      className="tabular-nums font-black leading-none"
+      className="tabular-nums font-black leading-none break-all"
       style={{
-        fontSize: "clamp(32px, 4vw, 48px)",
+        /* FIX: tighter clamp so numbers never overflow on mobile */
+        fontSize: "clamp(22px, 5vw, 46px)",
         color: accent,
         fontFamily: "'Playfair Display', Georgia, serif",
+        wordBreak: "break-word",
       }}
     >
       0{suffix}
@@ -153,7 +155,7 @@ function StatCard({ stat, index, inView }) {
       className="relative group"
     >
       <div
-        className="h-full rounded-[20px] p-7 border flex flex-col gap-5 transition-all duration-400"
+        className="h-full rounded-[20px] p-5 sm:p-7 border flex flex-col gap-4 sm:gap-5 transition-all duration-400"
         style={{
           background: "rgba(255,255,255,0.85)",
           borderColor: "rgba(21,72,149,0.08)",
@@ -168,30 +170,34 @@ function StatCard({ stat, index, inView }) {
           e.currentTarget.style.boxShadow = "none";
         }}
       >
-        <div className="flex items-start justify-between gap-3">
+        {/* FIX: wrap + min-w-0 so icon and number can reflow instead of overflowing */}
+        <div className="flex items-start justify-between gap-2 flex-wrap min-w-0">
           <div
-            className="w-12 h-12 rounded-[12px] flex items-center justify-center flex-shrink-0 transition-all duration-300"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] flex items-center justify-center flex-shrink-0 transition-all duration-300"
             style={{ background: stat.lightBg }}
           >
-            <Icon size={21} color={stat.accent} strokeWidth={1.8} />
+            <Icon size={18} className="sm:size-[21px]" color={stat.accent} strokeWidth={1.8} />
           </div>
-          <CountUp
-            value={stat.value}
-            suffix={stat.suffix}
-            inView={inView}
-            accent={stat.accent}
-          />
+          {/* FIX: min-w-0 + overflow-hidden ensures number stays in bounds */}
+          <div className="min-w-0 overflow-hidden">
+            <CountUp
+              value={stat.value}
+              suffix={stat.suffix}
+              inView={inView}
+              accent={stat.accent}
+            />
+          </div>
         </div>
 
         <div>
           <h3
-            className="font-bold text-[15px] mb-[5px]"
+            className="font-bold text-[14px] sm:text-[15px] mb-[5px]"
             style={{ color: "#1e293b" }}
           >
             {stat.label}
           </h3>
           <p
-            className="text-[12.5px] leading-relaxed"
+            className="text-[11.5px] sm:text-[12.5px] leading-relaxed"
             style={{ color: "#94a3b8" }}
           >
             {stat.description}
@@ -216,7 +222,7 @@ export default function StatsSection() {
   return (
     <section
       ref={ref}
-      className="relative py-24 overflow-hidden"
+      className="relative py-16 sm:py-24 overflow-hidden"
       style={{
         background:
           "linear-gradient(180deg, #ffffff 0%, #f4f8ff 50%, #ffffff 100%)",
@@ -247,8 +253,8 @@ export default function StatsSection() {
         }}
       />
 
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="max-w-[640px] mx-auto text-center mb-16">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[640px] mx-auto text-center mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -282,7 +288,7 @@ export default function StatsSection() {
             }}
             className="font-black text-gray-900 leading-tight tracking-tight mb-4"
             style={{
-              fontSize: "clamp(28px, 4vw, 42px)",
+              fontSize: "clamp(26px, 4vw, 42px)",
               fontFamily: "'Playfair Display', Georgia, serif",
             }}
           >
@@ -318,7 +324,7 @@ export default function StatsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.55 }}
-            className="text-[15.5px] leading-relaxed"
+            className="text-[14.5px] sm:text-[15.5px] leading-relaxed"
             style={{ color: "#64748b" }}
           >
             From frontline workers to C-suite leaders — our numbers reflect the
@@ -327,7 +333,7 @@ export default function StatsSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} index={i} inView={inView} />
           ))}
@@ -338,7 +344,7 @@ export default function StatsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-14 rounded-[22px] p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-10 sm:mt-14 rounded-[22px] p-6 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6"
           style={{
             background:
               "linear-gradient(135deg, #0d2d5e 0%, #154895 60%, #1d5eaa 100%)",
@@ -349,14 +355,14 @@ export default function StatsSection() {
             <p
               className="font-black text-white leading-tight mb-1"
               style={{
-                fontSize: "clamp(18px, 2.5vw, 24px)",
+                fontSize: "clamp(17px, 2.5vw, 24px)",
                 fontFamily: "'Playfair Display', Georgia, serif",
               }}
             >
               Ready to scale your workforce?
             </p>
             <p
-              className="text-[13.5px]"
+              className="text-[13px] sm:text-[13.5px]"
               style={{ color: "rgba(255,255,255,0.55)" }}
             >
               Tell us your hiring needs — we'll find the right manpower, fast.
@@ -366,7 +372,7 @@ export default function StatsSection() {
           <div className="flex items-center gap-3 flex-shrink-0">
             <motion.a
               href="/contact"
-              className="inline-flex items-center gap-2 text-[13.5px] font-bold px-6 py-3 rounded-[11px] text-white border-2 transition-all duration-200"
+              className="inline-flex items-center gap-2 text-[13px] sm:text-[13.5px] font-bold px-5 sm:px-6 py-3 rounded-[11px] text-white border-2 transition-all duration-200"
               style={{
                 borderColor: "rgba(255,255,255,0.3)",
                 background: "rgba(255,255,255,0.1)",
@@ -381,7 +387,7 @@ export default function StatsSection() {
             </motion.a>
             <motion.a
               href="/services"
-              className="inline-flex items-center gap-2 text-[13.5px] font-bold px-6 py-3 rounded-[11px] transition-all duration-200"
+              className="inline-flex items-center gap-2 text-[13px] sm:text-[13.5px] font-bold px-5 sm:px-6 py-3 rounded-[11px] transition-all duration-200"
               style={{ background: "#ffffff", color: "#154895" }}
               whileHover={{ background: "#e8f0fd" }}
               whileTap={{ scale: 0.97 }}

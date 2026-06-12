@@ -620,7 +620,7 @@ Trusted by Qatar's leading organizations.
         </div>
 
         {/* ── Bottom metric strip ── */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -661,7 +661,55 @@ Trusted by Qatar's leading organizations.
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
+        <motion.div
+  initial={{ opacity: 0, y: 24 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.85, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+  className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"
+>
+  {[
+   { icon: Users, label: "Candidates Placed", to: 20000, suffix: "+", color: "#154895" }, // Primary Blue
+{ icon: Briefcase, label: "Partner Companies", to: 500, suffix: "+", color: "#e62224" }, // Primary Red
+{ icon: Globe, label: "Countries Covered", to: 28, suffix: "+", color: "#3b82f6" }, // Lighter Blue
+{ icon: Award, label: "Years Experience", to: 7, suffix: " yrs", color: "#b91c1c" }, // Darker Red
+  ].map(({ icon: Icon, label, to, suffix, color }, i) => (
+    <motion.div
+      key={label}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9 + i * 0.08 }}
+      className="rounded-[16px] p-3 sm:p-5 border flex items-start gap-2 sm:gap-3 group hover:shadow-md transition-shadow duration-300 min-w-0"
+      style={{
+        background: "rgba(255,255,255,0.72)",
+        borderColor: "rgba(255,255,255,0.8)",
+        backdropFilter: "blur(16px)",
+      }}
+    >
+      <div
+        className="w-8 h-8 sm:w-10 sm:h-10 rounded-[8px] sm:rounded-[10px] flex items-center justify-center flex-shrink-0"
+        style={{ background: `${color}14` }}
+      >
+        <Icon size={15} className="sm:hidden" color={color} />
+        <Icon size={18} className="hidden sm:block" color={color} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div
+          className="text-[20px] sm:text-[26px] font-black leading-none mb-[3px] truncate"
+          style={{ color, fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          <Counter to={to} suffix={suffix} delay={1.1 + i * 0.15} duration={2.2} />
+        </div>
+        <div
+          className="text-[10px] sm:text-[12px] font-semibold leading-tight"
+          style={{ color: "#64748b" }}
+        >
+          {label}
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</motion.div>
       </div>
 
       {/* ── Bottom wave ── */}

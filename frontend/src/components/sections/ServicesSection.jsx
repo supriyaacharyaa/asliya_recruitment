@@ -25,6 +25,105 @@ const stats = [
   { value: "98%", label: "Client Retention", icon: TrendingUp },
 ];
 
+// const services = [
+//   {
+//     id: "01",
+//     icon: Building2,
+//     title: "Domestic Recruitment",
+//     tagline: "Local talent, global standards",
+//     description:
+//       "End-to-end hiring solutions for businesses seeking top local talent. We handle sourcing, psychometric screening, background verification, and final placement — all within your country.",
+//     features: [
+//       "Dedicated account manager",
+//       "72-hour shortlist delivery",
+//       "90-day replacement guarantee",
+//     ],
+//     accent: "#154895",
+//     accentLight: "rgba(21,72,149,0.08)",
+//     gradient: "from-[#154895] to-[#1e5bb8]",
+//   },
+//   {
+//     id: "02",
+//     icon: Globe,
+//     title: "Overseas Recruitment",
+//     tagline: "Bridging talent across borders",
+//     description:
+//       "Skilled international manpower deployment backed by full documentation, medical fitness testing, visa processing, and pre-departure orientation programs.",
+//     features: [
+//       "PDOS & visa assistance",
+//       "Medical & documentation handling",
+//       "Airport deployment support",
+//     ],
+//     accent: "#e62224",
+//     accentLight: "rgba(230,34,36,0.08)",
+//     gradient: "from-[#e62224] to-[#c01a1c]",
+//   },
+//   {
+//     id: "03",
+//     icon: Users,
+//     title: "Local Staffing",
+//     tagline: "Right people, right now",
+//     description:
+//       "Flexible workforce solutions for businesses that need reliable staff at short or long-term notice. We maintain a pre-vetted talent pool for rapid deployment across all major industries.",
+//     features: [
+//       "Pre-vetted talent pool",
+//       "48-hour deployment capability",
+//       "Flexible contract terms",
+//     ],
+//     accent: "#0a8a5c",
+//     accentLight: "rgba(10,138,92,0.08)",
+//     gradient: "from-emerald-500 to-emerald-700",
+//   },
+//   {
+//     id: "04",
+//     icon: Megaphone,
+//     title: "Mass Recruitment",
+//     tagline: "Scale fast, hire smart",
+//     description:
+//       "Large-scale hiring campaigns managed with military precision — from 50 to 5,000+ candidates. Our dedicated mass deployment teams run simultaneous multi-city drives.",
+//     features: [
+//       "Multi-city mobilization",
+//       "Dedicated project team",
+//       "Real-time recruitment dashboard",
+//     ],
+//     accent: "#7c3aed",
+//     accentLight: "rgba(124,58,237,0.08)",
+//     gradient: "from-violet-500 to-violet-700",
+//   },
+//   {
+//     id: "05",
+//     icon: Search,
+//     title: "Executive Search",
+//     tagline: "C-suite talent, confidentially sourced",
+//     description:
+//       "Senior-level and C-suite talent acquisition through our confidential, bespoke headhunting process. We engage passive candidates through deep network mapping and discreet outreach.",
+//     features: [
+//       "Passive candidate outreach",
+//       "Psychometric assessments",
+//       "100% confidentiality assured",
+//     ],
+//     accent: "#d97706",
+//     accentLight: "rgba(217,119,6,0.08)",
+//     gradient: "from-amber-500 to-amber-700",
+//   },
+//   {
+//     id: "06",
+//     icon: Clock,
+//     title: "Temporary Staffing",
+//     tagline: "On-demand workforce coverage",
+//     description:
+//       "On-demand temporary workers for seasonal peaks, project-based needs, or sudden workforce gaps. Fully compliant placements with payroll and HR administration handled end-to-end.",
+//     features: [
+//       "Payroll & HR administration",
+//       "Seasonal surge coverage",
+//       "Compliant labor contracts",
+//     ],
+//     accent: "#0891b2",
+//     accentLight: "rgba(8,145,178,0.08)",
+//     gradient: "from-cyan-500 to-cyan-700",
+//   },
+// ];
+
 const services = [
   {
     id: "01",
@@ -42,6 +141,7 @@ const services = [
     accentLight: "rgba(21,72,149,0.08)",
     gradient: "from-[#154895] to-[#1e5bb8]",
   },
+
   {
     id: "02",
     icon: Globe,
@@ -58,6 +158,7 @@ const services = [
     accentLight: "rgba(230,34,36,0.08)",
     gradient: "from-[#e62224] to-[#c01a1c]",
   },
+
   {
     id: "03",
     icon: Users,
@@ -70,10 +171,11 @@ const services = [
       "48-hour deployment capability",
       "Flexible contract terms",
     ],
-    accent: "#0a8a5c",
-    accentLight: "rgba(10,138,92,0.08)",
-    gradient: "from-emerald-500 to-emerald-700",
+    accent: "#2563eb",
+    accentLight: "rgba(37,99,235,0.08)",
+    gradient: "from-[#2563eb] to-[#154895]",
   },
+
   {
     id: "04",
     icon: Megaphone,
@@ -86,10 +188,11 @@ const services = [
       "Dedicated project team",
       "Real-time recruitment dashboard",
     ],
-    accent: "#7c3aed",
-    accentLight: "rgba(124,58,237,0.08)",
-    gradient: "from-violet-500 to-violet-700",
+    accent: "#dc2626",
+    accentLight: "rgba(220,38,38,0.08)",
+    gradient: "from-[#dc2626] to-[#b91c1c]",
   },
+
   {
     id: "05",
     icon: Search,
@@ -102,10 +205,11 @@ const services = [
       "Psychometric assessments",
       "100% confidentiality assured",
     ],
-    accent: "#d97706",
-    accentLight: "rgba(217,119,6,0.08)",
-    gradient: "from-amber-500 to-amber-700",
+    accent: "#3b82f6",
+    accentLight: "rgba(59,130,246,0.08)",
+    gradient: "from-[#3b82f6] to-[#2563eb]",
   },
+
   {
     id: "06",
     icon: Clock,
@@ -118,12 +222,11 @@ const services = [
       "Seasonal surge coverage",
       "Compliant labor contracts",
     ],
-    accent: "#0891b2",
-    accentLight: "rgba(8,145,178,0.08)",
-    gradient: "from-cyan-500 to-cyan-700",
+    accent: "#b91c1c",
+    accentLight: "rgba(185,28,28,0.08)",
+    gradient: "from-[#b91c1c] to-[#991b1b]",
   },
 ];
-
 const industries = [
   "Construction & Engineering",
   "Healthcare & Nursing",
@@ -135,8 +238,9 @@ const industries = [
   "Finance & Banking",
 ];
 
-function StatCard({ stat, index }) {
+function StatCard({ stat, index, total }) {
   const Icon = stat.icon;
+  const isLast = index === total - 1;
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -147,16 +251,21 @@ function StatCard({ stat, index }) {
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="flex flex-col items-start gap-3 px-8 first:pl-0"
+      className="flex flex-col items-start gap-3 flex-1 min-w-0"
+      style={{
+        paddingLeft: index === 0 ? 0 : "1.5rem",
+        paddingRight: isLast ? 0 : "1.5rem",
+        borderRight: isLast ? "none" : "1px solid #e5e7eb",
+      }}
     >
-      <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center">
+      <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center flex-shrink-0">
         <Icon size={18} className="text-[#154895]" />
       </div>
-      <div>
+      <div className="min-w-0">
         <p className="text-4xl font-bold text-[#0f1929] font-serif leading-none mb-1">
           {stat.value}
         </p>
-        <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">
+        <p className="text-xs uppercase tracking-widest text-gray-400 font-medium leading-snug">
           {stat.label}
         </p>
       </div>
@@ -309,25 +418,24 @@ export default function ServicesSection() {
               transition={{ duration: 0.6 }}
               className="flex items-center gap-3 mb-5"
             >
-              
               <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45 }}
-              className="inline-flex items-center gap-2 mb-6 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
-              style={{
-                background: "rgba(21,72,149,0.06)",
-                borderColor: "rgba(21,72,149,0.14)",
-                color: "#154895",
-              }}
-            >
-              <span
-                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
-                style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
-              />
-              Our Services
-            </motion.div>
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45 }}
+                className="inline-flex items-center gap-2 mb-6 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
+                style={{
+                  background: "rgba(21,72,149,0.06)",
+                  borderColor: "rgba(21,72,149,0.14)",
+                  color: "#154895",
+                }}
+              >
+                <span
+                  className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                  style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
+                />
+                Our Services
+              </motion.div>
             </motion.div>
 
             <motion.h2
@@ -357,15 +465,47 @@ export default function ServicesSection() {
             </motion.p>
           </div>
 
+          {/* ── Stats row — responsive fix ── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.25, duration: 0.6 }}
-            className="flex flex-wrap gap-y-8 divide-x divide-gray-200"
           >
-            {stats.map((stat, i) => (
-              <StatCard key={stat.label} stat={stat} index={i} />
-            ))}
+            {/* Mobile: 2×2 grid */}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:hidden">
+              {stats.map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex flex-col items-start gap-3"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#154895]/10 flex items-center justify-center flex-shrink-0">
+                      <Icon size={18} className="text-[#154895]" />
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-[#0f1929] font-serif leading-none mb-1">
+                        {stat.value}
+                      </p>
+                      <p className="text-xs uppercase tracking-widest text-gray-400 font-medium leading-snug">
+                        {stat.label}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* sm+: single row with dividers, all equal width */}
+            <div className="hidden sm:flex flex-row items-start">
+              {stats.map((stat, i) => (
+                <StatCard key={stat.label} stat={stat} index={i} total={stats.length} />
+              ))}
+            </div>
           </motion.div>
         </div>
 
@@ -423,17 +563,19 @@ export default function ServicesSection() {
             style={{ background: "rgba(21,72,149,0.06)" }}
           />
 
-          {/* <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#154895] mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 mb-4">
                 Start Today
               </p>
+
               <h3 className="font-serif text-3xl lg:text-4xl font-bold text-white leading-snug mb-4">
                 Ready to build your
                 <br />
-                <span className="text-[#e62224] italic">ideal workforce?</span>
+                <span className="text-brand-secondary italic">ideal workforce?</span>
               </h3>
-              <p className="text-sm text-gray-400 leading-relaxed font-light">
+
+              <p className="text-sm text-white/75 leading-relaxed font-light">
                 Our recruitment specialists are on hand to craft a tailored
                 manpower strategy for your business — whether you need 1
                 executive or 1,000 skilled workers, locally or overseas.
@@ -444,60 +586,22 @@ export default function ServicesSection() {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2.5 bg-[#154895] text-white px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-[#1e5bb8] transition-colors duration-200"
+                className="flex items-center justify-center gap-2.5 bg-white text-[#134a93] px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
               >
                 Get a Free Consultation
                 <ChevronRight size={16} />
               </motion.button>
+
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2.5 bg-white/[0.06] text-white border border-white/[0.12] px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-white/[0.1] transition-colors duration-200"
+                className="flex items-center justify-center gap-2.5 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-white/15 transition-colors duration-200"
               >
                 Download Company Profile
                 <ArrowUpRight size={15} />
               </motion.button>
             </div>
-          </div> */}
-          <div className="relative z-10 px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-  <div className="max-w-xl">
-    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/80 mb-4">
-      Start Today
-    </p>
-
-    <h3 className="font-serif text-3xl lg:text-4xl font-bold text-white leading-snug mb-4">
-      Ready to build your
-      <br />
-      <span className="text-brand-secondary italic">ideal workforce?</span>
-    </h3>
-
-    <p className="text-sm text-white/75 leading-relaxed font-light">
-      Our recruitment specialists are on hand to craft a tailored
-      manpower strategy for your business — whether you need 1
-      executive or 1,000 skilled workers, locally or overseas.
-    </p>
-  </div>
-
-  <div className="flex flex-col gap-3 flex-shrink-0">
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      className="flex items-center justify-center gap-2.5 bg-white text-[#134a93] px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
-    >
-      Get a Free Consultation
-      <ChevronRight size={16} />
-    </motion.button>
-
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      className="flex items-center justify-center gap-2.5 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl text-sm font-semibold tracking-wide hover:bg-white/15 transition-colors duration-200"
-    >
-      Download Company Profile
-      <ArrowUpRight size={15} />
-    </motion.button>
-  </div>
-</div>
+          </div>
         </motion.div>
       </div>
     </section>

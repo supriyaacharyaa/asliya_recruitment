@@ -94,29 +94,35 @@ export default function AboutPreviewSection() {
       <div className="relative max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12" style={{ zIndex: 2 }}>
         <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
-          
+          {/* ── LEFT COLUMN ── */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
+            // Extra horizontal padding on mobile so the floating badges don't clip
+            className="relative px-6 sm:px-0 mt-6 sm:mt-0"
           >
           
+            {/* Dashed decorator — hidden on mobile so it doesn't overflow */}
             <div
-              className="absolute -top-5 -left-5 w-56 h-56 rounded-[28px] pointer-events-none"
+              className="absolute -top-5 -left-5 w-56 h-56 rounded-[28px] pointer-events-none hidden sm:block"
               style={{ border: "2px dashed rgba(21,72,149,0.12)", zIndex: 0 }}
             />
 
-          
+            {/* Main card */}
             <div
-              className="relative rounded-[28px] overflow-hidden aspect-[4/5] shadow-2xl"
+              className="relative rounded-[28px] overflow-hidden shadow-2xl"
               style={{
+                // On mobile use auto height so content breathes; on sm+ restore aspect ratio
+                aspectRatio: undefined,
                 background: "linear-gradient(145deg, #0a1f42 0%, #154895 55%, #1a5caa 100%)",
                 boxShadow: "0 28px 72px rgba(21,72,149,0.36)",
               }}
             >
-            
+              {/* On sm+ screens apply the 4/5 aspect ratio via an inner wrapper */}
+              <div className="hidden sm:block" style={{ paddingBottom: "125%" }} /> {/* 4:5 = 125% */}
+
               <div
                 className="absolute inset-0"
                 style={{
@@ -126,7 +132,6 @@ export default function AboutPreviewSection() {
                   `,
                 }}
               />
-             
               <div
                 className="absolute inset-0 opacity-[0.06]"
                 style={{
@@ -134,13 +139,20 @@ export default function AboutPreviewSection() {
                   backgroundSize: "22px 22px",
                 }}
               />
-            
               <div className="absolute top-7 right-7 w-20 h-20 rounded-[18px]" style={{ border: "1.5px solid rgba(255,255,255,0.1)" }} />
               <div className="absolute bottom-7 left-7 w-14 h-14 rounded-[14px]" style={{ border: "1.5px solid rgba(255,255,255,0.1)" }} />
 
-            
-              <div className="relative z-10 flex flex-col items-center justify-center h-full px-10 pb-4 text-center">
-              
+              {/*
+                On mobile: static flow (position relative, py-10).
+                On sm+:    absolute centered overlay (position absolute, inset-0 flex).
+              */}
+              <div className="
+                relative sm:absolute sm:inset-0
+                flex flex-col items-center justify-center
+                px-8 sm:px-10 py-10 sm:py-4
+                text-center
+                z-10
+              ">
                 <motion.div
                   initial={{ scale: 0.7, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -173,7 +185,6 @@ export default function AboutPreviewSection() {
                   From a small Kathmandu office to a globally recognized recruitment agency
                 </motion.p>
 
-              
                 <div className="grid grid-cols-3 gap-3 w-full">
                   {coreStats.map((s, i) => (
                     <motion.div
@@ -191,7 +202,6 @@ export default function AboutPreviewSection() {
                   ))}
                 </div>
 
-               
                 <div className="w-full mt-7 space-y-3">
                   {milestones.map((m, i) => (
                     <motion.div
@@ -217,13 +227,13 @@ export default function AboutPreviewSection() {
               </div>
             </div>
 
-           
+            {/* Bottom-right badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.75, y: 12 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.55, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -bottom-5 -right-5 rounded-[18px] p-4 shadow-2xl z-20"
+              className="absolute -bottom-5 -right-1 sm:-right-5 rounded-[18px] p-4 shadow-2xl z-20"
               style={{
                 background: "rgba(255,255,255,0.96)",
                 border: "0.5px solid rgba(21,72,149,0.12)",
@@ -242,12 +252,13 @@ export default function AboutPreviewSection() {
               </div>
             </motion.div>
 
+            {/* Top-left badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.75, y: -12 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.65, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -top-4 -left-4 rounded-[14px] px-4 py-3 flex items-center gap-2 z-20"
+              className="absolute -top-4 -left-1 sm:-left-4 rounded-[14px] px-4 py-3 flex items-center gap-2 z-20"
               style={{
                 background: "rgba(255,255,255,0.95)",
                 border: "0.5px solid rgba(21,72,149,0.1)",
@@ -268,13 +279,13 @@ export default function AboutPreviewSection() {
             </motion.div>
           </motion.div>
 
+          {/* ── RIGHT COLUMN (unchanged) ── */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-         
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -294,7 +305,6 @@ export default function AboutPreviewSection() {
               About Asliya Recruitment
             </motion.div>
 
-          
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -311,7 +321,6 @@ export default function AboutPreviewSection() {
               <br />Recruitment Partner
             </motion.h2>
 
-       
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -330,7 +339,6 @@ export default function AboutPreviewSection() {
               </p>
             </motion.div>
 
-          
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -375,7 +383,6 @@ export default function AboutPreviewSection() {
               ))}
             </motion.div>
 
-           
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
