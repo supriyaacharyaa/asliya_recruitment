@@ -710,26 +710,50 @@ Trusted by Qatar's leading organizations.
     </motion.div>
   ))}
 </motion.div>
+
       </div>
 
-      {/* ── Bottom wave ── */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ zIndex: 3 }}>
-        <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path
-            d="M0 64V38C180 8 360 58 540 34C720 10 900 64 1080 36C1260 12 1380 56 1440 40V64H0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+  {/* ── Bottom wave ── */}
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    delay: 1.2,
+    duration: 1.4,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  className="absolute bottom-0 left-0 right-0 pointer-events-none"
+  style={{ zIndex: 3 }}
+>
+  <svg
+    viewBox="0 0 1440 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    className="w-full h-[70px] sm:h-[80px]"
+  >
+    <path
+      d="M0 64V38C180 8 360 58 540 34C720 10 900 64 1080 36C1260 12 1380 56 1440 40V64H0Z"
+      fill="white"
+    />
+  </svg>
+</motion.div>
 
-      {/* ── Keyframe styles ── */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
-        @keyframes pulse-dot {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.5); opacity: 0.6; }
-        }
-      `}</style>
+{/* ── Keyframe styles (slightly smoother pulse) ── */}
+<style>{`
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
+
+  @keyframes pulse-dot {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.35);
+      opacity: 0.5;
+    }
+  }
+`}</style>
     </section>
   );
 }

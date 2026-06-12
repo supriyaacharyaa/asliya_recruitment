@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
+  Search, BookOpen, ArrowRight, Clock, Send, Globe, Users,
+  FileText, Briefcase, TrendingUp, Shield, Brain, BarChart2,
+  Plane, AlertTriangle, Lightbulb, Calendar, ChevronRight, Phone,
   CheckCircle, ChevronDown, Plus, Minus,
-  Globe, Users, UserCheck, Search, Clock, Briefcase,
-  Building2, Heart, Cpu, Shield, Truck, ShoppingBag,
-  Landmark, Flame, GraduationCap, Package, Plane, Wrench, UtensilsCrossed,
-  Trophy, Star, ArrowRight, Phone
-} from "lucide-react"
+  UserCheck, Building2, Heart, Cpu, Truck, ShoppingBag,
+  Landmark, Flame, GraduationCap, Package, Wrench, UtensilsCrossed,
+  Trophy, Star, Award, Target, Eye,
+  Linkedin, ShieldCheck, Download
+} from "lucide-react";
+
 import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
 import Container from "../components/ui/Container"
@@ -14,6 +18,136 @@ import Button from "../components/ui/Button"
 import SectionHeading from "../components/ui/SectionHeading"
 
 
+const EASE = [0.22, 1, 0.36, 1];
+
+const ANIM_CSS = `
+  @keyframes floatY {
+    0%,100% { transform: translateY(0px); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes floatX {
+    0%,100% { transform: translateX(0px); }
+    50%      { transform: translateX(8px); }
+  }
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1);   opacity: .6; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes fade-up {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0);    }
+  }
+  @keyframes count-pop {
+    0%   { transform: scale(1);    }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1);    }
+  }
+  .float-y   { animation: floatY 5s ease-in-out infinite; }
+  .float-x   { animation: floatX 7s ease-in-out infinite; }
+  .spin-slow { animation: spin-slow 18s linear infinite; }
+  .count-pop { animation: count-pop .35s ease; }
+
+  @keyframes blob1 {
+    0%,100% { transform: scale(1)   translate(0,0);     opacity:.10; }
+    33%      { transform: scale(1.18) translate(24px,-18px); opacity:.16; }
+    66%      { transform: scale(.92) translate(-16px,12px); opacity:.08; }
+  }
+  @keyframes blob2 {
+    0%,100% { transform: scale(1.1) translate(0,0);     opacity:.08; }
+    33%      { transform: scale(.9)  translate(-20px,16px); opacity:.13; }
+    66%      { transform: scale(1.2) translate(14px,-10px); opacity:.07; }
+  }
+  .blob1 { animation: blob1 9s ease-in-out infinite; }
+  .blob2 { animation: blob2 11s ease-in-out infinite; }
+
+  .shimmer-text {
+    background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.4) 40%,#fff 60%,rgba(255,255,255,.4) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3.5s linear infinite;
+  }
+
+  .card-glow {
+    position:relative; transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  }
+  .card-glow:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(21,72,149,.14); }
+
+  .tl-dot-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+  .tl-dot-wrap::before {
+    content:''; position:absolute;
+    width:28px; height:28px; border-radius:50%;
+    background: rgba(21,72,149,.25);
+    animation: pulse-ring 1.8s ease-out infinite;
+  }
+
+  .partner-chip {
+    transition: transform .28s cubic-bezier(.22,1,.36,1),
+                box-shadow .28s, filter .28s;
+  }
+  .partner-chip:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 10px 28px rgba(21,72,149,.14);
+    filter: grayscale(0%) !important;
+  }
+
+  .team-avatar-wrap { position:relative; display:inline-block; }
+  .team-avatar-wrap::after {
+    content:''; position:absolute; inset:-4px; border-radius:24px;
+    border: 2px solid rgba(21,72,149,.4);
+    opacity:0; transition: opacity .3s;
+  }
+  .team-card:hover .team-avatar-wrap::after { opacity:1; }
+
+  .stat-num {
+    display:inline-block;
+    background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.55) 40%,#fff 60%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  @keyframes orb1 {
+    0%,100%{ transform:scale(1) translate(0,0);   }
+    50%    { transform:scale(1.25) translate(20px,-15px); }
+  }
+  @keyframes orb2 {
+    0%,100%{ transform:scale(1.2) translate(0,0); }
+    50%    { transform:scale(.85) translate(-18px,12px); }
+  }
+  .orb1 { animation: orb1 8s ease-in-out infinite; }
+  .orb2 { animation: orb2 10s ease-in-out infinite; }
+
+  .badge-float { animation: floatY 4s ease-in-out infinite; }
+
+  .ring-spin-cw  { animation: spin-slow 22s linear infinite; }
+  .ring-spin-ccw { animation: spin-slow 28s linear infinite reverse; }
+
+  .mvv-bar {
+    position:absolute; top:0; left:0; right:0; height:4px;
+    border-radius:16px 16px 0 0;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .mvv-card-wrap:hover .mvv-bar { transform: scaleX(1); }
+  .mvv-card-wrap .mvv-icon-inner {
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .mvv-card-wrap:hover .mvv-icon-inner { transform: scale(1.12) rotate(-4deg); }
+
+  .sr { opacity:0; transform:translateY(28px); transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
+  .sr.in { opacity:1; transform:translateY(0); }
+`;
 
 const TABS = [
   {
@@ -427,73 +561,93 @@ export default function Services() {
       <Navbar />
 
       {/* ── 1. PAGE HERO ─────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] py-40 overflow-hidden">
-        {/* Animated blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/5 blur-3xl"
-            animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-[#e62224]/10 blur-3xl"
-            animate={{ scale: [1, 1.15, 1], x: [0, -15, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Dot grid */}
-          <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }}
-          />
-        </div>
+<section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
+  <style>{ANIM_CSS}</style>
 
-        <Container>
-          {/* Breadcrumb */}
-          <motion.div
-            variants={fadeUp} initial="hidden" animate="visible"
-            className="flex items-center gap-2 text-white/50 text-sm mb-8"
-          >
-            <span>Home</span>
-            <span>/</span>
-            <span className="text-white/80 font-semibold">Services</span>
-          </motion.div>
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="blob1 absolute -top-32 -left-32 w-[600px] h-[600px] bg-white rounded-full blur-3xl" />
+    <div className="blob2 absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#e62224] rounded-full blur-3xl" />
+    <div className="absolute inset-0 opacity-[0.04]"
+      style={{ backgroundImage: "radial-gradient(circle,white 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+    <div className="ring-spin-cw  absolute top-16  right-24 w-64 h-64 border-2 border-dashed border-white/10 rounded-full" />
+    <div className="ring-spin-ccw absolute bottom-12 left-16  w-40 h-40 border-2 border-dashed border-white/10 rounded-full" />
+    <div className="ring-spin-cw  absolute top-1/2  left-1/3  w-24 h-24 border   border-dashed border-white/[.06] rounded-full" />
+  </div>
 
-          <div className="max-w-3xl">
-            <motion.h1
-              variants={fadeUp} custom={0.5} initial="hidden" animate="visible"
-              className="text-5xl lg:text-6xl font-black text-white leading-tight"
-            >
-              Complete Recruitment Solutions for Every Industry
-            </motion.h1>
-            <motion.p
-              variants={fadeUp} custom={1} initial="hidden" animate="visible"
-              className="mt-6 text-xl text-white/70 leading-relaxed"
-            >
-              Domestic. Overseas. Executive. Mass Hiring. We cover it all.
-            </motion.p>
+  <Container className="relative z-10">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: .5 }}
+      className="flex items-center gap-2 mb-6 sm:mb-8 text-sm text-white/50 font-medium"
+    >
+      <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+      <ChevronRight size={14} className="text-white/30" />
+      <span className="text-white/80">Services</span>
+    </motion.div>
 
-            <motion.div
-              variants={fadeUp} custom={1.5} initial="hidden" animate="visible"
-              className="mt-10 flex flex-wrap gap-4"
-            >
-              <motion.button
-                whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="bg-white text-[#154895] font-bold rounded-2xl px-8 py-4 hover:bg-gray-50 transition-colors duration-300"
-              >
-                Get a Free Consultation
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="border-2 border-white/40 text-white font-bold rounded-2xl px-8 py-4 hover:bg-white/10 transition-colors duration-300"
-              >
-                See All Industries
-              </motion.button>
-            </motion.div>
-          </div>
-        </Container>
+    <motion.h1
+      initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: .1, duration: .7, ease: EASE }}
+      className="shimmer-text font-black leading-[1.08] tracking-tight mb-5 sm:mb-6 max-w-3xl"
+      style={{ fontSize: "clamp(32px, 6vw, 60px)" }}
+    >
+      Complete Recruitment Solutions for Every Industry
+    </motion.h1>
 
-        <WaveBottom fill="#ffffff" />
-      </section>
+    <motion.p
+      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: .25, duration: .6 }}
+      className="text-white/70 text-base sm:text-lg leading-relaxed max-w-xl mb-7 sm:mb-8"
+    >
+      Domestic. Overseas. Executive. Mass Hiring. We cover it all.
+    </motion.p>
+
+    <motion.div
+      className="flex flex-wrap gap-2 sm:gap-3"
+      initial="hidden" animate="visible"
+      variants={{ visible: { transition: { staggerChildren: .1, delayChildren: .5 } } }}
+    >
+      {[
+        { icon: Briefcase, label: "10+ Industries" },
+        { icon: Globe,     label: "Domestic & Overseas" },
+        { icon: Users,     label: "Mass Hiring Ready" },
+      ].map(({ icon: Icon, label }) => (
+        <motion.div key={label}
+          variants={{ hidden: { opacity: 0, scale: .8, y: 6 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white/80"
+        >
+          <Icon size={12} className="text-white/60" />{label}
+        </motion.div>
+      ))}
+    </motion.div>
+
+    <motion.div
+      className="flex flex-wrap gap-2 sm:gap-3 mt-7 sm:mt-8"
+      initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: .75, duration: .5 }}
+    >
+      <motion.button
+        whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
+        className="bg-white text-[#154895] font-bold rounded-2xl px-7 py-3 text-sm sm:text-base hover:bg-gray-50 transition-colors duration-300"
+      >
+        Get a Free Consultation
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
+        className="border-2 border-white/40 text-white font-bold rounded-2xl px-7 py-3 text-sm sm:text-base hover:bg-white/10 transition-colors duration-300"
+      >
+        See All Industries
+      </motion.button>
+    </motion.div>
+  </Container>
+
+  <div className="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z" fill="white" />
+    </svg>
+  </div>
+</section>
 
       {/* ── 2. SERVICES OVERVIEW TABS ────────────────────────────────────── */}
       <section className="bg-white py-28">

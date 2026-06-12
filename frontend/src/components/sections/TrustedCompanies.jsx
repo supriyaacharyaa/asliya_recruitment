@@ -231,28 +231,34 @@ export default function TrustedCompanies() {
         </div>
       </div>
 
-      <div className="relative space-y-4">
-        <div
-          className="absolute left-0 top-0 bottom-0 w-40 pointer-events-none z-10"
-          style={{
-            background: "linear-gradient(to right, #f8faff, transparent)",
-          }}
-        />
-        <div
-          className="absolute right-0 top-0 bottom-0 w-40 pointer-events-none z-10"
-          style={{
-            background: "linear-gradient(to left, #f8faff, transparent)",
-          }}
-        />
+   <div className="relative space-y-4">
+  <div
+    className="absolute left-0 top-0 bottom-0 w-40 pointer-events-none z-10"
+    style={{
+      background: "linear-gradient(to right, #f8faff, transparent)",
+    }}
+  />
+  <div
+    className="absolute right-0 top-0 bottom-0 w-40 pointer-events-none z-10"
+    style={{
+      background: "linear-gradient(to left, #f8faff, transparent)",
+    }}
+  />
 
-        <MarqueeTrack items={companies} reverse={false} speed={40} />
+  {/* ── TOP ROW (SLOW) ── */}
+  <MarqueeTrack
+    items={companies}
+    reverse={false}
+    speed={90}   // ⬅️ MUCH SLOWER
+  />
 
-        <MarqueeTrack
-          items={[...companies.slice(5), ...companies.slice(0, 5)]}
-          reverse={true}
-          speed={48}
-        />
-      </div>
+  {/* ── BOTTOM ROW (EVEN SLOWER + smooth offset) ── */}
+  <MarqueeTrack
+    items={[...companies.slice(5), ...companies.slice(0, 5)]}
+    reverse={true}
+    speed={110}  // ⬅️ EVEN SLOWER
+  />
+</div>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
