@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 const STATS = [
   { icon: CalendarDays, value: "18+", label: "Years Experience",  accent: "#154895" },
   { icon: Building2,    value: "500+", label: "Corporate Clients", accent: "#e62224" },
-  { icon: Users,        value: "50K+", label: "Workers Placed",    accent: "#10b981" },
-  { icon: Globe,        value: "42",   label: "Countries Served",  accent: "#f59e0b" },
+  { icon: Users,        value: "50K+", label: "Workers Placed",    accent: "#154895" },
+  { icon: Globe,        value: "42",   label: "Countries Served",  accent: "#e62224" },
 ];
 
 
@@ -30,7 +30,7 @@ const INDUSTRIES = [
     title: "Hospitality",
     sub: "5-star pre-screened talent for hotels and resorts.",
     roles: ["Managers", "Chefs", "Front Desk", "Housekeeping"],
-    accent: "#b45309",
+    accent: "#e62224",
     tag: "GCC Focus",
   },
   {
@@ -38,7 +38,7 @@ const INDUSTRIES = [
     title: "Healthcare",
     sub: "Licensed and verified medical professionals worldwide.",
     roles: ["Nurses", "Lab Techs", "Physiotherapists", "Caregivers"],
-    accent: "#e62224",
+    accent: "#154895",
     tag: "Certified",
   },
   {
@@ -46,7 +46,7 @@ const INDUSTRIES = [
     title: "Security",
     sub: "Trained, certified security personnel ready to deploy.",
     roles: ["Guards", "CCTV Operators", "Supervisors", "Cleaners"],
-    accent: "#0891b2",
+    accent: "#e62224",
     tag: "Vetted",
   },
   {
@@ -54,7 +54,7 @@ const INDUSTRIES = [
     title: "Logistics",
     sub: "Supply chain, warehousing and transportation experts.",
     roles: ["Warehouse Staff", "Forklift Ops", "HMV Drivers", "Inventory"],
-    accent: "#7c3aed",
+    accent: "#154895",
     tag: "Operational",
   },
   {
@@ -62,7 +62,7 @@ const INDUSTRIES = [
     title: "Retail",
     sub: "Multilingual staff for luxury outlets and megastores.",
     roles: ["Sales Associates", "Store Managers", "Cashiers", "Merchandisers"],
-    accent: "#059669",
+    accent: "#e62224",
     tag: "Multilingual",
   },
   {
@@ -78,7 +78,7 @@ const INDUSTRIES = [
     title: "Technical / MEP",
     sub: "Skilled maintenance, MEP and workshop technicians.",
     roles: ["HVAC Techs", "Welders", "Painters", "Crane Operators"],
-    accent: "#d97706",
+    accent: "#e62224",
     tag: "Skilled Trade",
   },
 ];

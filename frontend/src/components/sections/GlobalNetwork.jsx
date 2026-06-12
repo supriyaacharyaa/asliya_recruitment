@@ -4,13 +4,15 @@ import {
   Globe, MapPin, CheckCircle, ArrowRight,
   Phone, ChevronRight, Zap, Shield, Users, Building2, CalendarDays, ArrowUpRight
 } from "lucide-react";
+import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 
 // ── Data ──────────────────────────────────────────────────────────
 const STATS = [
   { icon: Globe,        value: "28+",   label: "Countries",           accent: "#154895" },
   { icon: Users,        value: "50K+",  label: "Candidates Assessed", accent: "#e62224" },
-  { icon: CalendarDays, value: "100+",  label: "Campaigns Run",       accent: "#10b981" },
-  { icon: Building2,    value: "25–30", label: "Days to Deploy",      accent: "#f59e0b" },
+  { icon: CalendarDays, value: "100+",  label: "Campaigns Run",       accent: "#154895" },
+  { icon: Building2,    value: "25–30", label: "Days to Deploy",      accent: "#e62224" },
 ];
 
 const REGIONS = [
@@ -29,7 +31,7 @@ const REGIONS = [
     flag: "🌍",
     label: "Africa",
     workers: "12,000+",
-    dotColor: "#b45309",
+    dotColor: "#e62224",
     tag: "Fast Growing",
     desc: "Fast-growing sourcing hub for construction, security, and hospitality sectors.",
     countries: ["Ghana", "Kenya", "Nigeria", "Tanzania", "Morocco", "Algeria"],
@@ -312,6 +314,8 @@ export default function GlobalNetwork() {
   const activeRegion = REGIONS.find(r => r.id === active);
 
   return (
+    <>
+    <Navbar/>
     <section
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
@@ -664,5 +668,7 @@ export default function GlobalNetwork() {
         }
       `}</style>
     </section>
+    <Footer/>
+    </>
   );
 }

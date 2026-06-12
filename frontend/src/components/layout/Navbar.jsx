@@ -58,7 +58,7 @@ const navLinks = [
       },
     ],
   },
-  { label: "Indusries", href: "/industries" },
+  { label: "Industries", href: "/industries" },
   { label: "Clients", href: "/clients" },
   {label:"Global Network", href: "/networks"},
   { label: "Blog", href: "/blog" },
@@ -92,7 +92,7 @@ export default function Navbar() {
       {/* Top Certification Bar */}
       <div
         id="cert-bar"
-        className="fixed top-0 left-0 right-0 z-[60] bg-[#FFFFFF] text-brand-secondary"
+        className="fixed top-0 left-0 right-0 z-[60] bg-white text-brand-secondary"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-15">
           <div className="flex flex-col sm:flex-row items-center justify-between py-2 text-xs sm:text-sm">

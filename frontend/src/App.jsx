@@ -60,6 +60,7 @@ import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
 import GetFreeQuotePage from "./pages/Getquotepage";
 import GlobalNetwork from "./components/sections/GlobalNetwork.jsx";
+// import BlogDetailPage from "./pages/Blogdetails.jsx";
 
 import { ChatProvider } from "./context/ChatContext.jsx";
 import ChatbotWidget from "./components/chat/ChatbotWidget.jsx";
@@ -89,6 +90,7 @@ function AppContent() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
+        {/* <Route path="/blog/:slug" element={<BlogDetailPage />} /> */}
         <Route path="/networks" element={<GlobalNetwork />} />
         <Route element={<UserLayout />}>
           <Route

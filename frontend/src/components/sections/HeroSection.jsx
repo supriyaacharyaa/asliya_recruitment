@@ -671,8 +671,8 @@ Trusted by Qatar's leading organizations.
   {[
    { icon: Users, label: "Candidates Placed", to: 20000, suffix: "+", color: "#154895" }, // Primary Blue
 { icon: Briefcase, label: "Partner Companies", to: 500, suffix: "+", color: "#e62224" }, // Primary Red
-{ icon: Globe, label: "Countries Covered", to: 28, suffix: "+", color: "#3b82f6" }, // Lighter Blue
-{ icon: Award, label: "Years Experience", to: 7, suffix: " yrs", color: "#b91c1c" }, // Darker Red
+{ icon: Globe, label: "Countries Covered", to: 28, suffix: "+", color: "#154895" }, // Lighter Blue
+{ icon: Award, label: "Years Experience", to: 7, suffix: " yrs", color: "#e62224" }, // Darker Red
   ].map(({ icon: Icon, label, to, suffix, color }, i) => (
     <motion.div
       key={label}
