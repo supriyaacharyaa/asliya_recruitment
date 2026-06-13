@@ -3,12 +3,12 @@ import { Shield, Award, ThumbsUp, Globe, Building2 } from "lucide-react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 
-// Asliya Manpower Verified Trust Badges
+
 const TRUST_BADGES = [
   { icon: Shield,   label: "100% Verified Partners"    },
-  { icon: Award,    label: "Ministry Approved Supply"  }, // Adjusted to fit corporate branding
+  { icon: Award,    label: "Ministry Approved Supply"  }, 
   { icon: ThumbsUp, label: "97% Client Retention Rate"  },
-  { icon: Globe,    label: "28+ Source Countries"      }, // Matched with infrastructure data
+  { icon: Globe,    label: "28+ Source Countries"      }, 
 ];
 
 const ACCENT_COLORS = [
@@ -20,13 +20,13 @@ export default function ClientsSection({ clients = [] }) {
   return (
     <section className="relative py-16 md:py-24 lg:py-28 bg-[#f3f5fb] overflow-hidden">
 
-      {/* Ambient background glows */}
+   
       <div className="pointer-events-none absolute -top-36 -right-36 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[radial-gradient(circle,rgba(21,72,149,0.05)_0%,transparent_70%)]" />
       <div className="pointer-events-none absolute -bottom-24 -left-24 w-[250px] h-[250px] md:w-[380px] md:h-[380px] rounded-full bg-[radial-gradient(circle,rgba(201,144,42,0.06)_0%,transparent_70%)]" />
 
       <Container className="relative z-10 px-4 sm:px-6 lg:px-8">
 
-        {/* Section heading */}
+      
         <SectionHeading
           tag="Our Clients"
           title={

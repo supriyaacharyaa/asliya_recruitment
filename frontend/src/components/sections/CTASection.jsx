@@ -3,7 +3,7 @@ import { ArrowRight, Calendar, Users, Clock, CheckCircle } from "lucide-react";
 import { useRef } from "react";
 import Container from "../ui/Container";
 
-// Asliya Manpower Authentic Stats & Perks
+
 const STATS = [
   { value: "300+",  label: "Satisfied Clients" },
   { value: "20K+",  label: "Deployments"       },
@@ -44,7 +44,7 @@ export default function CTASection() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-[24px] md:rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(11,36,84,0.15)]"
         >
-          {/* Deep navy corporate base */}
+         
           <div className="absolute inset-0 bg-[#0b2454]" />
 
           {/* Subtle grid texture */}

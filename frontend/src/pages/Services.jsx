@@ -1,20 +1,160 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
+  Search, BookOpen, ArrowRight, Clock, Send, Globe, Users,
+  FileText, Briefcase, TrendingUp, Shield, Brain, BarChart2,
+  Plane, AlertTriangle, Lightbulb, Calendar, ChevronRight, Phone,
   CheckCircle, ChevronDown, Plus, Minus,
-  Globe, Users, UserCheck, Search, Clock, Briefcase,
-  Building2, Heart, Cpu, Shield, Truck, ShoppingBag,
-  Landmark, Flame, GraduationCap, Package, Plane, Wrench, UtensilsCrossed,
-  Trophy, Star, ArrowRight, Phone
-} from "lucide-react"
+  UserCheck, Building2, Heart, Cpu, Truck, ShoppingBag,
+  Landmark, Flame, GraduationCap, Package, Wrench, UtensilsCrossed,
+  Trophy, Star, Award, Target, Eye,
+  Linkedin, ShieldCheck, Download,
+  HardHat, Hotel, Stethoscope, Home, ArrowUpRight
+} from "lucide-react";
+
 import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
 import Container from "../components/ui/Container"
 import Button from "../components/ui/Button"
 import SectionHeading from "../components/ui/SectionHeading"
 
+const EASE = [0.22, 1, 0.36, 1];
 
+const ANIM_CSS = `
+  @keyframes floatY {
+    0%,100% { transform: translateY(0px); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes floatX {
+    0%,100% { transform: translateX(0px); }
+    50%      { transform: translateX(8px); }
+  }
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1);   opacity: .6; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes fade-up {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0);    }
+  }
+  @keyframes count-pop {
+    0%   { transform: scale(1);    }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1);    }
+  }
+  .float-y   { animation: floatY 5s ease-in-out infinite; }
+  .float-x   { animation: floatX 7s ease-in-out infinite; }
+  .spin-slow { animation: spin-slow 18s linear infinite; }
+  .count-pop { animation: count-pop .35s ease; }
 
+  @keyframes blob1 {
+    0%,100% { transform: scale(1)   translate(0,0);     opacity:.10; }
+    33%      { transform: scale(1.18) translate(24px,-18px); opacity:.16; }
+    66%      { transform: scale(.92) translate(-16px,12px); opacity:.08; }
+  }
+  @keyframes blob2 {
+    0%,100% { transform: scale(1.1) translate(0,0);     opacity:.08; }
+    33%      { transform: scale(.9)  translate(-20px,16px); opacity:.13; }
+    66%      { transform: scale(1.2) translate(14px,-10px); opacity:.07; }
+  }
+  .blob1 { animation: blob1 9s ease-in-out infinite; }
+  .blob2 { animation: blob2 11s ease-in-out infinite; }
+
+  .shimmer-text {
+    background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.4) 40%,#fff 60%,rgba(255,255,255,.4) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3.5s linear infinite;
+  }
+
+  .card-glow {
+    position:relative; transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  }
+  .card-glow:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(21,72,149,.14); }
+
+  .tl-dot-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+  .tl-dot-wrap::before {
+    content:''; position:absolute;
+    width:28px; height:28px; border-radius:50%;
+    background: rgba(21,72,149,.25);
+    animation: pulse-ring 1.8s ease-out infinite;
+  }
+
+  .partner-chip {
+    transition: transform .28s cubic-bezier(.22,1,.36,1),
+                box-shadow .28s, filter .28s;
+  }
+  .partner-chip:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 10px 28px rgba(21,72,149,.14);
+    filter: grayscale(0%) !important;
+  }
+
+  .team-avatar-wrap { position:relative; display:inline-block; }
+  .team-avatar-wrap::after {
+    content:''; position:absolute; inset:-4px; border-radius:24px;
+    border: 2px solid rgba(21,72,149,.4);
+    opacity:0; transition: opacity .3s;
+  }
+  .team-card:hover .team-avatar-wrap::after { opacity:1; }
+
+  .stat-num {
+    display:inline-block;
+    background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.55) 40%,#fff 60%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  @keyframes orb1 {
+    0%,100%{ transform:scale(1) translate(0,0);   }
+    50%    { transform:scale(1.25) translate(20px,-15px); }
+  }
+  @keyframes orb2 {
+    0%,100%{ transform:scale(1.2) translate(0,0); }
+    50%    { transform:scale(.85) translate(-18px,12px); }
+  }
+  .orb1 { animation: orb1 8s ease-in-out infinite; }
+  .orb2 { animation: orb2 10s ease-in-out infinite; }
+
+  .badge-float { animation: floatY 4s ease-in-out infinite; }
+
+  .ring-spin-cw  { animation: spin-slow 22s linear infinite; }
+  .ring-spin-ccw { animation: spin-slow 28s linear infinite reverse; }
+
+  .mvv-bar {
+    position:absolute; top:0; left:0; right:0; height:4px;
+    border-radius:16px 16px 0 0;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .mvv-card-wrap:hover .mvv-bar { transform: scaleX(1); }
+  .mvv-card-wrap .mvv-icon-inner {
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .mvv-card-wrap:hover .mvv-icon-inner { transform: scale(1.12) rotate(-4deg); }
+
+  .sr { opacity:0; transform:translateY(28px); transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
+  .sr.in { opacity:1; transform:translateY(0); }
+
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.6; }
+  }
+`;
+
+// ── Tab IDs map to URL hashes ─────────────────────────────────────────────────
 const TABS = [
   {
     id: "domestic",
@@ -213,28 +353,78 @@ const PROCESS_STEPS = [
   },
 ]
 
-const INDUSTRIES = [
-  { icon: Building2, name: "Construction" },
-  { icon: UtensilsCrossed, name: "Hospitality" },
-  { icon: Heart, name: "Healthcare" },
-  { icon: Wrench, name: "Manufacturing" },
-  { icon: Cpu, name: "IT" },
-  { icon: Shield, name: "Security" },
-  { icon: Truck, name: "Transport" },
-  { icon: ShoppingBag, name: "Retail" },
-  { icon: Landmark, name: "Finance" },
-  { icon: Flame, name: "Oil & Gas" },
-  { icon: GraduationCap, name: "Education" },
-  { icon: Package, name: "Logistics" },
-  { icon: Plane, name: "Aviation" },
-  { icon: Wrench, name: "FM" },
-  { icon: UtensilsCrossed, name: "Catering" },
+// ── Industry cards data ───────────────────────────────────────────────────────
+const INDUSTRY_CARDS = [
+  {
+    icon: HardHat,
+    title: "Construction",
+    sub: "Infrastructure & mega-project specialists for any scale.",
+    roles: ["Civil Engineers", "Steel Fixers", "Masons", "Electricians"],
+    accent: "#154895",
+    tag: "High Demand",
+  },
+  {
+    icon: Hotel,
+    title: "Hospitality",
+    sub: "5-star pre-screened talent for hotels and resorts.",
+    roles: ["Managers", "Chefs", "Front Desk", "Housekeeping"],
+    accent: "#e62224",
+    tag: "GCC Focus",
+  },
+  {
+    icon: Stethoscope,
+    title: "Healthcare",
+    sub: "Licensed and verified medical professionals worldwide.",
+    roles: ["Nurses", "Lab Techs", "Physiotherapists", "Caregivers"],
+    accent: "#154895",
+    tag: "Certified",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Security",
+    sub: "Trained, certified security personnel ready to deploy.",
+    roles: ["Guards", "CCTV Operators", "Supervisors", "Cleaners"],
+    accent: "#e62224",
+    tag: "Vetted",
+  },
+  {
+    icon: Truck,
+    title: "Logistics",
+    sub: "Supply chain, warehousing and transportation experts.",
+    roles: ["Warehouse Staff", "Forklift Ops", "HMV Drivers", "Inventory"],
+    accent: "#154895",
+    tag: "Operational",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Retail",
+    sub: "Multilingual staff for luxury outlets and megastores.",
+    roles: ["Sales Associates", "Store Managers", "Cashiers", "Merchandisers"],
+    accent: "#e62224",
+    tag: "Multilingual",
+  },
+  {
+    icon: Home,
+    title: "Domestic",
+    sub: "Background-verified home and facility staff.",
+    roles: ["Housemaids", "Nannies", "Drivers", "Cooks"],
+    accent: "#154895",
+    tag: "Verified",
+  },
+  {
+    icon: Wrench,
+    title: "Technical / MEP",
+    sub: "Skilled maintenance, MEP and workshop technicians.",
+    roles: ["HVAC Techs", "Welders", "Painters", "Crane Operators"],
+    accent: "#e62224",
+    tag: "Skilled Trade",
+  },
 ]
 
 const TESTIMONIALS = [
   {
     quote:
-      "RecruitMax deployed 300 construction workers to our UAE project in under 3 weeks. Documentation was flawless and every worker arrived compliant. Absolutely professional.",
+      "Asliya Recruitment deployed 300 construction workers to our UAE project in under 3 weeks. Documentation was flawless and every worker arrived compliant. Absolutely professional.",
     name: "Mohammed Al-Rashidi",
     role: "Projects Director",
     company: "Al Futtaim Engineering",
@@ -243,7 +433,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "We needed a Country Manager fast. RecruitMax's executive search team delivered a shortlist of 4 outstanding candidates within 5 weeks — all passive, all perfectly matched.",
+      "We needed a Country Manager fast. Asliya Recruitment's executive search team delivered a shortlist of 4 outstanding candidates within 5 weeks — all passive, all perfectly matched.",
     name: "Sandra Reyes",
     role: "Chief People Officer",
     company: "Pacific Rim Holdings",
@@ -252,7 +442,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "During our peak season we needed 150 temp staff across 12 outlets. RecruitMax filled every position in 48 hours. That kind of speed is unmatched in the industry.",
+      "During our peak season we needed 150 temp staff across 12 outlets. Asliya Recruitment filled every position in 48 hours. That kind of speed is unmatched in the industry.",
     name: "Kevin Tan",
     role: "Head of Operations",
     company: "Foodpanda Philippines",
@@ -291,12 +481,10 @@ const FAQS = [
     a: "We source talent from the Philippines, Nepal, India, Sri Lanka, Bangladesh, Indonesia, and other key labor-sending countries, depending on principal requirements.",
   },
   {
-    q: "How do I get started with RecruitMax?",
+    q: "How do I get started with Asliya Recruitment?",
     a: "Simply click 'Book a Free Consultation' or call our hotline. A dedicated account manager will contact you within 2 hours to understand your needs and propose a plan.",
   },
 ]
-
-// ─── Animation Variants ───────────────────────────────────────────────────────
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -313,18 +501,6 @@ const tabPanel = {
   hidden: { opacity: 0, y: 10 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease } },
   exit: { opacity: 0, y: -10, transition: { duration: 0.25, ease } },
-}
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-function WaveBottom({ fill = "#ffffff" }) {
-  return (
-    <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-20">
-        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill={fill} />
-      </svg>
-    </div>
-  )
 }
 
 function ServiceTabPanel({ tab }) {
@@ -378,7 +554,6 @@ function ServiceTabPanel({ tab }) {
       {/* RIGHT */}
       <div className="relative">
         <div className="bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-3xl p-10 text-white relative overflow-hidden">
-          {/* Subtle pattern */}
           <div className="absolute inset-0 opacity-10"
             style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
 
@@ -398,7 +573,6 @@ function ServiceTabPanel({ tab }) {
               ))}
             </div>
 
-            {/* Floating metric badge */}
             <div className="bg-white rounded-2xl p-5 flex items-center gap-4 shadow-2xl">
               <div className="w-12 h-12 bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Star className="w-5 h-5 text-white" />
@@ -415,88 +589,222 @@ function ServiceTabPanel({ tab }) {
   )
 }
 
+// ── Industry Card component ───────────────────────────────────────────────────
+function IndustryCard({ ind, index }) {
+  const Icon = ind.icon
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: index * 0.06, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, transition: { duration: 0.22 } }}
+      className="group relative flex flex-col rounded-[22px] border overflow-hidden transition-all duration-300 cursor-pointer"
+      style={{
+        background: "rgba(255,255,255,0.88)",
+        borderColor: "rgba(21,72,149,0.08)",
+        backdropFilter: "blur(10px)",
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = `${ind.accent}32`;
+        e.currentTarget.style.boxShadow = `0 16px 48px ${ind.accent}14`;
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = "rgba(21,72,149,0.08)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
+    >
+      {/* Top accent bar */}
+      <div
+        className="h-[3px] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+        style={{ background: `linear-gradient(90deg, ${ind.accent}, ${ind.accent}55)` }}
+      />
+
+      <div className="flex flex-col gap-4 p-7 flex-1">
+        {/* Icon + tag */}
+        <div className="flex items-start justify-between gap-2">
+          <div
+            className="w-12 h-12 rounded-[13px] flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+            style={{ background: `${ind.accent}10` }}
+          >
+            <Icon size={21} color={ind.accent} strokeWidth={1.8} />
+          </div>
+          <span
+            className="text-[10px] font-bold uppercase tracking-widest px-3 py-[5px] rounded-full flex-shrink-0"
+            style={{
+              background: `${ind.accent}0e`,
+              color: ind.accent,
+              border: `1px solid ${ind.accent}22`,
+            }}
+          >
+            {ind.tag}
+          </span>
+        </div>
+
+        {/* Title + sub */}
+        <div>
+          <h3
+            className="font-bold text-[16px] mb-[6px] leading-snug transition-colors duration-200 group-hover:text-[#154895]"
+            style={{ color: "#1e293b" }}
+          >
+            {ind.title}
+          </h3>
+          <p className="text-[12.5px] leading-relaxed" style={{ color: "#64748b" }}>
+            {ind.sub}
+          </p>
+        </div>
+
+        {/* Roles */}
+        <div className="flex flex-wrap gap-[7px] mt-auto">
+          {ind.roles.map((r) => (
+            <span
+              key={r}
+              className="text-[10.5px] font-semibold px-3 py-[5px] rounded-full uppercase tracking-wide"
+              style={{
+                background: "rgba(21,72,149,0.05)",
+                color: "#475569",
+                border: "1px solid rgba(21,72,149,0.08)",
+              }}
+            >
+              {r}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA link */}
+        <motion.button
+          className="inline-flex items-center gap-1.5 text-[12.5px] font-bold mt-3 self-start transition-colors duration-200"
+          style={{ color: ind.accent }}
+          whileHover={{ x: 3 }}
+        >
+          Hire Specialists
+          <ArrowUpRight size={13} />
+        </motion.button>
+      </div>
+    </motion.div>
+  )
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState(0)
+  const getTabFromHash = () => {
+    const hash = window.location.hash.replace("#", "")
+    const idx = TABS.findIndex((t) => t.id === hash)
+    return idx >= 0 ? idx : 0
+  }
+
+  const [activeTab, setActiveTab] = useState(getTabFromHash)
   const [openProcess, setOpenProcess] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
+
+  useEffect(() => {
+    const onHashChange = () => setActiveTab(getTabFromHash())
+    window.addEventListener("hashchange", onHashChange)
+    return () => window.removeEventListener("hashchange", onHashChange)
+  }, [])
+
+  const handleTabClick = (i) => {
+    setActiveTab(i)
+    const newHash = TABS[i].id
+    window.history.replaceState(null, "", `#${newHash}`)
+  }
 
   return (
     <div className="min-h-screen bg-white font-inter">
       <Navbar />
 
       {/* ── 1. PAGE HERO ─────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] py-40 overflow-hidden">
-        {/* Animated blobs */}
+      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
+        <style>{ANIM_CSS}</style>
+
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/5 blur-3xl"
-            animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-[#e62224]/10 blur-3xl"
-            animate={{ scale: [1, 1.15, 1], x: [0, -15, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Dot grid */}
-          <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "32px 32px" }}
-          />
+          <div className="blob1 absolute -top-32 -left-32 w-[600px] h-[600px] bg-white rounded-full blur-3xl" />
+          <div className="blob2 absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#e62224] rounded-full blur-3xl" />
+          <div className="absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: "radial-gradient(circle,white 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div className="ring-spin-cw  absolute top-16  right-24 w-64 h-64 border-2 border-dashed border-white/10 rounded-full" />
+          <div className="ring-spin-ccw absolute bottom-12 left-16  w-40 h-40 border-2 border-dashed border-white/10 rounded-full" />
+          <div className="ring-spin-cw  absolute top-1/2  left-1/3  w-24 h-24 border   border-dashed border-white/[.06] rounded-full" />
         </div>
 
-        <Container>
-          {/* Breadcrumb */}
+        <Container className="relative z-10">
           <motion.div
-            variants={fadeUp} initial="hidden" animate="visible"
-            className="flex items-center gap-2 text-white/50 text-sm mb-8"
+            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: .5 }}
+            className="flex items-center gap-2 mb-6 sm:mb-8 text-sm text-white/50 font-medium"
           >
-            <span>Home</span>
-            <span>/</span>
-            <span className="text-white/80 font-semibold">Services</span>
+            <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+            <ChevronRight size={14} className="text-white/30" />
+            <span className="text-white/80">Services</span>
           </motion.div>
 
-          <div className="max-w-3xl">
-            <motion.h1
-              variants={fadeUp} custom={0.5} initial="hidden" animate="visible"
-              className="text-5xl lg:text-6xl font-black text-white leading-tight"
-            >
-              End-to-End Recruitment Solutions
-            </motion.h1>
-            <motion.p
-              variants={fadeUp} custom={1} initial="hidden" animate="visible"
-              className="mt-6 text-xl text-white/70 leading-relaxed"
-            >
-              Domestic. Overseas. Executive. Mass Hiring. We cover it all.
-            </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: .1, duration: .7, ease: EASE }}
+            className="shimmer-text font-black leading-[1.08] tracking-tight mb-5 sm:mb-6 max-w-3xl"
+            style={{ fontSize: "clamp(32px, 6vw, 60px)" }}
+          >
+            Complete Recruitment Solutions for Every Industry
+          </motion.h1>
 
-            <motion.div
-              variants={fadeUp} custom={1.5} initial="hidden" animate="visible"
-              className="mt-10 flex flex-wrap gap-4"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: .25, duration: .6 }}
+            className="text-white/70 text-base sm:text-lg leading-relaxed max-w-xl mb-7 sm:mb-8"
+          >
+            Domestic. Overseas. Executive. Mass Hiring. We cover it all.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap gap-2 sm:gap-3"
+            initial="hidden" animate="visible"
+            variants={{ visible: { transition: { staggerChildren: .1, delayChildren: .5 } } }}
+          >
+            {[
+              { icon: Briefcase, label: "10+ Industries" },
+              { icon: Globe,     label: "Domestic & Overseas" },
+              { icon: Users,     label: "Mass Hiring Ready" },
+            ].map(({ icon: Icon, label }) => (
+              <motion.div key={label}
+                variants={{ hidden: { opacity: 0, scale: .8, y: 6 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white/80"
+              >
+                <Icon size={12} className="text-white/60" />{label}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="flex flex-wrap gap-2 sm:gap-3 mt-7 sm:mt-8"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: .75, duration: .5 }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
+              className="bg-white text-[#154895] font-bold rounded-2xl px-7 py-3 text-sm sm:text-base hover:bg-gray-50 transition-colors duration-300"
             >
-              <motion.button
-                whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="bg-white text-[#154895] font-bold rounded-2xl px-8 py-4 hover:bg-gray-50 transition-colors duration-300"
-              >
-                Get a Free Consultation
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="border-2 border-white/40 text-white font-bold rounded-2xl px-8 py-4 hover:bg-white/10 transition-colors duration-300"
-              >
-                See All Industries
-              </motion.button>
-            </motion.div>
-          </div>
+              Get a Free Consultation
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
+              className="border-2 border-white/40 text-white font-bold rounded-2xl px-7 py-3 text-sm sm:text-base hover:bg-white/10 transition-colors duration-300"
+            >
+              See All Industries
+            </motion.button>
+          </motion.div>
         </Container>
 
-        <WaveBottom fill="#ffffff" />
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z" fill="white" />
+          </svg>
+        </div>
       </section>
 
-      {/* ── 2. SERVICES OVERVIEW TABS ────────────────────────────────────── */}
-      <section className="bg-white py-28">
+      {/* ── 2. SERVICES TABS ─────────────────────────────────────────────── */}
+      <section className="bg-white py-28" id="services-tabs">
         <Container>
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             {/* Tab bar */}
@@ -506,7 +814,7 @@ export default function Services() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(i)}
+                    onClick={() => handleTabClick(i)}
                     className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm whitespace-nowrap transition-all duration-300 flex-shrink-0 ${
                       activeTab === i
                         ? "bg-[#154895] text-white shadow-lg shadow-[#154895]/25"
@@ -570,12 +878,10 @@ export default function Services() {
                         className="overflow-hidden"
                       >
                         <div className="px-6 pb-6">
-                          {/* Steps with connecting line */}
                           <div className="relative">
                             <div className="flex items-start gap-0 relative">
                               {item.steps.map((step, j) => (
                                 <div key={j} className="flex-1 relative">
-                                  {/* Connector line */}
                                   {j < item.steps.length - 1 && (
                                     <div className="absolute top-5 left-1/2 right-0 border-t-2 border-dashed border-[#154895]/20 z-0" />
                                   )}
@@ -607,7 +913,6 @@ export default function Services() {
           <SectionHeading tag="Engagement Models" title="Flexible Hiring, Your Way" />
 
           <div className="mt-16 grid md:grid-cols-3 gap-6">
-            {/* Card 1: Standard */}
             <motion.div
               variants={fadeUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true }}
               whileHover={{ y: -6 }}
@@ -633,7 +938,6 @@ export default function Services() {
               </motion.button>
             </motion.div>
 
-            {/* Card 2: Bulk — FEATURED */}
             <motion.div
               variants={fadeUp} custom={0.1} initial="hidden" whileInView="visible" viewport={{ once: true }}
               className="bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-2xl p-8 flex flex-col relative overflow-hidden shadow-2xl shadow-[#154895]/30"
@@ -665,7 +969,6 @@ export default function Services() {
               </div>
             </motion.div>
 
-            {/* Card 3: Executive */}
             <motion.div
               variants={fadeUp} custom={0.2} initial="hidden" whileInView="visible" viewport={{ once: true }}
               whileHover={{ y: -6 }}
@@ -694,36 +997,59 @@ export default function Services() {
         </Container>
       </section>
 
-      {/* ── 5. INDUSTRIES SERVED ─────────────────────────────────────────── */}
-      <section className="bg-[#f8f9fc] py-20">
+      {/* ── 5. INDUSTRIES WE SERVE — full cards ──────────────────────────── */}
+      <section className="bg-[#f8f9fc] py-28">
         <Container>
-          <SectionHeading tag="Industries" title="We Recruit Across 15+ Sectors" />
-
+          {/* Section heading — styled to match the page */}
           <motion.div
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="mt-12 flex flex-wrap justify-center gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-12"
           >
-            {INDUSTRIES.map((ind, i) => {
-              const Icon = ind.icon
-              return (
-                <motion.div
-                  key={ind.name}
-                  custom={i * 0.04}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05 }}
-                  className="group bg-white border border-gray-200 rounded-full px-5 py-2.5 flex items-center gap-2.5 cursor-pointer hover:border-[#154895]/30 hover:bg-[#154895]/5 hover:text-[#154895] transition-all duration-300"
-                >
-                  <Icon className="w-4 h-4 text-gray-400 group-hover:text-[#154895] transition-colors duration-300" />
-                  <span className="text-sm font-semibold text-gray-600 group-hover:text-[#154895] transition-colors duration-300 whitespace-nowrap">
-                    {ind.name}
-                  </span>
-                </motion.div>
-              )
-            })}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2 mb-5 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
+              style={{
+                background: "rgba(21,72,149,0.06)",
+                borderColor: "rgba(21,72,149,0.14)",
+                color: "#154895",
+              }}
+            >
+              <span
+                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
+              />
+              Industries We Serve
+            </motion.div>
+
+            <h2
+              className="font-black text-gray-900 leading-[1.1] tracking-tight mb-4"
+              style={{
+                fontSize: "clamp(28px, 4vw, 44px)",
+                fontFamily: "serif",
+              }}
+            >
+              Sector-Specific{" "}
+              <span style={{ color: "#154895" }}>Manpower Expertise</span>
+            </h2>
+
+            <p className="text-[15.5px] leading-relaxed max-w-2xl" style={{ color: "#64748b" }}>
+              Our recruiters are industry-specialists — not generalists. Pre-screened, trade-tested,
+              and deployment-ready professionals for every sector you operate in.
+            </p>
           </motion.div>
+
+          {/* Industry cards grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {INDUSTRY_CARDS.map((ind, i) => (
+              <IndustryCard key={ind.title} ind={ind} index={i} />
+            ))}
+          </div>
         </Container>
       </section>
 
@@ -740,18 +1066,13 @@ export default function Services() {
                 whileHover={{ y: -6 }}
                 className="bg-gray-50 border border-gray-100 rounded-2xl p-8 flex flex-col hover:border-[#154895]/20 hover:shadow-2xl hover:shadow-[#154895]/10 transition-all duration-500"
               >
-                {/* Stars */}
                 <div className="flex gap-1 mb-5">
                   {[...Array(5)].map((_, s) => (
                     <Star key={s} className="w-4 h-4 text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-
-                {/* Service tag */}
                 <span className="text-xs font-semibold text-[#e62224] uppercase tracking-widest mb-3">{t.service}</span>
-
                 <p className="text-gray-700 leading-relaxed flex-1 text-sm">"{t.quote}"</p>
-
                 <div className="flex items-center gap-4 mt-6 pt-6 border-t border-gray-100">
                   <div className="w-10 h-10 bg-gradient-to-br from-[#154895] to-[#0d3270] rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0">
                     {t.avatar}
@@ -827,7 +1148,7 @@ export default function Services() {
               <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
                 Book a free consultation and we'll recommend the right solution for your hiring needs.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mt-10 flex flex-wrap justify-center gap-4" onClick={() => window.location.href = '/contact'}>
                 <motion.button
                   whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}
                   className="bg-white text-[#154895] font-bold rounded-2xl px-8 py-4 hover:bg-gray-50 transition-colors duration-300"

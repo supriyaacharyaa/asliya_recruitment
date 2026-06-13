@@ -82,7 +82,7 @@ const SOURCE_DOTS = [
 
 const QATAR = { cx: 492, cy: 156 };
 
-// ── Stat Chip — matches Industries exactly ────────────────────────
+// ── Stat Chip ──────────────────────────────────────────────────────
 function StatChip({ icon: Icon, value, label, accent, index }) {
   return (
     <motion.div
@@ -180,7 +180,7 @@ function WorldMap({ active, setActive }) {
   );
 }
 
-// ── Region Card — mirrors IndustryCard ────────────────────────────
+// ── Region Card ───────────────────────────────────────────────────
 function RegionCard({ region, index, active, setActive }) {
   const isActive = active === region.id;
   return (
@@ -211,7 +211,6 @@ function RegionCard({ region, index, active, setActive }) {
         }
       }}
     >
-      {/* Top accent bar */}
       <div
         className="h-[3px] w-full origin-left transition-transform duration-300"
         style={{
@@ -221,7 +220,6 @@ function RegionCard({ region, index, active, setActive }) {
       />
 
       <div className="flex flex-col gap-4 p-7 flex-1">
-        {/* Icon + tag */}
         <div className="flex items-start justify-between gap-2">
           <div
             className="w-12 h-12 rounded-[13px] flex items-center justify-center flex-shrink-0 text-2xl transition-transform duration-300 group-hover:scale-110"
@@ -241,7 +239,6 @@ function RegionCard({ region, index, active, setActive }) {
           </span>
         </div>
 
-        {/* Title + sub */}
         <div>
           <h3
             className="font-bold text-[16px] mb-[6px] leading-snug transition-colors duration-200 group-hover:text-[#154895]"
@@ -254,7 +251,6 @@ function RegionCard({ region, index, active, setActive }) {
           </p>
         </div>
 
-        {/* Candidate count pill */}
         <div
           className="inline-flex items-center gap-2 self-start rounded-full px-4 py-2"
           style={{ background: `${region.dotColor}08`, border: `1px solid ${region.dotColor}18` }}
@@ -269,7 +265,6 @@ function RegionCard({ region, index, active, setActive }) {
           <span className="text-[11px]" style={{ color: "#94a3b8" }}>candidates</span>
         </div>
 
-        {/* Country pills */}
         <div className="flex flex-wrap gap-[6px] mt-auto">
           {region.countries.slice(0, 5).map(c => (
             <span
@@ -292,7 +287,6 @@ function RegionCard({ region, index, active, setActive }) {
           )}
         </div>
 
-        {/* CTA link */}
         <motion.div
           className="inline-flex items-center gap-1.5 text-[12.5px] font-bold mt-2 self-start"
           style={{ color: region.dotColor }}
@@ -306,7 +300,7 @@ function RegionCard({ region, index, active, setActive }) {
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────
+// ── Section ───────────────────────────────────────────────────────
 export default function GlobalNetwork() {
   const [active, setActive] = useState(null);
   const activeRegion = REGIONS.find(r => r.id === active);
@@ -316,7 +310,6 @@ export default function GlobalNetwork() {
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
     >
-      {/* Background blobs + dot grid — identical to Industries */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute rounded-full" style={{
           width: 800, height: 400, top: "5%", right: "-15%",
@@ -336,7 +329,6 @@ export default function GlobalNetwork() {
 
       <div className="relative max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12" style={{ zIndex: 2 }}>
 
-        {/* ── Header ── */}
         <div className="max-w-[640px] mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -391,7 +383,6 @@ export default function GlobalNetwork() {
           </motion.p>
         </div>
 
-        {/* ── Stats bar ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -408,7 +399,6 @@ export default function GlobalNetwork() {
           {STATS.map((s, i) => <StatChip key={s.label} {...s} index={i} />)}
         </motion.div>
 
-        {/* ── Interactive Map Card ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -422,7 +412,6 @@ export default function GlobalNetwork() {
             boxShadow: "0 4px 24px rgba(21,72,149,0.07)",
           }}
         >
-          {/* Top bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 px-7 py-4 border-b"
             style={{ borderColor: "rgba(21,72,149,0.08)" }}>
             <div className="flex items-center gap-3">
@@ -459,12 +448,10 @@ export default function GlobalNetwork() {
             </div>
           </div>
 
-          {/* Map */}
           <div className="px-6 py-4" style={{ background: "#f8faff" }}>
             <WorldMap active={active} setActive={setActive} />
           </div>
 
-          {/* Detail panel */}
           <div className="min-h-[96px] px-7 py-5 border-t" style={{ borderColor: "rgba(21,72,149,0.08)" }}>
             {activeRegion ? (
               <motion.div
@@ -515,14 +502,12 @@ export default function GlobalNetwork() {
           </div>
         </motion.div>
 
-        {/* ── Region Cards ── */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
           {REGIONS.map((r, i) => (
             <RegionCard key={r.id} region={r} index={i} active={active} setActive={setActive} />
           ))}
         </div>
 
-        {/* ── Why local partners card ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -537,7 +522,6 @@ export default function GlobalNetwork() {
           }}
         >
           <div className="grid md:grid-cols-2">
-            {/* Left */}
             <div className="p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r"
               style={{ borderColor: "rgba(21,72,149,0.08)" }}>
               <motion.div
@@ -571,7 +555,6 @@ export default function GlobalNetwork() {
               </motion.div>
             </div>
 
-            {/* Right — checklist */}
             <div className="p-10">
               {WHY_POINTS.map((item, i) => (
                 <motion.div
@@ -599,7 +582,6 @@ export default function GlobalNetwork() {
           </div>
         </motion.div>
 
-        {/* ── CTA Banner — matches Industries exactly ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

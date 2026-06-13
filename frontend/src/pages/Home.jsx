@@ -13,6 +13,8 @@ import WhyChooseUsSection from "../components/sections/WhyChooseUsSection";
 import CTASection from "../components/sections/CTASection";
 
 import { industriesData, clientsData, testimonialsData } from "../mockData";
+import GlobalNetworkTeaser from "../components/sections/GlobelNetworkSection";
+
 
 export default function Home() {
   return (
@@ -25,6 +27,7 @@ export default function Home() {
         <AboutPreviewSection />
         <ServicesSection />
         <RecruitmentProcessSection />
+        <GlobalNetworkTeaser/>
         <IndustriesSection industries={industriesData} />
         <ClientsSection clients={clientsData} />
         <TestimonialsSection testimonials={testimonialsData} />
