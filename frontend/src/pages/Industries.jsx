@@ -6,6 +6,7 @@ import {
   ArrowUpRight, Zap
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Container from "../components/ui/Container";
 
 
 const STATS = [
@@ -88,6 +89,7 @@ const INDUSTRIES = [
 
 function StatChip({ icon: Icon, value, label, accent, index }) {
   return (
+  
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -221,6 +223,8 @@ function IndustryCard({ ind, index, onHire }) {
 export default function Industries({ onHire, onContact }) {
    const navigate = useNavigate();
   return (
+      <>
+    <Container>
     <section
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
@@ -416,5 +420,7 @@ export default function Industries({ onHire, onContact }) {
         }
       `}</style>
     </section>
+    </Container>
+    </>
   );
 }

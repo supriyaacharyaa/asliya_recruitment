@@ -1148,6 +1148,7 @@ import {
   Shield, ChevronLeft, ChevronRight, Quote, Users, Globe, Zap,
   TrendingUp, Send, User, Briefcase, Hash, FileText,
 } from "lucide-react";
+import Container from "../components/ui/Container";
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -1666,6 +1667,7 @@ function ContactForm() {
 export default function ClientsPage() {
   return (
     <div className="min-h-screen bg-[#f8faff] font-sans">
+      <Container>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="relative bg-gradient-to-br from-[#050f2e] via-[#0d2660] to-brand-primary py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -1869,7 +1871,7 @@ export default function ClientsPage() {
           <ContactForm />
         </div>
       </section>
-
+</Container>
     </div>
   );
 }

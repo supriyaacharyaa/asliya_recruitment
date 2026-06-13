@@ -315,7 +315,7 @@ export default function GlobalNetwork() {
 
   return (
     <>
-    <Navbar/>
+   
     <section
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
@@ -527,7 +527,7 @@ export default function GlobalNetwork() {
         </div>
 
         {/* ── Why local partners card ── */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -540,71 +540,11 @@ export default function GlobalNetwork() {
             boxShadow: "0 4px 24px rgba(21,72,149,0.07)",
           }}
         >
-          <div className="grid md:grid-cols-2">
-            {/* Left */}
-            <div className="p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r"
-              style={{ borderColor: "rgba(21,72,149,0.08)" }}>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <p className="text-[12px] font-bold uppercase tracking-widest mb-3" style={{ color: "#154895" }}>
-                  Why It Works
-                </p>
-                <h3
-                  className="font-black leading-[1.15] mb-4"
-                  style={{ fontSize: "clamp(22px, 2.8vw, 30px)", color: "#1e293b", fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                  Dedicated Partners{" "}
-                  <span style={{ color: "#154895" }}>In Every Country</span>
-                </h3>
-                <p className="text-[13.5px] leading-relaxed mb-7" style={{ color: "#64748b" }}>
-                  We don't source blindly. Each of our 28+ country partnerships means a team on
-                  the ground — sourcing, vetting, and preparing candidates before they ever meet your hiring manager.
-                </p>
-                <motion.button
-                  className="inline-flex items-center gap-2 text-[13px] font-bold px-6 py-3 rounded-[11px] text-white"
-                  style={{ background: "#154895" }}
-                  whileHover={{ opacity: 0.88 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Start a Campaign <ArrowRight size={14} />
-                </motion.button>
-              </motion.div>
-            </div>
-
-            {/* Right — checklist */}
-            <div className="p-10">
-              {WHY_POINTS.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 14 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07, duration: 0.45 }}
-                  className="flex gap-4 py-4"
-                  style={{ borderBottom: i < WHY_POINTS.length - 1 ? "1px solid rgba(21,72,149,0.07)" : "none" }}
-                >
-                  <div
-                    className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ background: "rgba(21,72,149,0.07)" }}
-                  >
-                    <item.icon size={14} color="#154895" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <p className="text-[13px] font-bold mb-[3px]" style={{ color: "#1e293b" }}>{item.title}</p>
-                    <p className="text-[12px] leading-relaxed" style={{ color: "#64748b" }}>{item.body}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+       
+        </motion.div> */}
 
         {/* ── CTA Banner — matches Industries exactly ── */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -656,7 +596,7 @@ export default function GlobalNetwork() {
               Email Us <ChevronRight size={14} />
             </motion.a>
           </div>
-        </motion.div>
+        </motion.div> */}
 
       </div>
 
@@ -668,7 +608,7 @@ export default function GlobalNetwork() {
         }
       `}</style>
     </section>
-    <Footer/>
+  
     </>
   );
 }

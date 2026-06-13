@@ -59,11 +59,12 @@ import ClientsPage from "./pages/Client";
 import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
 import GetFreeQuotePage from "./pages/Getquotepage";
-import GlobalNetwork from "./components/sections/GlobalNetwork.jsx";
+import GlobalNetwork from "./pages/GlobalNetwork.jsx";
 // import BlogDetailPage from "./pages/Blogdetails.jsx";
 
 import { ChatProvider } from "./context/ChatContext.jsx";
 import ChatbotWidget from "./components/chat/ChatbotWidget.jsx";
+import Container from "./components/common/Container.jsx";
 
 function AppContent() {
   const location = useLocation();
@@ -84,6 +85,7 @@ function AppContent() {
 
   return (
     <>
+  
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -113,7 +115,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <ChatProvider>
+       
         <AppContent />
+
       </ChatProvider>
     </BrowserRouter>
   );

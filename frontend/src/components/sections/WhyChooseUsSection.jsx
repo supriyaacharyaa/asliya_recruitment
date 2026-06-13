@@ -218,7 +218,7 @@ export default function WhyChooseUsSection() {
           <SectionHeading
                     tag="Why Choose Us"
                     title={<> The Recruitment Partner{" "}
-            <span style={{ color: "#1E40AF" }}>You've Been<br />Looking For</span></>}
+            <span style={{ color: "#134a93" }}>You've Been<br />Looking For</span></>}
                     subtitle="We don't just fill positions — we build long-term workforce partnerships. Our approach combines technology, expertise, and a human touch that the biggest platforms can't replicate."
                   />
 
@@ -226,7 +226,7 @@ export default function WhyChooseUsSection() {
           <div
             ref={statRef}
             style={{
-              background: "#1E40AF", borderRadius: 16, padding: "1.75rem",
+              background: "#134a93", borderRadius: 16, padding: "1.75rem",
               color: "#fff", position: "relative", overflow: "hidden",
             }}
           >

@@ -75,7 +75,7 @@ export default function RecruitmentProcessSection() {
   const lineScaleX = useTransform(scrollYProgress, [0.1, 0.55], [0, 1]);
 
   return (
-    <section ref={sectionRef} className="relative py-28 bg-[#f3f5fb] overflow-hidden">
+    <section ref={sectionRef} className="relative py-28 bg-[#f8f7f4] overflow-hidden">
 
       {/* Background dot grid */}
       <div
