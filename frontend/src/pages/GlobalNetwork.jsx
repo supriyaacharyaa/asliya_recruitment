@@ -317,7 +317,7 @@ export default function GlobalNetwork() {
   return (
     <>
     <Navbar/>
-    <Container>
+
     <section
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
@@ -670,7 +670,7 @@ export default function GlobalNetwork() {
         }
       `}</style>
     </section>
-    </Container>
+  
     <Footer/>
     </>
   );

@@ -14,6 +14,7 @@ import {
   Award,
   MapPin,
   Briefcase,
+  HardHat, Hotel, Stethoscope, ShieldCheck, Truck, ShoppingBag, Home, Wrench
 } from "lucide-react";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -227,15 +228,71 @@ const services = [
     gradient: "from-[#b91c1c] to-[#991b1b]",
   },
 ];
-const industries = [
-  "Construction & Engineering",
-  "Healthcare & Nursing",
-  "Hospitality & Tourism",
-  "Oil & Gas",
-  "Manufacturing",
-  "IT & Technology",
-  "Retail & FMCG",
-  "Finance & Banking",
+const INDUSTRIES = [
+  {
+    icon: HardHat,
+    title: "Construction",
+    sub: "Infrastructure & mega-project specialists for any scale.",
+    roles: ["Civil Engineers", "Steel Fixers", "Masons", "Electricians"],
+    accent: "#154895",
+    tag: "High Demand",
+  },
+  {
+    icon: Hotel,
+    title: "Hospitality",
+    sub: "5-star pre-screened talent for hotels and resorts.",
+    roles: ["Managers", "Chefs", "Front Desk", "Housekeeping"],
+    accent: "#e62224",
+    tag: "GCC Focus",
+  },
+  {
+    icon: Stethoscope,
+    title: "Healthcare",
+    sub: "Licensed and verified medical professionals worldwide.",
+    roles: ["Nurses", "Lab Techs", "Physiotherapists", "Caregivers"],
+    accent: "#154895",
+    tag: "Certified",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Security",
+    sub: "Trained, certified security personnel ready to deploy.",
+    roles: ["Guards", "CCTV Operators", "Supervisors", "Cleaners"],
+    accent: "#e62224",
+    tag: "Vetted",
+  },
+  {
+    icon: Truck,
+    title: "Logistics",
+    sub: "Supply chain, warehousing and transportation experts.",
+    roles: ["Warehouse Staff", "Forklift Ops", "HMV Drivers", "Inventory"],
+    accent: "#154895",
+    tag: "Operational",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Retail",
+    sub: "Multilingual staff for luxury outlets and megastores.",
+    roles: ["Sales Associates", "Store Managers", "Cashiers", "Merchandisers"],
+    accent: "#e62224",
+    tag: "Multilingual",
+  },
+  {
+    icon: Home,
+    title: "Domestic",
+    sub: "Background-verified home and facility staff.",
+    roles: ["Housemaids", "Nannies", "Drivers", "Cooks"],
+    accent: "#154895",
+    tag: "Verified",
+  },
+  {
+    icon: Wrench,
+    title: "Technical / MEP",
+    sub: "Skilled maintenance, MEP and workshop technicians.",
+    roles: ["HVAC Techs", "Welders", "Painters", "Crane Operators"],
+    accent: "#e62224",
+    tag: "Skilled Trade",
+  },
 ];
 
 function StatCard({ stat, index, total }) {
@@ -268,6 +325,101 @@ function StatCard({ stat, index, total }) {
         <p className="text-xs uppercase tracking-widest text-gray-400 font-medium leading-snug">
           {stat.label}
         </p>
+      </div>
+    </motion.div>
+  );
+}
+
+function IndustryCard({ ind, index }) {
+  const Icon = ind.icon;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: index * 0.06, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, transition: { duration: 0.22 } }}
+      className="group relative flex flex-col rounded-[22px] border overflow-hidden transition-all duration-300 cursor-pointer"
+      style={{
+        background: "rgba(255,255,255,0.88)",
+        borderColor: "rgba(21,72,149,0.08)",
+        backdropFilter: "blur(10px)",
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = `${ind.accent}32`;
+        e.currentTarget.style.boxShadow = `0 16px 48px ${ind.accent}14`;
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = "rgba(21,72,149,0.08)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
+    >
+      {/* Top accent bar */}
+      <div
+        className="h-[3px] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-400"
+        style={{ background: `linear-gradient(90deg, ${ind.accent}, ${ind.accent}55)` }}
+      />
+ 
+      <div className="flex flex-col gap-4 p-7 flex-1">
+        {/* Icon + tag */}
+        <div className="flex items-start justify-between gap-2">
+          <div
+            className="w-12 h-12 rounded-[13px] flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+            style={{ background: `${ind.accent}10` }}
+          >
+            <Icon size={21} color={ind.accent} strokeWidth={1.8} />
+          </div>
+          <span
+            className="text-[10px] font-bold uppercase tracking-widest px-3 py-[5px] rounded-full flex-shrink-0"
+            style={{
+              background: `${ind.accent}0e`,
+              color: ind.accent,
+              border: `1px solid ${ind.accent}22`,
+            }}
+          >
+            {ind.tag}
+          </span>
+        </div>
+ 
+        {/* Title + sub */}
+        <div>
+          <h3
+            className="font-bold text-[16px] mb-[6px] leading-snug transition-colors duration-250 group-hover:text-[#154895]"
+            style={{ color: "#1e293b" }}
+          >
+            {ind.title}
+          </h3>
+          <p className="text-[12.5px] leading-relaxed" style={{ color: "#64748b" }}>
+            {ind.sub}
+          </p>
+        </div>
+ 
+        {/* Roles */}
+        <div className="flex flex-wrap gap-[7px] mt-auto">
+          {ind.roles.map((r) => (
+            <span
+              key={r}
+              className="text-[10.5px] font-semibold px-3 py-[5px] rounded-full uppercase tracking-wide"
+              style={{
+                background: "rgba(21,72,149,0.05)",
+                color: "#475569",
+                border: "1px solid rgba(21,72,149,0.08)",
+              }}
+            >
+              {r}
+            </span>
+          ))}
+        </div>
+ 
+        {/* CTA link */}
+        <motion.button
+          className="inline-flex items-center gap-1.5 text-[12.5px] font-bold mt-3 self-start transition-colors duration-200"
+          style={{ color: ind.accent }}
+          whileHover={{ x: 3 }}
+        >
+          Hire Specialists
+          <ArrowUpRight size={13} />
+        </motion.button>
       </div>
     </motion.div>
   );
@@ -516,30 +668,27 @@ export default function ServicesSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="bg-white border border-gray-100 rounded-2xl px-8 py-7 mb-8"
-          style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
-        >
-          <div className="flex items-center gap-3 mb-5">
-            <Briefcase size={16} className="text-[#154895]" />
-            <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
-              Industries We Serve
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
-            {industries.map((industry) => (
-              <span
-                key={industry}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-gray-50 text-gray-600 border border-gray-100 hover:border-[#154895]/30 hover:bg-[#154895]/5 hover:text-[#154895] transition-all duration-200 cursor-default"
-              >
-                {industry}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7 }}
+  className="mb-8"
+>
+  {/* Section title */}
+  <div className="flex items-center gap-3 mb-6">
+    <Briefcase size={16} className="text-[#154895]" />
+    <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+      Industries We Serve
+    </span>
+  </div>
+ 
+  {/* Industry cards grid */}
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    {INDUSTRIES.map((ind, i) => (
+      <IndustryCard key={ind.title} ind={ind} index={i} />
+    ))}
+  </div>
+</motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 32 }}

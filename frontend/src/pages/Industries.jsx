@@ -224,7 +224,7 @@ export default function Industries({ onHire, onContact }) {
    const navigate = useNavigate();
   return (
       <>
-    <Container>
+  
     <section
       className="relative py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
@@ -420,7 +420,7 @@ export default function Industries({ onHire, onContact }) {
         }
       `}</style>
     </section>
-    </Container>
+
     </>
   );
 }

@@ -826,7 +826,7 @@ export default function About() {
     <div className="min-h-screen bg-white font-sans antialiased">
       <Navbar />
       <main>
-        <Container>
+      
         <PageHero />
         <WhoWeAre />
         <MissionVisionValues />
@@ -835,7 +835,7 @@ export default function About() {
         <LeadershipTeam />
         <CertificationsPartners />
         <CTABanner />
-        </Container>
+       
       </main>
       <Footer />
     </div>

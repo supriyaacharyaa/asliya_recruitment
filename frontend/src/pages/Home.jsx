@@ -23,7 +23,7 @@ export default function Home() {
     <div className="min-h-screen bg-white font-sans antialiased">
       <Navbar />
       <main>
-        <Container>
+       
         <HeroSection />
         <TrustedCompanies />
         <StatsSection />
@@ -36,7 +36,7 @@ export default function Home() {
         <TestimonialsSection testimonials={testimonialsData} />
         <WhyChooseUsSection />
         <CTASection />
-        </Container>
+   
       </main>
       <Footer />
     </div>
