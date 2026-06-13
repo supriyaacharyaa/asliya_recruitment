@@ -18,6 +18,7 @@ import GlobalNetworkSection from "../components/sections/GlobalNetworkSection";
 
 import Container from "../components/common/Container";
 
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">

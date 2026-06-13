@@ -66,7 +66,7 @@ const navLinks = [
       },
     ],
   },
-  // { label: "Industries", href: "/industries" },
+  { label: "Industries", href: "/industries" },
   { label: "About Us", href: "/about" },
   { label: "Our Clients", href: "/clients" },
 
