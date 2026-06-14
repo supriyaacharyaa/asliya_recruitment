@@ -112,7 +112,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 pb-16 lg:py-0 bg-gradient-to-br from-[#f0f4fc] via-[#fafbff] to-[#f5f0f8]"
+    className="relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 lg:pt-32 xl:pt-36 pb-16 lg:pb-16 bg-gradient-to-br from-[#f0f4fc] via-[#fafbff] to-[#f5f0f8]"
       onMouseMove={handleMouseMove}
     >
       {/* Background Ambient Layers (Parallax) */}

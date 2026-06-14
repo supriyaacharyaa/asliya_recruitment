@@ -21,14 +21,32 @@ export default function SectionHeading({
         className,
       ].join(" ")}
     >
-      {tag && (
+      {/* {tag && (
         <div className="inline-flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#c9902a] flex-shrink-0" />
           <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#154895]">
             {tag}
           </span>
         </div>
-      )}
+      )} */}
+        <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center justify-center gap-2 mb-6 rounded-full px-4 py-[7px] border text-[12px] font-bold uppercase tracking-widest"
+              style={{
+                background: "rgba(21,72,149,0.06)",
+                borderColor: "rgba(21,72,149,0.14)",
+                color: "#154895",
+              }}
+            >
+              <span
+                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                style={{ background: "#e62224", animation: "pulse-dot 2s ease-in-out infinite" }}
+              />
+             {tag}
+            </motion.div>
 
       <h2 className="text-4xl xl:text-5xl font-black text-[#0f1e3c] leading-[1.13]">
         {title}

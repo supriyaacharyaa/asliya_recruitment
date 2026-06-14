@@ -431,7 +431,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[#f7f8fc] font-inter">
       <style>{ANIM_CSS}</style>
-      <Navbar />
+   
 
       {/* ── 1. HERO ───────────────────────────────────────────────────── */}
       <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-32 sm:pt-40 pb-0 overflow-hidden">
@@ -811,7 +811,6 @@ export default function BlogPage() {
         </section>
       )}
 
-      <Footer />
     </div>
   );
 }

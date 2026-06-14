@@ -214,7 +214,7 @@ function PageHero() {
               className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white/85"
               style={{ background:"rgba(255,255,255,0.10)", border:"1px solid rgba(255,255,255,0.18)" }}
             >
-              <Icon size={13} style={{ color:GOLD }} />{label}
+              <Icon size={13} style={{ color:RED }} />{label}
             </motion.div>
           ))}
         </motion.div>
@@ -436,7 +436,7 @@ function StatsBand() {
       <div className="absolute inset-0 opacity-[0.05]"
         style={{ backgroundImage:"radial-gradient(circle,white 1px,transparent 1px)", backgroundSize:"24px 24px" }} />
       <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background:`linear-gradient(90deg,transparent,rgba(201,168,76,.7),transparent)` }} />
+        style={{ background:`linear-gradient(90deg,transparent,rgba(232, 228, 43, 0.7),transparent)` }} />
 
       <Container className="relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
@@ -581,7 +581,7 @@ function LeadershipTeam() {
               </div>
 
               <h3 className="font-bold text-gray-900 text-base mb-1">{member.name}</h3>
-              <p className="text-sm font-semibold mb-2" style={{ color:GOLD }}>{member.role}</p>
+              <p className="text-sm font-semibold mb-2" style={{ color:RED }}>{member.role}</p>
               <p className="text-xs text-gray-400 leading-relaxed mb-5">{member.bio}</p>
 
               <motion.a href="#" aria-label={`${member.name} LinkedIn`}
@@ -723,7 +723,7 @@ function CTABanner() {
         >
           {/* Gold top line */}
           <div className="absolute top-0 left-0 right-0 h-px"
-            style={{ background:`linear-gradient(90deg,transparent,rgba(201,168,76,.8),transparent)` }} />
+            style={{ background:`linear-gradient(90deg,transparent,rgba(190, 40, 40, 0.8),transparent)` }} />
 
           {/* Bg orbs */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -744,7 +744,7 @@ function CTABanner() {
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
               style={{ background:"rgba(255,255,255,0.10)", border:"1px solid rgba(255,255,255,0.20)" }}
             >
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background:GOLD }} />
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background:RED }} />
               <span className="text-white/90 text-sm font-semibold">Stop Recruiting Slowly. Start Hiring Smart.</span>
             </motion.div>
 
@@ -771,8 +771,8 @@ function CTABanner() {
             >
               <motion.a href="tel:+97444434386"
                 whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:.97 }}
-                className="font-bold px-8 py-4 rounded-2xl flex items-center gap-2.5 text-[#0A1628] transition-shadow duration-300"
-                style={{ background:GOLD, boxShadow:`0 12px 32px rgba(0,0,0,0.22)` }}
+                className="font-bold px-8 py-4 rounded-2xl flex items-center gap-2.5 text-white transition-shadow duration-300"
+                style={{ background:RED, boxShadow:`0 12px 32px rgba(0,0,0,0.22)` }}
               >
                 <Phone size={18} /> Call Now: +974 4443 4386
               </motion.a>

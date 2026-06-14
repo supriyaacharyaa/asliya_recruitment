@@ -78,7 +78,7 @@ export default function ClientsSection({ clients = [] }) {
 
         {/* Client logo grid (Perfect responsive spacing) */}
         {clients.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-3 sm:gap-4">
             {clients.map((client, i) => (
               <ClientCard key={client.name || i} client={client} index={i} />
             ))}
