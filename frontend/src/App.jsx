@@ -6,7 +6,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import OverseasRecruitmentProcess from "./pages/OverseasRecruitmentProcess";
 
-import UserLayout from "./components/layout/userLayout";
+import UserLayout from "./components/layout/UserLayout";
 import ClientsPage from "./pages/Client";
 import Industries from "./pages/Industries";
 import RequestManpowerPage from "./pages/Requestmanpowerpage";
