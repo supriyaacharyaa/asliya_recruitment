@@ -186,7 +186,7 @@ export default function MassRecruitmentPage() {
 
       {/* ── 1. HERO ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden py-24 sm:py-40"
+        className="relative overflow-hidden py-16 sm:py-16"
         style={{ background: "linear-gradient(135deg, #154895 0%, #0d2f6b 55%, #0a1e4a 100%)" }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -227,8 +227,8 @@ export default function MassRecruitmentPage() {
                 className="shimmer-text font-black leading-tight mb-5"
                 style={{ fontSize: "clamp(28px, 4.5vw, 56px)", fontFamily: "'Playfair Display', serif" }}
               >
-                On-Site Recruitment Campaigns: Where Talent Meets Your Team
-              </motion.h1>
+            On-Site Recruitment: Talent Meets Your Team
+             </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.28, duration: 0.65 }}

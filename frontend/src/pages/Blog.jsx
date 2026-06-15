@@ -434,7 +434,7 @@ export default function BlogPage() {
    
 
       {/* ── 1. HERO ───────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-32 sm:pt-40 pb-0 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-16 sm:pt-16 pb-0 overflow-hidden">
         {/* Blobs */}
         <div className="blob1 absolute -top-40 -left-40 w-[560px] h-[560px] bg-white rounded-full blur-3xl pointer-events-none" />
         <div className="blob2 absolute -bottom-32 -right-32 w-[480px] h-[480px] bg-[#C5282B] rounded-full blur-3xl pointer-events-none" />

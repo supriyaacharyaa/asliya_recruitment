@@ -14,8 +14,8 @@ const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Industries", href: "/industries" },
-    { label: "Global Network", href: "/global-network" },
-    { label: "Testimonials", href: "/testimonials" },
+    { label: "Global Network", href: "/networks" },
+  
     { label: "Mass Recruitment Campaigns", href: "/mass-recruitment" },
     { label: "Contact", href: "/contact" },
   ],

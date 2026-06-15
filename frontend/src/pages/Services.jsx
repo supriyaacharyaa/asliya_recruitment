@@ -715,7 +715,7 @@ export default function Services() {
       <Navbar />
 
       {/* ── 1. PAGE HERO ─────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#154895] to-[#0d3270] pt-16 pb-16 pb-0 overflow-hidden">
         <style>{ANIM_CSS}</style>
 
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -771,7 +771,7 @@ export default function Services() {
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
                 className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white/80"
               >
-                <Icon size={12} className="text-white/60" />{label}
+                <Icon size={12} className="text-brand-secondary" />{label}
               </motion.div>
             ))}
           </motion.div>
@@ -1093,7 +1093,7 @@ export default function Services() {
         <Container>
           <SectionHeading tag="FAQ" title="Frequently Asked Questions" />
 
-          <div className="mt-16 grid lg:grid-cols-2 gap-6">
+          <div className="mt-16 grid lg:grid-cols-1 gap-6">
             {FAQS.map((faq, i) => {
               const isOpen = openFaq === i
               return (

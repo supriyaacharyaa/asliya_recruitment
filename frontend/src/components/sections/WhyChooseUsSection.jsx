@@ -165,7 +165,8 @@ export default function WhyChooseUsSection() {
   const { ref: statRef, value: retentionVal } = useCountUp(98, 1400, "%");
 
   return (
-    <section style={{ padding: "5.5rem 2rem", background: "#fff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <section style={{  paddingTop: "4rem",      // pt-4
+    paddingBottom: "3rem", background: "#fff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         .wcu-grid {

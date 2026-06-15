@@ -155,7 +155,7 @@ function CountUp({ value, suffix, inView }) {
 ═══════════════════════════════ */
 function PageHero() {
   return (
-    <section className="relative pt-40 pb-28 overflow-hidden"
+    <section className="relative pt-16 pb-16 overflow-hidden"
       style={{ background: `linear-gradient(135deg, ${BLUE} 0%, #0d2f6b 55%, #091d46 100%)` }}>
       <style>{ANIM_CSS}</style>
 

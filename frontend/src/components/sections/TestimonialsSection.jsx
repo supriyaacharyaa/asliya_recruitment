@@ -27,7 +27,7 @@ function TestimonialCard({ testimonial }) {
         </div>
 
         {/* Review Text */}
-        <p className="text-gray-600 leading-relaxed text-[14.5px] mb-8 italic">
+        <p className="text-gray-600 leading-relaxed text-[14.5px] mb-8 ">
           "{testimonial.review}"
         </p>
       </div>

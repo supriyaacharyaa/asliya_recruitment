@@ -307,7 +307,7 @@ export default function GlobalNetwork() {
 
   return (
     <section
-      className="relative py-28 overflow-hidden"
+      className="relative py-16 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #f4f8ff 0%, #fafbff 60%, #f0f4fc 100%)" }}
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -502,7 +502,7 @@ export default function ClientsPage() {
   return (
     <div className="min-h-screen bg-[#f4f8ff] font-sans">
       {/* HERO */}
-      <section className="relative bg-gradient-to-br from-[#0d2e6e] via-[#154895] to-[#1a5ab5] py-28 px-5 sm:px-8 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#0d2e6e] via-[#154895] to-[#1a5ab5] py-16 px-5 sm:px-8 overflow-hidden">
         {/* decorative blobs */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-white/5 -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#e62224]/15 translate-y-1/2 -translate-x-1/3 blur-3xl pointer-events-none" />

@@ -9,6 +9,7 @@ import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
 import Container from "../components/ui/Container"
 import SectionHeading from "../components/ui/SectionHeading"
+  import axios from "axios";
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -152,11 +153,53 @@ export default function Contact() {
     setForm(p => ({ ...p, [name]: type === "checkbox" ? checked : value }))
   }
 
-  const handleSubmit = () => {
-    if (!form.fullName || !form.email || !form.message || !form.agreed) return
-    setSubmitting(true)
-    setTimeout(() => { setSubmitting(false); setSuccess(true) }, 1500)
+  // const handleSubmit = () => {
+  //   if (!form.fullName || !form.email || !form.message || !form.agreed) return
+  //   setSubmitting(true)
+  //   setTimeout(() => { setSubmitting(false); setSuccess(true) }, 1500)
+  // }
+
+
+// const handleSubmit = async () => {
+//   try {
+//     setSubmitting(true);
+
+//     const { data } = await axios.post(
+//       "http://localhost:5000/api/contact",
+//       form
+//     );
+
+//     if (data.success) {
+//       setSuccess(true);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     alert("Failed to send message");
+//   } finally {
+//     setSubmitting(false);
+//   }
+// };
+
+
+const handleSubmit = async () => {
+  try {
+    setSubmitting(true);
+
+    const { data } = await axios.post("http://localhost:3000/api/enquiry", {
+  type: "contact",
+  ...form
+});
+
+    if (data.success) {
+      setSuccess(true);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send message");
+  } finally {
+    setSubmitting(false);
   }
+};
 
   const handleReset = () => {
     setForm({ fullName: "", company: "", email: "", phone: "", enquiryType: "", industry: "", message: "", agreed: false })
@@ -169,7 +212,7 @@ export default function Contact() {
       <Navbar />
 
       {/* ── 1. HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-40"
+      <section className="relative overflow-hidden pt-16 pb-16"
         style={{ background: "linear-gradient(135deg, #154895 0%, #0d2f6b 55%, #0a1e4a 100%)" }}>
 
         {/* Blobs */}
