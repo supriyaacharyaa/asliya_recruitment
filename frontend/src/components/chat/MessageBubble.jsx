@@ -1,83 +1,10 @@
-// import React from 'react'
-
-// /**
-//  * MessageBubble — renders a single message.
-//  * senderType: 'visitor' | 'ai' | 'recruiter' | 'system'
-//  */
-// const MessageBubble = ({ message }) => {
-//   const { senderType, senderName, message: text, createdAt } = message
-
-//   const time = createdAt
-//     ? new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-//     : ''
-
-//   // System notification (recruiter joined / chat closed)
-//   if (senderType === 'system') {
-//     return (
-//       <div className="flex justify-center my-2 animate-fade-in">
-//         <span className="bg-gray-100 text-gray-500 text-xs px-4 py-1.5 rounded-full border border-gray-200">
-//           {text}
-//         </span>
-//       </div>
-//     )
-//   }
-
-//   const isVisitor = senderType === 'visitor'
-
-//   return (
-//     <div className={`flex items-end gap-2 mb-3 animate-fade-in ${isVisitor ? 'flex-row-reverse' : 'flex-row'}`}>
-
-//       {/* Avatar */}
-//       {!isVisitor && (
-//         <div className={`
-//           w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold
-//           ${senderType === 'ai' ? 'bg-brand-secondary' : 'bg-green-500'}
-//         `}>
-//           {senderType === 'ai' ? 'AI' : (senderName?.[0] || 'R').toUpperCase()}
-//         </div>
-//       )}
-
-//       {/* Bubble */}
-//       <div className={`max-w-[75%] group`}>
-//         {/* Sender label */}
-//         {!isVisitor && (
-//           <p className="text-xs text-gray-400 mb-1 ml-1">
-//             {senderType === 'ai' ? 'Asliya AI' : (senderName || 'Recruiter')}
-//           </p>
-//         )}
-
-//         <div className={`
-//           px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm
-//           ${isVisitor
-//             ? 'bg-brand-primary text-white rounded-br-md'
-//             : senderType === 'ai'
-//               ? 'bg-white text-gray-800 border border-gray-100 rounded-bl-md'
-//               : 'bg-green-50 text-gray-800 border border-green-100 rounded-bl-md'
-//           }
-//         `}>
-//           <p className="whitespace-pre-wrap break-words">{text}</p>
-//         </div>
-
-//         {/* Timestamp */}
-//         <p className={`text-xs text-gray-300 mt-1 opacity-0 group-hover:opacity-100 transition-opacity
-//           ${isVisitor ? 'text-right mr-1' : 'ml-1'}`}>
-//           {time}
-//         </p>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default MessageBubble
-
+// src/Component/Chat/MessageBubble.jsx
+// All senderType logic preserved exactly.
+// Design upgrade: gradient visitor bubbles, icon avatars, always-visible
+// timestamps, smooth fade-in, better typography.
 
 import React from 'react'
 
-/**
- * MessageBubble — renders a single chat message.
- * senderType: 'visitor' | 'ai' | 'recruiter' | 'system'
- * No brand-* Tailwind tokens — all colours are hardcoded hex.
- */
 const MessageBubble = ({ message }) => {
   const { senderType, senderName, message: text, createdAt } = message
 
@@ -85,11 +12,16 @@ const MessageBubble = ({ message }) => {
     ? new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     : ''
 
-  // ── System pill ─────────────────────────────────────────────────────────────
+  // ── System pill ────────────────────────────────────────────────────────────
   if (senderType === 'system') {
     return (
-      <div className="flex justify-center my-2 animate-fade-in">
-        <span className="bg-gray-100 text-gray-500 text-xs px-4 py-1.5 rounded-full border border-gray-200">
+      <div className="flex justify-center my-3" style={{ animation: 'msgFadeIn 0.25s ease-out' }}>
+        <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 px-4 py-1.5
+          rounded-full border border-gray-200 bg-white shadow-sm font-medium italic">
+          <svg className="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           {text}
         </span>
       </div>
@@ -100,47 +32,75 @@ const MessageBubble = ({ message }) => {
   const isAI        = senderType === 'ai'
   const isRecruiter = senderType === 'recruiter'
 
-  // Visitor messages align right (sent), others align left (received)
   return (
-    <div className={`flex items-end gap-2 mb-3 animate-fade-in ${isVisitor ? 'flex-row-reverse' : 'flex-row'}`}>
-
-      {/* Avatar — only for AI / recruiter */}
+    <div
+      className={`flex items-end gap-2 mb-2 ${isVisitor ? 'flex-row-reverse' : 'flex-row'}`}
+      style={{ animation: 'msgFadeIn 0.2s ease-out' }}
+    >
+      {/* Avatar — AI / recruiter only */}
       {!isVisitor && (
         <div
-          className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold"
+          className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center
+            text-white text-[10px] font-bold shadow-sm mb-0.5"
           style={{ backgroundColor: isAI ? '#154895' : '#16a34a' }}
         >
-          {isAI ? 'AI' : (senderName?.[0] || 'R').toUpperCase()}
+          {isAI ? (
+            // Tiny robot icon
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 2v1h2V4h-2zM9 9a1 1 0 000 2 1 1 0 000-2zm6 0a1 1 0 000 2 1 1 0 000-2zm-6 4v1h6v-1H9z"/>
+            </svg>
+          ) : (
+            (senderName?.[0] || 'R').toUpperCase()
+          )}
         </div>
       )}
 
-      <div className="max-w-[75%] group">
+      <div className={`max-w-[78%] flex flex-col ${isVisitor ? 'items-end' : 'items-start'}`}>
         {/* Sender label */}
         {!isVisitor && (
-          <p className="text-xs text-gray-400 mb-1 ml-1">
+          <p className="text-[10px] font-semibold mb-1 px-1"
+            style={{ color: isAI ? '#154895' : '#16a34a' }}>
             {isAI ? 'Asliya AI' : (senderName || 'Recruiter')}
           </p>
         )}
 
         {/* Bubble */}
         <div
-          className="px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm"
+          className="px-3.5 py-2.5 text-sm leading-relaxed shadow-sm"
           style={
             isVisitor
-              ? { backgroundColor: '#154895', color: '#ffffff', borderRadius: '1rem 1rem 0.25rem 1rem' }
+              ? {
+                  background: 'linear-gradient(135deg, #154895 0%, #1a5cbf 100%)',
+                  color: '#ffffff',
+                  borderRadius: '1.1rem 1.1rem 0.25rem 1.1rem',
+                  boxShadow: '0 2px 8px rgba(21,72,149,0.25)',
+                }
               : isAI
-                ? { backgroundColor: '#ffffff', color: '#1f2937', border: '1px solid #e5e7eb', borderRadius: '1rem 1rem 1rem 0.25rem' }
-                : { backgroundColor: '#f0fdf4', color: '#1f2937', border: '1px solid #bbf7d0', borderRadius: '1rem 1rem 1rem 0.25rem' }
+              ? {
+                  background: '#ffffff',
+                  color: '#1f2937',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.25rem 1.1rem 1.1rem 1.1rem',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+                }
+              : {
+                  background: '#f0fdf4',
+                  color: '#1f2937',
+                  border: '1px solid #bbf7d0',
+                  borderRadius: '0.25rem 1.1rem 1.1rem 1.1rem',
+                  boxShadow: '0 1px 4px rgba(22,163,74,0.08)',
+                }
           }
         >
           <p className="whitespace-pre-wrap break-words">{text}</p>
         </div>
 
-        {/* Timestamp — visible on hover */}
-        <p className={`text-xs text-gray-300 mt-1 opacity-0 group-hover:opacity-100 transition-opacity
-          ${isVisitor ? 'text-right mr-1' : 'ml-1'}`}>
-          {time}
-        </p>
+        {/* Timestamp — always visible, subtle */}
+        {time && (
+          <p className={`text-[10px] text-gray-300 mt-1 px-1 tabular-nums ${isVisitor ? 'text-right' : 'text-left'}`}>
+            {time}
+          </p>
+        )}
       </div>
     </div>
   )

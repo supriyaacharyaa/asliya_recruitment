@@ -64,9 +64,27 @@ const allowedOrigins = (
   .filter(Boolean);
 
 // Socket.io setup
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: allowedOrigins,
+//     methods: ['GET', 'POST'],
+//     credentials: true,
+//   },
+// });
 const io = new Server(httpServer, {
   cors: {
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/$/, '');
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
+        return callback(null, true);
+      }
+
+      console.log('Blocked Socket origin:', origin);
+      return callback(new Error('Not allowed by CORS'));
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -79,19 +97,36 @@ initializeSocket(io);
 app.set('io', io);
 
 // ─── CORS (placed first so it always responds, even on later errors) ──
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
+//     if (allowedOrigins.includes(origin)) {
+//       return callback(null, true);
+//     }
 
-    console.log('Blocked CORS origin:', origin);
-    return callback(null, false);
-  },
-  credentials: true,
-}));
+//     console.log('Blocked CORS origin:', origin);
+//     return callback(null, false);
+//   },
+//   credentials: true,
+// }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/$/, '');
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
+        return callback(null, true);
+      }
+
+      console.log('Blocked CORS origin:', origin);
+      return callback(null, false);
+    },
+    credentials: true,
+  })
+);
 
 // ─── Security Middlewares ────────────────────────────────────────────
 app.use(helmet());
@@ -138,6 +173,10 @@ app.get('/', (req, res) => {
 // ─── Error Handler ───────────────────────────────────────────────────
 app.use(errorMiddleware);
 
+
+
+
+
 // ─── Start Server ────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
@@ -147,3 +186,4 @@ httpServer.listen(PORT, () => {
 });
 console.log('Allowed origins:', allowedOrigins);
 export default { app, io };
+

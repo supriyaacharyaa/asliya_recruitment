@@ -1,236 +1,68 @@
-// import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
-// import api from '../Axios/Axios.js'
-// import { getSocket, disconnectSocket } from '../services/socket.js'
+// src/context/ChatContext.jsx
+// ─────────────────────────────────────────────────────────────────────────────
+// All existing functionality preserved exactly.
+// NEW: session persistence — visitor stays logged in for 1 hour after refresh.
+//   • On identifyVisitor() success → save { visitor, conversationId, expiresAt }
+//     to localStorage under key "asliya_chat_session"
+//   • On mount → read localStorage, check TTL (1 hour), silently re-hydrate
+//     messages via existing GET /conversations/:id endpoint (no new API needed)
+//   • On conversation close OR TTL expiry → clear localStorage
+//   • On "Hand back to AI" socket event → update conversation status in context
+// ─────────────────────────────────────────────────────────────────────────────
 
-// const ChatContext = createContext(null)
-
-// export const ChatProvider = ({ children }) => {
-//   const [isOpen, setIsOpen]                   = useState(false)
-//   const [step, setStep]                       = useState('form')
-//   const [visitor, setVisitor]                 = useState(null)
-//   const [conversation, setConversation]       = useState(null)
-//   const [messages, setMessages]               = useState([])
-//   const [isAiTyping, setIsAiTyping]           = useState(false)
-//   const [recruiterTyping, setRecruiterTyping] = useState(false)
-//   const [recruiterName, setRecruiterName]     = useState('')
-
-//   const socketRef         = useRef(null)
-//   const visitorRef        = useRef(null)
-//   const conversationRef   = useRef(null)
-//   const aiTypingTimeout   = useRef(null)   // ← safety timeout ref
-
-//   useEffect(() => { visitorRef.current = visitor }, [visitor])
-//   useEffect(() => { conversationRef.current = conversation }, [conversation])
-
-//   // ── Deduped append ──────────────────────────────────────────────────────────
-//   const appendMessage = useCallback((msg) => {
-//     setMessages(prev => {
-//       if (prev.some(m => m._id === msg._id)) return prev
-//       return [...prev, msg]
-//     })
-//   }, [])
-
-//   // ── Replace optimistic with server-confirmed visitor message ────────────────
-//   const replaceOptimistic = useCallback((serverMsg) => {
-//     setMessages(prev => {
-//       if (prev.some(m => m._id === serverMsg._id)) return prev
-//       const idx = [...prev].reverse().findIndex(
-//         m => String(m._id).startsWith('opt-') && m.senderType === 'visitor'
-//       )
-//       if (idx === -1) return [...prev, serverMsg]
-//       const realIdx = prev.length - 1 - idx
-//       const next = [...prev]
-//       next[realIdx] = serverMsg
-//       return next
-//     })
-//   }, [])
-
-//   // ── Socket setup ────────────────────────────────────────────────────────────
-//   useEffect(() => {
-//     const socket = getSocket()
-//     socketRef.current = socket
-
-//     const handleReconnect = () => {
-//       const v = visitorRef.current
-//       const c = conversationRef.current
-//       if (v && c) {
-//         socket.emit('visitor_join', {
-//           visitorId: v._id,
-//           conversationId: c._id,
-//           socketId: socket.id,
-//         })
-//       }
-//     }
-
-//     // Clears ai typing regardless of which event the backend uses
-//     const handleNewMessage = (msg) => {
-//       if (msg.senderType === 'visitor') {
-//         replaceOptimistic(msg)
-//         return
-//       }
-//       if (msg.senderType === 'ai') {
-//         clearTimeout(aiTypingTimeout.current)
-//         setIsAiTyping(false)
-//       }
-//       appendMessage(msg)
-//     }
-
-//     const handleAiTyping = () => {
-//       setIsAiTyping(true)
-//       // Safety net: auto-clear after 15s if no response arrives
-//       clearTimeout(aiTypingTimeout.current)
-//       aiTypingTimeout.current = setTimeout(() => setIsAiTyping(false), 15000)
-//     }
-
-//     const handleAiResponse = (data) => {
-//       clearTimeout(aiTypingTimeout.current)
-//       setIsAiTyping(false)
-//       appendMessage({
-//         _id: data._id || `ai-${Date.now()}`,
-//         senderType: 'ai',
-//         message: data.message,
-//         createdAt: data.createdAt || new Date().toISOString(),
-//       })
-//     }
-
-//     const handleRecruiterJoined = (data) => {
-//       const name = data.recruiterName || 'Recruitment Specialist'
-//       setRecruiterName(name)
-//       appendMessage({
-//         _id: `sys-${Date.now()}`,
-//         senderType: 'system',
-//         message: `${name} joined the conversation.`,
-//         createdAt: new Date().toISOString(),
-//       })
-//     }
-
-//     const handleRecruiterMessage = (data) => {
-//       setRecruiterTyping(false)
-//       appendMessage({
-//         _id: data._id || `rec-${Date.now()}`,
-//         senderType: 'recruiter',
-//         senderName: data.senderName,
-//         message: data.message,
-//         createdAt: data.createdAt || new Date().toISOString(),
-//       })
-//     }
-
-//     const handleConversationClosed = () => {
-//       appendMessage({
-//         _id: `sys-${Date.now()}`,
-//         senderType: 'system',
-//         message: 'This conversation has been closed. Thank you!',
-//         createdAt: new Date().toISOString(),
-//       })
-//       setConversation(prev => prev ? { ...prev, status: 'CLOSED' } : prev)
-//     }
-
-//     socket.on('connect',               handleReconnect)
-//     socket.on('new_message',           handleNewMessage)
-//     socket.on('ai_typing',             handleAiTyping)
-//     socket.on('ai_response',           handleAiResponse)
-//     socket.on('recruiter_joined',      handleRecruiterJoined)
-//     socket.on('recruiter_message',     handleRecruiterMessage)
-//     socket.on('recruiter_typing',      () => setRecruiterTyping(true))
-//     socket.on('recruiter_stop_typing', () => setRecruiterTyping(false))
-//     socket.on('conversation_closed',   handleConversationClosed)
-
-//     return () => {
-//       clearTimeout(aiTypingTimeout.current)
-//       socket.off('connect',               handleReconnect)
-//       socket.off('new_message',           handleNewMessage)
-//       socket.off('ai_typing',             handleAiTyping)
-//       socket.off('ai_response',           handleAiResponse)
-//       socket.off('recruiter_joined',      handleRecruiterJoined)
-//       socket.off('recruiter_message',     handleRecruiterMessage)
-//       socket.off('recruiter_typing')
-//       socket.off('recruiter_stop_typing')
-//       socket.off('conversation_closed',   handleConversationClosed)
-//       disconnectSocket()
-//     }
-//   }, [appendMessage, replaceOptimistic])
-
-//   // ── Visitor identification ──────────────────────────────────────────────────
-//   const identifyVisitor = useCallback(async ({ name, email }) => {
-//     try {
-//       const socket = getSocket()
-//       const { data } = await api.post('/visitors/identify', {
-//         name,
-//         email,
-//         socketId: socket.id,
-//       })
-
-//       setVisitor(data.visitor)
-//       setConversation(data.conversation)
-//       setMessages(data.messages || [])
-//       setStep('chat')
-
-//       socket.emit('visitor_join', {
-//         visitorId: data.visitor._id,
-//         conversationId: data.conversation._id,
-//         socketId: socket.id,
-//       })
-//     } catch (err) {
-//       console.error('Identify visitor error:', err)
-//       throw err
-//     }
-//   }, [])
-
-//   // ── Send message ────────────────────────────────────────────────────────────
-//   const sendMessage = useCallback(async (text) => {
-//     if (!visitor || !conversation || !text.trim()) return
-
-//     const optimistic = {
-//       _id: `opt-${Date.now()}`,
-//       senderType: 'visitor',
-//       message: text.trim(),
-//       createdAt: new Date().toISOString(),
-//     }
-//     setMessages(prev => [...prev, optimistic])
-
-//     socketRef.current?.emit('visitor_message', {
-//       visitorId: visitor._id,
-//       conversationId: conversation._id,
-//       message: text.trim(),
-//     })
-//   }, [visitor, conversation])
-
-//   const toggleChat = useCallback(() => setIsOpen(prev => !prev), [])
-//   const closeChat  = useCallback(() => setIsOpen(false), [])
-
-//   const value = {
-//     isOpen, toggleChat, closeChat,
-//     step, setStep,
-//     visitor, conversation,
-//     messages,
-//     isAiTyping, recruiterTyping, recruiterName,
-//     identifyVisitor, sendMessage,
-//   }
-
-//   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
-// }
-
-// export const useChat = () => {
-//   const ctx = useContext(ChatContext)
-//   if (!ctx) throw new Error('useChat must be used within ChatProvider')
-//   return ctx
-// }
-
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
+import React, {
+  createContext, useContext, useState, useEffect, useCallback, useRef,
+} from 'react'
 import api from '../Axios/Axios.js'
 import { getSocket, disconnectSocket } from '../services/socket.js'
 
 const ChatContext = createContext(null)
 
+// ── Session helpers ───────────────────────────────────────────────────────────
+const SESSION_KEY    = 'asliya_chat_session'
+const SESSION_TTL_MS = 60 * 60 * 1000 // 1 hour
+
+const saveSession = (visitor, conversationId) => {
+  try {
+    localStorage.setItem(SESSION_KEY, JSON.stringify({
+      visitor,
+      conversationId,
+      expiresAt: Date.now() + SESSION_TTL_MS,
+    }))
+  } catch { /* storage full / blocked */ }
+}
+
+const loadSession = () => {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY)
+    if (!raw) return null
+    const session = JSON.parse(raw)
+    if (!session?.expiresAt || Date.now() > session.expiresAt) {
+      localStorage.removeItem(SESSION_KEY)
+      return null
+    }
+    return session
+  } catch {
+    localStorage.removeItem(SESSION_KEY)
+    return null
+  }
+}
+
+const clearSession = () => {
+  try { localStorage.removeItem(SESSION_KEY) } catch { /* ignore */ }
+}
+
+// ── Provider ──────────────────────────────────────────────────────────────────
 export const ChatProvider = ({ children }) => {
-  const [isOpen, setIsOpen]                   = useState(false)
-  const [step, setStep]                       = useState('form')
-  const [visitor, setVisitor]                 = useState(null)
-  const [conversation, setConversation]       = useState(null)
-  const [messages, setMessages]               = useState([])
-  const [isAiTyping, setIsAiTyping]           = useState(false)
+  const [isOpen,          setIsOpen]          = useState(false)
+  const [step,            setStep]            = useState('form')
+  const [visitor,         setVisitor]         = useState(null)
+  const [conversation,    setConversation]    = useState(null)
+  const [messages,        setMessages]        = useState([])
+  const [isAiTyping,      setIsAiTyping]      = useState(false)
   const [recruiterTyping, setRecruiterTyping] = useState(false)
-  const [recruiterName, setRecruiterName]     = useState('')
+  const [recruiterName,   setRecruiterName]   = useState('')
+  const [isRestoring,     setIsRestoring]     = useState(true)  // hydration guard
 
   const socketRef       = useRef(null)
   const visitorRef      = useRef(null)
@@ -240,7 +72,46 @@ export const ChatProvider = ({ children }) => {
   useEffect(() => { visitorRef.current      = visitor      }, [visitor])
   useEffect(() => { conversationRef.current = conversation }, [conversation])
 
-  // ── Deduped append ──────────────────────────────────────────────────────────
+  // ── Session restore on mount ─────────────────────────────────────────────
+  useEffect(() => {
+    const restore = async () => {
+      const session = loadSession()
+      if (!session) { setIsRestoring(false); return }
+
+      try {
+        // Re-use the existing visitor-messages endpoint — no new API needed
+        const { data } = await api.get(`/conversations/${session.conversationId}`)
+        if (!data.success) throw new Error('stale session')
+
+        setVisitor(session.visitor)
+        setConversation({
+          _id:               data.conversation._id,
+          status:            data.conversation.status,
+          assignedRecruiter: data.conversation.assignedRecruiter,
+        })
+        setMessages(data.messages || [])
+        setStep('chat')
+
+        // Rejoin socket room so real-time keeps working
+        const socket = getSocket()
+        socket.emit('visitor_join', {
+          visitorId:      session.visitor._id,
+          conversationId: session.conversationId,
+          socketId:       socket.id,
+        })
+
+        // Refresh TTL so active users don't get kicked mid-session
+        saveSession(session.visitor, session.conversationId)
+      } catch {
+        // Session is stale (conversation deleted, etc.) — start fresh
+        clearSession()
+      }
+      setIsRestoring(false)
+    }
+    restore()
+  }, []) // runs once on mount
+
+  // ── Deduped append ──────────────────────────────────────────────────────
   const appendMessage = useCallback((msg) => {
     setMessages(prev => {
       if (prev.some(m => m._id === msg._id)) return prev
@@ -248,7 +119,7 @@ export const ChatProvider = ({ children }) => {
     })
   }, [])
 
-  // ── Replace optimistic visitor message with server-confirmed version ─────────
+  // ── Replace optimistic visitor message with server-confirmed version ─────
   const replaceOptimistic = useCallback((serverMsg) => {
     setMessages(prev => {
       if (prev.some(m => m._id === serverMsg._id)) return prev
@@ -263,7 +134,7 @@ export const ChatProvider = ({ children }) => {
     })
   }, [])
 
-  // ── Socket setup ────────────────────────────────────────────────────────────
+  // ── Socket setup ─────────────────────────────────────────────────────────
   useEffect(() => {
     const socket = getSocket()
     socketRef.current = socket
@@ -280,16 +151,11 @@ export const ChatProvider = ({ children }) => {
       }
     }
 
-    // FIX: normalise every incoming new_message so senderName is always set.
-    // The server emits both `senderName` and `recruiterName` at top level —
-    // we prefer `senderName`, fall back to `recruiterName`, then to nothing.
     const handleNewMessage = (msg) => {
       const normalised = {
         ...msg,
-        // unify the two possible name keys into one
         senderName: msg.senderName || msg.recruiterName || null,
       }
-
       if (normalised.senderType === 'visitor') {
         replaceOptimistic(normalised)
         return
@@ -315,8 +181,6 @@ export const ChatProvider = ({ children }) => {
     const handleRecruiterJoined = (data) => {
       const name = data.recruiterName || 'Recruitment Specialist'
       setRecruiterName(name)
-      // system message comes from server via new_message/recruiter_joined —
-      // only add a local one if the server didn't already send one
       if (data.systemMessage) {
         appendMessage({
           ...data.systemMessage,
@@ -324,16 +188,15 @@ export const ChatProvider = ({ children }) => {
         })
       } else {
         appendMessage({
-          _id: `sys-${Date.now()}`,
+          _id:        `sys-${Date.now()}`,
           senderType: 'system',
-          message: `${name} has joined the conversation.`,
-          createdAt: new Date().toISOString(),
+          message:    `${name} has joined the conversation.`,
+          createdAt:  new Date().toISOString(),
         })
       }
     }
 
     const handleConversationClosed = (data) => {
-      // Use server's system message if provided, else generate local one
       if (data?.systemMessage) {
         appendMessage({
           ...data.systemMessage,
@@ -341,38 +204,53 @@ export const ChatProvider = ({ children }) => {
         })
       } else {
         appendMessage({
-          _id: `sys-${Date.now()}`,
+          _id:        `sys-${Date.now()}`,
           senderType: 'system',
-          message: 'This conversation has been closed. Thank you!',
-          createdAt: new Date().toISOString(),
+          message:    'This conversation has been closed. Thank you!',
+          createdAt:  new Date().toISOString(),
         })
       }
       setConversation(prev => prev ? { ...prev, status: 'CLOSED' } : prev)
+      clearSession()
     }
 
-    socket.on('connect',               handleReconnect)
-    socket.on('new_message',           handleNewMessage)
-    socket.on('ai_typing',             handleAiTyping)
-    socket.on('recruiter_joined',      handleRecruiterJoined)
-    socket.on('recruiter_typing',      () => setRecruiterTyping(true))
-    socket.on('recruiter_stop_typing', () => setRecruiterTyping(false))
-    socket.on('conversation_closed',   handleConversationClosed)
+    // NEW: recruiter handed conversation back to AI — update status in context
+    const handleStatusUpdate = (data) => {
+      setConversation(prev => {
+        if (!prev || prev._id !== data.conversationId) return prev
+        return { ...prev, status: data.status }
+      })
+      // If handed back to AI, clear recruiter name
+      if (data.status === 'AI') {
+        setRecruiterName('')
+        setRecruiterTyping(false)
+      }
+    }
 
-    // ChatContext.jsx — fix the useEffect cleanup
-return () => {
-  clearTimeout(aiTypingTimeout.current)
-  socket.off('connect',               handleReconnect)
-  socket.off('new_message',           handleNewMessage)
-  socket.off('ai_typing',             handleAiTyping)
-  socket.off('recruiter_joined',      handleRecruiterJoined)
-  socket.off('recruiter_typing')
-  socket.off('recruiter_stop_typing')
-  socket.off('conversation_closed',   handleConversationClosed)
-  // ✂️ removed disconnectSocket() — was destroying the socket on every remount
-}
+    socket.on('connect',                 handleReconnect)
+    socket.on('new_message',             handleNewMessage)
+    socket.on('ai_typing',               handleAiTyping)
+    socket.on('recruiter_joined',        handleRecruiterJoined)
+    socket.on('recruiter_typing',        () => setRecruiterTyping(true))
+    socket.on('recruiter_stop_typing',   () => setRecruiterTyping(false))
+    socket.on('conversation_closed',     handleConversationClosed)
+    socket.on('conversation_status_update', handleStatusUpdate) // NEW
+
+    return () => {
+      clearTimeout(aiTypingTimeout.current)
+      socket.off('connect',                  handleReconnect)
+      socket.off('new_message',              handleNewMessage)
+      socket.off('ai_typing',               handleAiTyping)
+      socket.off('recruiter_joined',        handleRecruiterJoined)
+      socket.off('recruiter_typing')
+      socket.off('recruiter_stop_typing')
+      socket.off('conversation_closed',     handleConversationClosed)
+      socket.off('conversation_status_update', handleStatusUpdate)
+      // ✂️ NOT calling disconnectSocket() — that destroys the singleton on remount
+    }
   }, [appendMessage, replaceOptimistic])
 
-  // ── Visitor identification ──────────────────────────────────────────────────
+  // ── Visitor identification ────────────────────────────────────────────────
   const identifyVisitor = useCallback(async ({ name, email }) => {
     try {
       const socket = getSocket()
@@ -387,6 +265,9 @@ return () => {
       setMessages(data.messages || [])
       setStep('chat')
 
+      // Persist session — visitor won't need to re-identify for 1 hour
+      saveSession(data.visitor, data.conversation._id)
+
       socket.emit('visitor_join', {
         visitorId:      data.visitor._id,
         conversationId: data.conversation._id,
@@ -398,7 +279,7 @@ return () => {
     }
   }, [])
 
-  // ── Send message ────────────────────────────────────────────────────────────
+  // ── Send message ──────────────────────────────────────────────────────────
   const sendMessage = useCallback(async (text) => {
     if (!visitor || !conversation || !text.trim()) return
 
@@ -428,6 +309,7 @@ return () => {
       messages,
       isAiTyping, recruiterTyping, recruiterName,
       identifyVisitor, sendMessage,
+      isRestoring,
     }}>
       {children}
     </ChatContext.Provider>
