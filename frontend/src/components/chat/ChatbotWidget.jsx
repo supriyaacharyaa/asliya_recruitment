@@ -158,10 +158,13 @@ const ChatbotWidget = () => {
           )}
 
           {/* Icon: logo when closed, X when open */}
-          <span
-            className="relative z-10 flex items-center justify-center transition-transform duration-200"
-            style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}
-          >
+<span
+  className="relative z-10 flex items-center justify-center transition-transform duration-200 rounded-full p-1"
+  style={{ 
+    transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+    background: isOpen ? 'transparent' : 'white',  // ← white only for logo, not X
+  }}
+>
             {isOpen ? (
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />

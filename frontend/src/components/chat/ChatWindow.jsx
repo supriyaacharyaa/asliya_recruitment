@@ -94,10 +94,12 @@ const ChatWindow = () => {
           0%, 60%, 100% { transform: translateY(0);    opacity: 0.5; }
           30%            { transform: translateY(-5px); opacity: 1;   }
         }
+       
         @keyframes pulseRing {
-          0%   { transform: scale(1);   opacity: 0.6; }
-          100% { transform: scale(1.6); opacity: 0;   }
-        }
+  0%   { transform: scale(1);   opacity: 0.75; }
+  70%  { transform: scale(2.2); opacity: 0;    }
+  100% { transform: scale(2.2); opacity: 0;    }
+}
         .chat-scrollbar::-webkit-scrollbar       { width: 4px; }
         .chat-scrollbar::-webkit-scrollbar-track  { background: transparent; }
         .chat-scrollbar::-webkit-scrollbar-thumb  { background: #e2e8f0; border-radius: 2px; }
@@ -148,14 +150,22 @@ const ChatWindow = () => {
             <div className="flex items-center gap-1.5 mt-0.5">
               {/* Animated status dot */}
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full"
-                  style={{
-                    backgroundColor: statusDotColor,
-                    animation: isClosed ? 'none' : 'pulseRing 1.5s ease-out infinite',
-                  }} />
-                <span className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ backgroundColor: statusDotColor }} />
-              </span>
+  {/* Ping ring — only shown when active */}
+  {!isClosed && (
+    <span
+      className="absolute inline-flex h-full w-full rounded-full"
+      style={{
+        backgroundColor: statusDotColor,
+        animation: 'pulseRing 1.5s ease-out infinite',
+      }}
+    />
+  )}
+  {/* Solid inner dot — always visible */}
+  <span
+    className="relative inline-flex rounded-full h-2 w-2"
+    style={{ backgroundColor: statusDotColor }}
+  />
+</span>
               <span className="text-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 {statusLabel}
               </span>
