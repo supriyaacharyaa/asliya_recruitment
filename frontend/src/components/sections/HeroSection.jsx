@@ -4,6 +4,7 @@ import {
   ArrowRight, Users, Globe, Briefcase, CheckCircle,
   MapPin, TrendingUp, Award, Shield, ChevronRight
 } from "lucide-react";
+import TrustedCompanies from "./TrustedCompanies";
 
 /* ─── Animated counter ─────────────────────────────────────── */
 function Counter({ from = 0, to, suffix = "", duration = 2.2, delay = 0 }) {
@@ -266,23 +267,24 @@ export default function HeroSection() {
               </div>
             </motion.div>
           </div>
+     
 
-          {/* ═══ RIGHT COLUMN (Visual Interactive Card Dashboard) ═══ */}
+         
           <div className="relative h-[480px] xl:h-[510px] hidden lg:block w-full">
             
-            {/* Structural Core Graphic Card */}
+           
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-y-6 inset-x-3 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#0d2d5e] via-[#154895] to-[#1d5eaa] shadow-2xl flex flex-col items-center justify-center p-6 text-center"
             >
-              {/* Dynamic Overlay Glowing Lights */}
+              
               <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_20%_80%,rgba(230,34,36,0.18)_0%,transparent_50%),radial-gradient(ellipse_at_80%_20%,rgba(100,160,255,0.15)_0%,transparent_50%)]" />
               <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_rgba(255,255,255,0.8)_1px,transparent_1px)] bg-[size:24px_24px]" />
 
               <div className="relative z-10 flex flex-col items-center">
-                {/* Floating Orbit Wrapper */}
+                
                 <div className="relative mb-5 w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md rounded-[20px] flex items-center justify-center">
                   <Users size={38} className="text-white/90" />
                   <div className="absolute inset-0 flex items-center justify-center w-full h-full">
@@ -299,7 +301,7 @@ export default function HeroSection() {
                   Connecting Doha's premium organizations with pre-screened global talent.
                 </p>
 
-                {/* Dashboard Stats Nested Rows */}
+                
                 <div className="grid grid-cols-3 gap-2.5 w-full max-w-[320px]">
                   {[
                     { label: "Deployments", to: 20000, suffix: "+" },
@@ -329,7 +331,7 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* ── Floating Indicator Badges (Absolutes) ── */}
+    
             <motion.div
               initial={{ opacity: 0, x: -15 }}
               animate={{ opacity: 1, x: 0 }}
@@ -393,7 +395,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── Bottom Metric Strip (Grid Fixed for Mobile & Tablet) ── */}
+      
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}

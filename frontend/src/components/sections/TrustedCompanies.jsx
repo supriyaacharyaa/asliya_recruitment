@@ -271,34 +271,54 @@ const LogoItem = ({ company }) => {
   const showLogo = company.logo && !imgError;
 
   return (
-    <div className="flex-shrink-0 px-3 py-2 group cursor-default select-none">
-      {/* Logo / Abbreviation Badge Box — no outer card, just the icon */}
+    <div className="flex-shrink-0 px-3 py-3 group cursor-default select-none">
       <div
-        className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105"
-        style={{ background: showLogo ? "transparent" : `${company.color}12` }}
+        className="flex flex-col items-center justify-center gap-2 px-5 py-4 rounded-2xl border border-[#154895]/10 bg-white shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+        style={{ minWidth: "110px" }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = `${company.color}50`;
+          e.currentTarget.style.boxShadow = `0 16px 40px -8px ${company.color}30`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "rgba(21,72,149,0.10)";
+          e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)";
+        }}
       >
-        {showLogo ? (
-          <img
-            src={company.logo}
-            alt={company.name}
-            className="w-full h-full object-contain p-1"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <span
-            className="text-[13px] font-black tracking-tight"
-            style={{ color: company.color }}
-          >
-            {company.abbr}
-          </span>
-        )}
+        {/* Logo / Abbr Badge */}
+        <div
+          className="w-28 h-28 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0"
+          style={{ background: showLogo ? `${company.color}08` : `${company.color}15` }}
+        >
+          {showLogo ? (
+            <img
+              src={company.logo}
+              alt={company.name}
+              className="w-full h-full object-contain p-1.5"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <span
+              className="text-[18px] font-black tracking-tight"
+              style={{ color: company.color }}
+            >
+              {company.abbr}
+            </span>
+          )}
+        </div>
+
+        {/* Company Name */}
+        <span
+          className="text-[11.5px] font-semibold text-center whitespace-nowrap tracking-tight text-gray-500 transition-colors duration-300 group-hover:text-gray-800"
+        >
+          {/* {company.name} */}
+        </span>
       </div>
     </div>
   );
 };
 
 const MarqueeTrack = ({ items, reverse = false, speed = 35 }) => {
-  // Merging two vectors is mathematically sufficient to fulfill loop logic continuity
+
   const doubledItems = [...items, ...items];
   
   return (
@@ -336,7 +356,7 @@ const StatChip = ({ value, label, delay }) => (
 export default function TrustedCompanies() {
   return (
     <section className="relative py-14 overflow-hidden bg-gradient-to-b from-[#f8faff] via-white to-[#f8faff]">
-      {/* Structural Minimal Board Lines */}
+  
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#154895]/12 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#154895]/12 to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] rounded-full pointer-events-none bg-[radial-gradient(ellipse,rgba(21,72,149,0.04)_0%,transparent_70%)] blur-[40px]" />
@@ -344,7 +364,7 @@ export default function TrustedCompanies() {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mb-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           
-          {/* Left Block Header Identity */}
+        
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -416,16 +436,16 @@ export default function TrustedCompanies() {
         </div>
       </div>
 
-      {/* Infinite Horizontal Rolling Tracks */}
+  
       <div className="relative space-y-3.5">
-        {/* Ambient Blur Edge Faders (Prevents raw cuts on viewport edges) */}
+      
         <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 pointer-events-none z-10 bg-gradient-to-r from-[#f8faff] via-[#f8faff]/50 to-transparent" />
         <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 pointer-events-none z-10 bg-gradient-to-l from-[#f8faff] via-[#f8faff]/50 to-transparent" />
 
         {/* Track 1: Forward Motion */}
         <MarqueeTrack items={companies} reverse={false} speed={36} />
 
-        {/* Track 2: Reverse Motion & Offset Start */}
+    
         <MarqueeTrack
           items={[...companies.slice(6), ...companies.slice(0, 6)]}
           reverse={true}
@@ -433,7 +453,7 @@ export default function TrustedCompanies() {
         />
       </div>
 
-      {/* Footer Industry Notice Label */}
+      
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
