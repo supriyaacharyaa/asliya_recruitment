@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios/Axios";
@@ -28,7 +28,10 @@ const INDUSTRIES = [
   { icon: GraduationCap,     name: "Education" },
 ];
 
-const EMPLOYMENT_TYPES = ["All", "Full-time", "Part-time", "Contract", "Temporary", "Internship"];
+const EMPLOYMENT_TYPES = ["All", "full-time", "part-time", "contract", "internship", "temporary"];
+
+const formatType = (t) =>
+  t === "All" ? "All" : t.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
 const fmtSalary = (job) => {
@@ -211,7 +214,7 @@ const JobCard = ({ job, index, onView }) => {
           )}
           {job.employmentType && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-[#154895] text-[11px] font-semibold">
-              <Briefcase className="w-3 h-3" /> {job.employmentType}
+              <Briefcase className="w-3 h-3" /> {formatType(job.employmentType)}
             </span>
           )}
           {job.experienceLevel && (
@@ -296,23 +299,25 @@ export default function JobsPage() {
   const [totalCount,     setTotalCount]     = useState(0);
   const [categories,     setCategories]     = useState(["All"]);
   const [showFilters,    setShowFilters]    = useState(false);
-  const searchTimeout = useRef();
+
+  const searchTimeout  = useRef();
   const filterPanelRef = useRef(null);
 
-  const fetchJobs = async (overrides = {}) => {
+  // ── Core fetch: always receives explicit values, never reads stale state ──
+  const fetchJobs = useCallback(async (pg, cat, type, q) => {
     setLoading(true);
     try {
-      const params = { page, limit: 9, ...overrides };
-      if (search)                   params.search         = search;
-      if (activeCategory !== "All") params.category        = activeCategory;
-      if (activeType     !== "All") params.employmentType  = activeType;
+      const params = { page: pg, limit: 9 };
+      if (q)            params.search         = q;
+      if (cat !== "All") params.category       = cat;
+      if (type !== "All") params.employmentType = type;
 
       const { data } = await axios.get(API, { params });
       setJobs(data.jobs);
       setTotalPages(data.totalPages);
       setTotalCount(data.total ?? data.jobs.length);
 
-      if (!overrides.category && activeCategory === "All") {
+      if (cat === "All") {
         const cats = ["All", ...new Set(data.jobs.map((j) => j.category).filter(Boolean))];
         setCategories(cats);
       }
@@ -320,20 +325,24 @@ export default function JobsPage() {
       console.error(err);
     }
     setLoading(false);
-  };
+  }, []); // no deps — all values are passed explicitly as arguments
 
-  useEffect(() => { fetchJobs(); }, [page, activeCategory, activeType]);
+  // ── Effect: page / category / type changes ────────────────────────────────
+  useEffect(() => {
+    fetchJobs(page, activeCategory, activeType, search);
+  }, [page, activeCategory, activeType]); // intentionally excludes search — search has its own effect
 
+  // ── Effect: search with debounce ──────────────────────────────────────────
   useEffect(() => {
     clearTimeout(searchTimeout.current);
     searchTimeout.current = setTimeout(() => {
       setPage(1);
-      fetchJobs({ page: 1 });
+      fetchJobs(1, activeCategory, activeType, search); // passes current search directly
     }, 350);
     return () => clearTimeout(searchTimeout.current);
   }, [search]);
 
-  // Close the filter popover on outside click (UX polish only — no functional state touched)
+  // ── Close filter popover on outside click ─────────────────────────────────
   useEffect(() => {
     if (!showFilters) return;
     const handleClick = (e) => {
@@ -354,6 +363,19 @@ export default function JobsPage() {
     setActiveCategory("All");
     setActiveType("All");
     setPage(1);
+  };
+
+  // When category or type chips are clicked, also pass current search so results stay filtered
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat);
+    setPage(1);
+    fetchJobs(1, cat, activeType, search);
+  };
+
+  const handleTypeChange = (type) => {
+    setActiveType(type);
+    setPage(1);
+    fetchJobs(1, activeCategory, type, search);
   };
 
   return (
@@ -465,7 +487,7 @@ export default function JobsPage() {
                     </p>
                     {activeFilterCount > 0 && (
                       <button
-                        onClick={() => { setActiveCategory("All"); setActiveType("All"); setPage(1); }}
+                        onClick={() => { handleCategoryChange("All"); handleTypeChange("All"); }}
                         className="text-xs font-semibold text-[#C5282B] hover:text-[#a82226] transition-colors"
                       >
                         Reset
@@ -483,7 +505,7 @@ export default function JobsPage() {
                         return (
                           <button
                             key={t}
-                            onClick={() => { setActiveType(t); setPage(1); }}
+                            onClick={() => handleTypeChange(t)}
                             className={`type-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border ${
                               isActive
                                 ? "bg-[#154895] text-white border-[#154895]"
@@ -491,7 +513,7 @@ export default function JobsPage() {
                             }`}
                           >
                             {isActive && <Check className="w-3 h-3" />}
-                            {t}
+                            {formatType(t)}
                           </button>
                         );
                       })}
@@ -508,7 +530,7 @@ export default function JobsPage() {
                         return (
                           <button
                             key={c}
-                            onClick={() => { setActiveCategory(c); setPage(1); }}
+                            onClick={() => handleCategoryChange(c)}
                             className={`type-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border ${
                               isActive
                                 ? "bg-[#0d3270] text-white border-[#0d3270]"
@@ -534,7 +556,7 @@ export default function JobsPage() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Active filter pills (visible summary, mirrors sticky bar below) */}
+          {/* Active filter pills */}
           {hasFilters && (
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
@@ -542,8 +564,8 @@ export default function JobsPage() {
             >
               {activeType !== "All" && (
                 <span className="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-white/12 border border-white/20 text-white/80 text-xs font-semibold">
-                  {activeType}
-                  <button onClick={() => { setActiveType("All"); setPage(1); }} className="w-4 h-4 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30">
+                  {formatType(activeType)}
+                  <button onClick={() => handleTypeChange("All")} className="w-4 h-4 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30">
                     <X className="w-2.5 h-2.5" />
                   </button>
                 </span>
@@ -551,7 +573,7 @@ export default function JobsPage() {
               {activeCategory !== "All" && (
                 <span className="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-white/12 border border-white/20 text-white/80 text-xs font-semibold">
                   {activeCategory}
-                  <button onClick={() => { setActiveCategory("All"); setPage(1); }} className="w-4 h-4 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30">
+                  <button onClick={() => handleCategoryChange("All")} className="w-4 h-4 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30">
                     <X className="w-2.5 h-2.5" />
                   </button>
                 </span>
@@ -584,7 +606,7 @@ export default function JobsPage() {
               <Tag className="w-3 h-3" /> Category
             </span>
             {categories.map((cat) => (
-              <button key={cat} onClick={() => { setActiveCategory(cat); setPage(1); }}
+              <button key={cat} onClick={() => handleCategoryChange(cat)}
                 className={`shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 ${
                   activeCategory === cat
                     ? "bg-[#154895] text-white shadow-md shadow-[#154895]/22"
@@ -598,11 +620,11 @@ export default function JobsPage() {
               <Clock className="w-3 h-3" /> Type
             </span>
             {EMPLOYMENT_TYPES.map((t) => (
-              <button key={t} onClick={() => { setActiveType(t); setPage(1); }}
+              <button key={t} onClick={() => handleTypeChange(t)}
                 className={`shrink-0 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
                   activeType === t ? "bg-[#0d3270] text-white" : "bg-gray-50 text-gray-400 hover:bg-gray-100"
                 }`}>
-                {t}
+                {formatType(t)}
               </button>
             ))}
           </div>

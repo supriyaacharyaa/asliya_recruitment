@@ -206,15 +206,26 @@ const ChatPanel = ({
     }
   }
 
+  // const handleConfirmHandBack = async () => {
+  //   setIsHandingBack(true)
+  //   try {
+  //     await onHandBackToAI(conversation._id)
+  //   } finally {
+  //     setIsHandingBack(false)
+  //     setShowHandBack(false)
+  //   }
+  // }
+
   const handleConfirmHandBack = async () => {
-    setIsHandingBack(true)
-    try {
-      await onHandBackToAI(conversation._id)
-    } finally {
-      setIsHandingBack(false)
-      setShowHandBack(false)
-    }
+  if (isHandingBack) return          // ← guard against double-click / double call
+  setIsHandingBack(true)
+  try {
+    await onHandBackToAI(conversation._id)
+  } finally {
+    setIsHandingBack(false)
+    setShowHandBack(false)
   }
+}
 
   // Message time formatter
   const fmtTime = (date) =>

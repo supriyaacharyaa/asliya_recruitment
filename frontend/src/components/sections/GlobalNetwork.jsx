@@ -4,6 +4,7 @@ import {
   Globe, MapPin, CheckCircle, ArrowRight,
   Phone, ChevronRight, Zap, Shield, Users, Building2, CalendarDays, ArrowUpRight
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // ── Data ──────────────────────────────────────────────────────────
 const STATS = [
@@ -305,6 +306,8 @@ export default function GlobalNetwork() {
   const [active, setActive] = useState(null);
   const activeRegion = REGIONS.find(r => r.id === active);
 
+const navigate = useNavigate();
+
   return (
     <section
       className="relative py-16 overflow-hidden"
@@ -530,6 +533,7 @@ export default function GlobalNetwork() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
+               
                 <p className="text-[12px] font-bold uppercase tracking-widest mb-3" style={{ color: "#154895" }}>
                   Why It Works
                 </p>
@@ -549,6 +553,7 @@ export default function GlobalNetwork() {
                   style={{ background: "#154895" }}
                   whileHover={{ opacity: 0.88 }}
                   whileTap={{ scale: 0.97 }}
+                    onClick={() => navigate("/contact")}
                 >
                   Start a Campaign <ArrowRight size={14} />
                 </motion.button>

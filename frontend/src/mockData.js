@@ -83,16 +83,16 @@ export const industriesData = [
 
 // ── Clients ───────────────────────────────────────────────────────────────────
 export const clientsData = [
-  {
-    name: "Al Rayyan Projects Management",
-    abbr: "ARP",
-    industry: "Holding Group",
-    sector: "GOVERNMENT",
-    workers: "250+",
-    website: "",
-    logo: arp,
-    color: "linear-gradient(135deg, #1a3c8f, #0f256b)",
-  },
+  // {
+  //   name: "Al Rayyan Projects Management",
+  //   abbr: "ARP",
+  //   industry: "Holding Group",
+  //   sector: "GOVERNMENT",
+  //   workers: "250+",
+  //   website: "",
+  //   logo: arp,
+  //   color: "linear-gradient(135deg, #1a3c8f, #0f256b)",
+  // },
   {
     name: "Certis Security",
     abbr: "CER",
@@ -103,16 +103,16 @@ export const clientsData = [
     logo: cer,
     color: "linear-gradient(135deg, #4b4b4b, #2a2a2a)",
   },
-  // {
-  //   name: "Al Khebra Holding",
-  //   abbr: "AKH",
-  //   industry: "Holding Group",
-  //   sector: "PRIVATE",
-  //   workers: "200+",
-  //   website: "https://alkhebradriving.com",
-  //   logo: akh,
-  //   color: "linear-gradient(135deg, #7b2d8b, #5a2068)",
-  // },
+  {
+    name: "Al Khebra Holding",
+    abbr: "AKH",
+    industry: "Holding Group",
+    sector: "PRIVATE",
+    workers: "200+",
+    website: "https://alkhebradriving.com",
+    logo: akh,
+    color: "linear-gradient(135deg, #7b2d8b, #5a2068)",
+  },
   // {
   //   name: "Dallah Holding",
   //   abbr: "DAL",
@@ -239,7 +239,7 @@ export const clientsData = [
     industry: "Construction",
     sector: "PRIVATE",
     workers: "300+",
-    website: "https://www.mowasalat.com",
+    website: "https://www.butec.com",
     logo: but,
     color: "linear-gradient(135deg, #1a3c8f, #102966))",
   },

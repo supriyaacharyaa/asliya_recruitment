@@ -44,7 +44,7 @@ const getDashboardUrl = () => {
 
   if (process.env.DASHBOARD_URL) return process.env.DASHBOARD_URL;
 
-  return 'http://localhost:5173/chat';
+  return 'https://admin.asliyarecruitment.com/chat';
 };
 
 // ── Base HTML template ────────────────────────────────────────────────────────

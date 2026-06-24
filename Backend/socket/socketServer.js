@@ -386,44 +386,44 @@ const shouldSendEmail = (conversationId) => {
 // Recruiter model holds both role:'admin' and role:'recruiter' staff.
 // Admin model (Adminuser) is a simpler schema with just email + password + role
 // — it has no `name` field, but the email field is present.
-// const getAdminEmails = async () => {
-//   try {
-//     const [recruiters, admins] = await Promise.all([
-//       Recruiter.find({}).select('email').lean(),
-//       Admin.find({}).select('email').lean(),
-//     ]);
-//     const emails = [
-//       ...recruiters.map((r) => r.email),
-//       ...admins.map((a) => a.email),
-//     ].filter(Boolean);
-//     // Deduplicate (a person might exist in both collections)
-//     return [...new Set(emails)];
-//   } catch (err) {
-//     console.error('getAdminEmails error:', err.message);
-//     return [];
-//   }
-// };
-
-
-// ── TEMP: Use .env emails only (ignore DB) ──
 const getAdminEmails = async () => {
   try {
-    if (!process.env.RECIPIENT_EMAILS) {
-      console.warn('⚠️ RECIPIENT_EMAILS not set in .env');
-      return [];
-    }
-
-    const emails = process.env.RECIPIENT_EMAILS
-      .split(',')
-      .map((email) => email.trim())
-      .filter(Boolean);
-
+    const [recruiters, admins] = await Promise.all([
+      Recruiter.find({}).select('email').lean(),
+      Admin.find({}).select('email').lean(),
+    ]);
+    const emails = [
+      ...recruiters.map((r) => r.email),
+      ...admins.map((a) => a.email),
+    ].filter(Boolean);
+    // Deduplicate (a person might exist in both collections)
     return [...new Set(emails)];
   } catch (err) {
     console.error('getAdminEmails error:', err.message);
     return [];
   }
 };
+
+
+// ── TEMP: Use .env emails only (ignore DB) ──
+// const getAdminEmails = async () => {
+//   try {
+//     if (!process.env.RECIPIENT_EMAILS) {
+//       console.warn('⚠️ RECIPIENT_EMAILS not set in .env');
+//       return [];
+//     }
+
+//     const emails = process.env.RECIPIENT_EMAILS
+//       .split(',')
+//       .map((email) => email.trim())
+//       .filter(Boolean);
+
+//     return [...new Set(emails)];
+//   } catch (err) {
+//     console.error('getAdminEmails error:', err.message);
+//     return [];
+//   }
+// };
 
 
 

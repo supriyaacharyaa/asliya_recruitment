@@ -205,59 +205,93 @@ import { motion } from "framer-motion";
 // ─── Real Brand Partners Vetted Datasets ───────────────────────────────────
 import { clientsData as companies } from "../../mockData";
 
+// const LogoItem = ({ company }) => {
+//   const [imgError, setImgError] = useState(false);
+//   const showLogo = company.logo && !imgError;
+
+//   return (
+//     <div className="flex-shrink-0 px-3 py-2 group cursor-default select-none">
+//       <div 
+//         className="flex items-center gap-2 px-2 py-2 rounded-xl border border-[#154895]/8 bg-white/70 backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:scale-[1.02]"
+//         style={{
+//           // Tailwind provides standard transitions, dynamically maps brand border & custom glow on group hover
+//           "--hover-border": `${company.color}35`,
+//           "--hover-shadow": `0 10px 25px -5px ${company.color}15`
+//         }}
+//         onMouseEnter={(e) => {
+//           e.currentTarget.style.borderColor = "var(--hover-border)";
+//           e.currentTarget.style.boxShadow = "var(--hover-shadow)";
+//         }}
+//         onMouseLeave={(e) => {
+//           e.currentTarget.style.borderColor = "rgba(21,72,149,0.08)";
+//           e.currentTarget.style.boxShadow = "none";
+//         }}
+//       >
+//         {/* Logo / Abbreviation Badge Box */}
+//         <div 
+// className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-95"
+//           style={{ background: showLogo ? "transparent" : `${company.color}12` }}
+//         >
+//           {showLogo ? (
+//             <img
+//               src={company.logo}
+//               alt={company.name}
+//               className="w-full h-full object-contain p-1"
+//               onError={() => setImgError(true)}
+//             />
+//           ) : (
+//             <span 
+//               className="text-[10px] font-black tracking-tight"
+//               style={{ color: company.color }}
+//             >
+//               {company.abbr}
+//             </span>
+//           )}
+//         </div>
+
+//         {/* Brand Text Content */}
+//         <span 
+//           className="font-medium text-[13.5px] whitespace-nowrap tracking-tight text-gray-500 transition-colors duration-300"
+//           style={{ "--brand-color": company.color }}
+//           onMouseEnter={(e) => e.target.style.color = "var(--brand-color)"}
+//           onMouseLeave={(e) => e.target.style.color = "#6b7280"}
+//         >
+//           {company.name}
+//         </span>
+//       </div>
+//     </div>
+//   );
+// };
+
+
+
+
 const LogoItem = ({ company }) => {
   const [imgError, setImgError] = useState(false);
   const showLogo = company.logo && !imgError;
 
   return (
     <div className="flex-shrink-0 px-3 py-2 group cursor-default select-none">
-      <div 
-        className="flex items-center gap-2 px-2 py-2 rounded-xl border border-[#154895]/8 bg-white/70 backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:scale-[1.02]"
-        style={{
-          // Tailwind provides standard transitions, dynamically maps brand border & custom glow on group hover
-          "--hover-border": `${company.color}35`,
-          "--hover-shadow": `0 10px 25px -5px ${company.color}15`
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "var(--hover-border)";
-          e.currentTarget.style.boxShadow = "var(--hover-shadow)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "rgba(21,72,149,0.08)";
-          e.currentTarget.style.boxShadow = "none";
-        }}
+      {/* Logo / Abbreviation Badge Box — no outer card, just the icon */}
+      <div
+        className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105"
+        style={{ background: showLogo ? "transparent" : `${company.color}12` }}
       >
-        {/* Logo / Abbreviation Badge Box */}
-        <div 
-className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-95"
-          style={{ background: showLogo ? "transparent" : `${company.color}12` }}
-        >
-          {showLogo ? (
-            <img
-              src={company.logo}
-              alt={company.name}
-              className="w-full h-full object-contain p-1"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <span 
-              className="text-[10px] font-black tracking-tight"
-              style={{ color: company.color }}
-            >
-              {company.abbr}
-            </span>
-          )}
-        </div>
-
-        {/* Brand Text Content */}
-        <span 
-          className="font-medium text-[13.5px] whitespace-nowrap tracking-tight text-gray-500 transition-colors duration-300"
-          style={{ "--brand-color": company.color }}
-          onMouseEnter={(e) => e.target.style.color = "var(--brand-color)"}
-          onMouseLeave={(e) => e.target.style.color = "#6b7280"}
-        >
-          {company.name}
-        </span>
+        {showLogo ? (
+          <img
+            src={company.logo}
+            alt={company.name}
+            className="w-full h-full object-contain p-1"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <span
+            className="text-[13px] font-black tracking-tight"
+            style={{ color: company.color }}
+          >
+            {company.abbr}
+          </span>
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import SectionHeading from "../ui/SectionHeading";
 const TRUST_BADGES = [
   { icon: Shield,   label: "100% Verified Partners"    },
   { icon: Award,    label: "Ministry Approved Supply"  }, 
-  { icon: ThumbsUp, label: "97% Client Retention Rate"  },
+  { icon: ThumbsUp, label: "98% Client Retention Rate"  },
   { icon: Globe,    label: "28+ Source Countries"      }, 
 ];
 
@@ -47,7 +47,7 @@ export default function ClientsSection({ clients = [] }) {
           className="flex items-center gap-4 max-w-[200px] mx-auto mt-6 mb-10"
         >
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#154895]/25 to-transparent" />
-          <div className="w-1.5 h-1.5 rounded-full bg-[#c9902a] flex-shrink-0" />
+          <div className="w-1.5 h-1.5 rounded-full bg-brand-secondary flex-shrink-0" />
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#154895]/25 to-transparent" />
         </motion.div>
 
@@ -100,7 +100,7 @@ export default function ClientsSection({ clients = [] }) {
             <span className="leading-relaxed">
               And <strong className="text-[#154895] font-bold">300+ corporate clients</strong> across multiple strategic sectors in Qatar
             </span>
-            <span className="hidden sm:inline w-1 h-1 rounded-full bg-[#c9902a] flex-shrink-0" />
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-brand-secondary flex-shrink-0" />
             <span className="w-full sm:w-auto mt-1 sm:mt-0">
               Established in <strong className="text-[#154895] font-bold">Doha, Since 2018</strong>
             </span>
